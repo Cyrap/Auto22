@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+		<meta name="viewport" content="width=device-width" />
+		%sveltekit.head%
+		<link rel="stylesheet" href="style.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">%sveltekit.body%</div>
+		<nav>
+			<div id="nav-container">
+				<div id="logo">
+					<img id="logo-pic" src="../src/img/logo.png" alt="Logo" />
+					<h1>Auto22.mn</h1>
+				</div>
+		
+				<div id="nav-form">
+					<ul>
+						<li><a href="#">Түрээслэх</a></li>
+						<li><a href="#">Захиалах</a></li>
+						<li><a href="#">Үйлчилгээний нөхцөл</a></li>
+						<li><a href="#">Нэвтрэх</a></li>
+						<li><a id="register" href="#">Бүртгүүлэх</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<section>
+			<div id="section-contaier">
+				<div class="dashboard">
+					<ul id="data-list"></ul>
+				</div>
+				<div>
+					<div class="list-info">
+						<!-- <ul id="car-list"></ul> -->
+						<table id="carTable">
+							<thead>
+							  <tr>
+								<th>Автомашины марк</th>
+								<th>Үйлдвэрлэсэн он</th>
+								<th>Өнгө</th>
+								<th>Холбогдох утас</th>
+								<th>Туулсан зам</th>
+								<th>Хүч</th>
+							  </tr>
+							</thead>
+							<tbody id="carList"></tbody>
+						  </table>
+					</div>
+
+				</div>
+			</div>
+		</section>
+		
+		<footer>
+			<div id="footer-container">
+				<p>Спэйсхаб ХХК ©2023 БҮХ ЭРХ ХУУЛИАР ХАМГААЛАГДСАН</p>
+				<ul>
+					<li><a href="#">Нууцлалын бодлого</a></li>
+					<li><a href="#">Үйлчилгээний нөхцөл</a></li>
+				</ul>
+			</div>
+		</footer>
+		
+		
+
+<script>
+			// JSON data
+var car = {
+  "mark": "Land 200",
+  "age": 2023,
+  "Horse power": "98hp",
+  "Top Speed": "483 kmh",
+  "address": {
+    "name": "Авто худалдааны цогцолбор",
+    "Location": "VPP3+8CW, Ulaanbaatar",
+  }
+};
+
+
+var car = {
+      mark: "Sonata", //toyota
+      age: "", // orj irsen on
+      color: "", //ongo
+      id: "", // zogsooliin dugaar
+      roadTraveled: "", // gvilt
+      power: "", // HPs
+      leasing: "", //lizingtei eseh
+      hutlugch: "", // hotlogchiin utga
+      engine: "", // mototiin torol hybrid eswel torol
+      type: "", // torol a b c
+      company: "", // vildwerlesen gazar
+      made: "", // vildwerlesen on
+      hvrd: "", // zow buruu
+      engineCapacity: "", // hodolgvvriin bagtaamj
+      hrop: "", // hrop
+      phone: "", // holbiogdoh duugaar
+      ageMonth: "", //vildwerlesen sar
+      condition: "", //dugaartai dugaargvi eseh
+      number: "", // dugaar
+	  carCategoryId : 1
+  }
+var cars = []
+cars.push(car);
+
+
+var carCategories = [
+  {
+    "id": 1,
+    "name": "toyota",
+  },
+  {
+    "id": 2,
+    "name": "nissan",
+  },
+  {
+	"id": 3,
+    "name": "Ford",
+  },
+  {
+	"id":3,
+	"name":"Chevrolet"
+  },
+];
+
+var list = document.getElementById('data-list');
+for (let item of carCategories) {
+  var text = document.createTextNode(item.name);
+  var listItem = document.createElement('a');
+  listItem.appendChild(text);
+  list.appendChild(listItem);
+}
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var cars = [
+    { make: car.mark, age: "Camry", color: "white", phone: 99114545, mileage: "30,000 miles",power:250},
+    { make: "Honda", age: "Accord", color: "grey", phone: 88115555, mileage: "25,000 miles" ,power:994},
+    { make: "Ford", age: "Mustang", color: "red", phone: 94134545, mileage: "10,000 miles" ,power: 788},
+    { make: "Chevrolet", age: "Cruze", color: "blue", phone: 77771111, mileage: "35,000 miles" ,power:844},
+  ];
+  var carList = document.getElementById("carList");
+
+
+  cars.forEach(function(car) {
+    var row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${car.make}</td>
+      <td>${car.age}</td>
+      <td>${car.color}</td>
+      <td>${car.phone}</td>
+      <td>${car.mileage}</td>
+	  <td>${car.power}HP</td>
+    `;
+    carList.appendChild(row);
+  });
+});
+		</script>
+	</body>
+</html>
+
+<!-- register formiig gargah function -->
+<script>
+document.getElementById("register").addEventListener("click", showRegisterForm);
+function showRegisterForm() {
+  document.querySelector(".register-container").style.display = "block";
+};
+  document.getElementById("remove").addEventListener("click", removeRegisterForm);
+  function removeRegisterForm() {
+    document.querySelector(".register-container").style.display = "none";
+  }
+</script>

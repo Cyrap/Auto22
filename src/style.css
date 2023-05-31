@@ -1,0 +1,225 @@
+    :root {
+        --primary-color: #07847f;
+        --secondary-color: #fd6b36;
+        --text-color: #00172e;
+        --background-color: #f5f6fa;
+        --error: #ff4040;
+        --disabled: #adafbb;
+        --hover-color: #ddd;
+    }
+
+    body {
+        background: var(--background-color);
+        font-family: 'Roboto', sans-serif;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    a {
+        color: var(--text-color);
+        text-decoration: none;
+    }
+
+    h1 {
+        color: var(--background-color);
+    }
+
+    .dark-bg {
+        background: #191717;
+    }
+
+    #nav-container {
+        z-index: 99;
+        background: linear-gradient(90deg, var(--primary-color), rgb(4, 161, 140));
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    #nav-container #nav-form {
+        padding-right: 10%;
+    }
+
+    #nav-container #nav-form ul {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    #nav-container #nav-form ul li {
+        padding: 15px 1px;
+        width: 150px;
+        list-style: none;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    #nav-container #nav-form ul li a {
+        color: var(--background-color);
+        font-weight: bold;
+    }
+
+    #nav-container #logo {
+        display: flex;
+        align-items: center;
+        padding-left: 10%;
+        color: var(--text-color);
+        cursor: pointer;
+    }
+
+    #nav-container #logo #logo-pic {
+        height: 100px;
+    }
+
+    #nav-container #nav-form ul li:hover {
+        background-color: var(--disabled);
+        transition: 1s;
+        border-radius: 3px;
+    }
+
+    /* section style */
+
+    #section-contaier {
+        height: 80vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 100vw;
+        background: var(--disabled);
+    }
+
+    .dashboard {
+        border-right: #00172e solid;
+        background-color: var(--background-color);
+        width: 20vw;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
+
+    .dashboard ul {
+        list-style: none;
+    }
+
+    .dashboard ul a {
+        padding: 0.5rem;
+        margin: 1rem;
+        border-bottom: 1px var(--disabled) solid;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .dashboard ul a:hover {
+        background: var(--hover-color);
+    }
+
+    .list {
+        background-color: var(--background-color);
+        height: 10vh;
+        width: 50vw;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
+
+    .list ul {
+        background: var(--secondary-color);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+
+    .list ul li {
+        list-style: none;
+        border: 1px solid;
+        width: 100px;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .list-info {
+        background: var(--background-color);
+        width: 50vw;
+    }
+
+
+
+
+    /* footer style */
+    #footer-container {
+        background: var(--text-color);
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    #footer-container p {
+        color: var(--background-color);
+    }
+
+    #footer-container ul li a {
+        color: var(--background-color);
+    }
+
+    #footer-container ul li {
+        padding: 0 30px;
+        cursor: pointer;
+        list-style: none;
+    }
+
+    #footer-container ul {
+        display: flex;
+        height: 200px;
+        align-items: center;
+        justify-content: end;
+        padding-right: 30px;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th,
+    td {
+        border: 1px solid var(--hover-color);
+        padding: 8px;
+    }
+
+    th {
+        background-color: var(--background-color);
+    }
+
+    tr:nth-child(even) {
+        background-color: var(--background-color);
+    }
+
+    tr:hover {
+        background-color: var(--hover-color);
+    }
+
+    .register-container {
+        max-width: 400px;
+        margin: 0 auto;
+        display: none;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 0.5rem;
+        font-size: 1rem;
+    }
+
+    .form-button {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+    }
