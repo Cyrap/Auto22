@@ -1,177 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
-		<meta name="viewport" content="width=device-width" />
-		%sveltekit.head%
-		<link rel="stylesheet" href="style.css">
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-	</head>
-	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">%sveltekit.body%</div>
-		<nav>
-			<div id="nav-container">
-				<div id="logo">
-					<img id="logo-pic" src="../src/img/logo.png" alt="Logo" />
-					<h1>Auto22.mn</h1>
-				</div>
-		
-				<div id="nav-form">
-					<ul>
-						<li><a href="#">Түрээслэх</a></li>
-						<li><a href="#">Захиалах</a></li>
-						<li><a href="#">Үйлчилгээний нөхцөл</a></li>
-						<li><a href="#">Нэвтрэх</a></li>
-						<li><a id="register" href="#">Бүртгүүлэх</a></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-		<section>
-			<div id="section-contaier">
-				<div class="dashboard">
-					<ul id="data-list"></ul>
-				</div>
-				<div>
-					<div class="list-info">
-						<!-- <ul id="car-list"></ul> -->
-						<table id="carTable">
-							<thead>
-							  <tr>
-								<th>Автомашины марк</th>
-								<th>Үйлдвэрлэсэн он</th>
-								<th>Өнгө</th>
-								<th>Холбогдох утас</th>
-								<th>Туулсан зам</th>
-								<th>Хүч</th>
-							  </tr>
-							</thead>
-							<tbody id="carList"></tbody>
-						  </table>
-					</div>
 
-				</div>
-			</div>
-		</section>
-		
-		<footer>
-			<div id="footer-container">
-				<p>Спэйсхаб ХХК ©2023 БҮХ ЭРХ ХУУЛИАР ХАМГААЛАГДСАН</p>
-				<ul>
-					<li><a href="#">Нууцлалын бодлого</a></li>
-					<li><a href="#">Үйлчилгээний нөхцөл</a></li>
-				</ul>
-			</div>
-		</footer>
-		
-		
+<head>
+	<style>
+		:root {
+			--primary-color: #07847f;
+			--secondary-color: #fd6b36;
+			--text-color: #00172e;
+			--background-color: #f5f6fa;
+			--error: #ff4040;
+			--disabled: #adafbb;
+			--hover-color: #ddd;
+		}
 
-<script>
-			// JSON data
-var car = {
-  "mark": "Land 200",
-  "age": 2023,
-  "Horse power": "98hp",
-  "Top Speed": "483 kmh",
-  "address": {
-    "name": "Авто худалдааны цогцолбор",
-    "Location": "VPP3+8CW, Ulaanbaatar",
-  }
-};
+		body {
+			background: var(--background-color);
+			font-family: "Roboto", sans-serif;
+		}
 
+		* {
+			margin: 0;
+			padding: 0;
+		}
 
-var car = {
-      mark: "Sonata", //toyota
-      age: "", // orj irsen on
-      color: "", //ongo
-      id: "", // zogsooliin dugaar
-      roadTraveled: "", // gvilt
-      power: "", // HPs
-      leasing: "", //lizingtei eseh
-      hutlugch: "", // hotlogchiin utga
-      engine: "", // mototiin torol hybrid eswel torol
-      type: "", // torol a b c
-      company: "", // vildwerlesen gazar
-      made: "", // vildwerlesen on
-      hvrd: "", // zow buruu
-      engineCapacity: "", // hodolgvvriin bagtaamj
-      hrop: "", // hrop
-      phone: "", // holbiogdoh duugaar
-      ageMonth: "", //vildwerlesen sar
-      condition: "", //dugaartai dugaargvi eseh
-      number: "", // dugaar
-	  carCategoryId : 1
-  }
-var cars = []
-cars.push(car);
+		a {
+			color: var(--text-color);
+			text-decoration: none;
+		}
 
+		h1 {
+			color: var(--background-color);
+		}
 
-var carCategories = [
-  {
-    "id": 1,
-    "name": "toyota",
-  },
-  {
-    "id": 2,
-    "name": "nissan",
-  },
-  {
-	"id": 3,
-    "name": "Ford",
-  },
-  {
-	"id":3,
-	"name":"Chevrolet"
-  },
-];
+		.dark-bg {
+			background: #191717;
+		}
 
-var list = document.getElementById('data-list');
-for (let item of carCategories) {
-  var text = document.createTextNode(item.name);
-  var listItem = document.createElement('a');
-  listItem.appendChild(text);
-  list.appendChild(listItem);
-}
+		#nav-container {
+			z-index: 99;
+			background: linear-gradient(90deg,
+					var(--primary-color),
+					rgb(4, 161, 140));
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
 
+		#nav-container #nav-form {
+			padding-right: 10%;
+		}
 
-document.addEventListener("DOMContentLoaded", function() {
-  var cars = [
-    { make: car.mark, age: "Camry", color: "white", phone: 99114545, mileage: "30,000 miles",power:250},
-    { make: "Honda", age: "Accord", color: "grey", phone: 88115555, mileage: "25,000 miles" ,power:994},
-    { make: "Ford", age: "Mustang", color: "red", phone: 94134545, mileage: "10,000 miles" ,power: 788},
-    { make: "Chevrolet", age: "Cruze", color: "blue", phone: 77771111, mileage: "35,000 miles" ,power:844},
-  ];
-  var carList = document.getElementById("carList");
+		#nav-container #nav-form ul {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+		}
 
+		#nav-container #nav-form ul li {
+			padding: 15px 1px;
+			width: 150px;
+			list-style: none;
+			text-align: center;
+			cursor: pointer;
+		}
 
-  cars.forEach(function(car) {
-    var row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${car.make}</td>
-      <td>${car.age}</td>
-      <td>${car.color}</td>
-      <td>${car.phone}</td>
-      <td>${car.mileage}</td>
-	  <td>${car.power}HP</td>
-    `;
-    carList.appendChild(row);
-  });
-});
-		</script>
-	</body>
-</html>
+		#nav-container #nav-form ul li a {
+			color: var(--background-color);
+			font-weight: bold;
+		}
 
-<!-- register formiig gargah function -->
-<script>
-document.getElementById("register").addEventListener("click", showRegisterForm);
-function showRegisterForm() {
-  document.querySelector(".register-container").style.display = "block";
-};
-  document.getElementById("remove").addEventListener("click", removeRegisterForm);
-  function removeRegisterForm() {
-    document.querySelector(".register-container").style.display = "none";
-  }
-</script>
+		#nav-container #logo {
+			display: flex;
+			align-items: center;
+			padding-left: 10%;
+			color: var(--text-color);
+			cursor: pointer;
+		}
+
+		#nav-container #logo #logo-pic {
+			height: 100px;
+		}
+
+		#nav-container #nav-form ul li:hover {
+			background-color: var(--disabled);
+			transition: 1s;
+			border-radius: 3px;
+		}
+
+		/* section style */
+
+		#section-contaier {
+			height: 80vh;
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			width: 100vw;
+			background: var(--disabled);
+		}
+
+		.dashboard {
+			border-right: #00172e solid;
+			background-color: var(--background-color);
+			width: 20vw;
+			box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+		}
+
+		#section-contaier #data-list ul {
+			list-style: none;
+		}
+
+		#data-list ul a {
+			padding: 0.5rem;
+			margin: 1rem;
+			border-bottom: 1px var(--disabled) solid;
+			display: flex;
+			flex-direction: row;
+		}
+
+		#data-list ul a:hover {
+			background: var(--hover-color);
+			cursor: pointer;
+		}
+
+		.list {
+			background-color: var(--background-color);
+			height: 10vh;
+			width: 50vw;
+			box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+		}
+
+		.list ul {
+			background: var(--secondary-color);
+			display: flex;
+			flex-direction: row;
+			justify-content: space-evenly;
+		}
+
+		.list ul li {
+			list-style: none;
+			border: 1px solid;
+			width: 100px;
+			text-align: center;
+			padding: 20px;
+		}
+
+		.list-info {
+			background: var(--background-color);
+			width: 50vw;
+		}
+
+		/* footer style */
+		#footer-container {
+			background: var(--text-color);
+			display: flex;
+			align-items: center;
+			justify-content: space-around;
+		}
+
+		#footer-container p {
+			color: var(--background-color);
+		}
+
+		#footer-container ul li a {
+			color: var(--background-color);
+		}
+
+		#footer-container ul li {
+			padding: 0 30px;
+			cursor: pointer;
+			list-style: none;
+		}
+
+		#footer-container ul {
+			display: flex;
+			height: 200px;
+			align-items: center;
+			justify-content: end;
+			padding-right: 30px;
+		}
+
+		table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+
+		th,
+		td {
+			border: 1px solid var(--hover-color);
+			padding: 8px;
+		}
+
+		th {
+			background-color: var(--background-color);
+		}
+
+		tr:nth-child(even) {
+			background-color: var(--background-color);
+		}
+
+		tr:hover {
+			background-color: var(--hover-color);
+		}
+
+		.register-container {
+			max-width: 400px;
+			margin: 0 auto;
+		}
+
+		.form-group {
+			margin-bottom: 1rem;
+		}
+
+		.form-label {
+			display: block;
+			margin-bottom: 0.5rem;
+			font-weight: bold;
+		}
+
+		.form-input {
+			width: 100%;
+			padding: 0.5rem;
+			font-size: 1rem;
+		}
+
+		.form-button {
+			padding: 0.5rem 1rem;
+			font-size: 1rem;
+		}
+	</style>
+
+	<meta charset="utf-8" />
+	<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+	<meta name="viewport" content="width=device-width" />
+	%sveltekit.head%
+	<link rel="stylesheet" href="style.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+</head>
+
+<body data-sveltekit-preload-data="hover">
+	<div style="display: contents">%sveltekit.body%</div>
+</body>
