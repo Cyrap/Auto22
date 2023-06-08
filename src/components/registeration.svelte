@@ -392,7 +392,8 @@
         display: none;
     }
     .register {
-        background: #333 url(../img/Slider-5.jpg) no-repeat center center/cover;
+        /* background: #333 url(../img/Slider-5.jpg) no-repeat center center/cover; */
+        background: var(--primary-color);
         width: 100vw;
         z-index: 9999;
     }
@@ -418,6 +419,7 @@
         border-radius: 10px;
         grid-template-columns: repeat(2, 1fr);
         width: 70vw;
+        height: 80vh;
         position: relative;
         top: 50px;
     }
@@ -450,8 +452,9 @@
         font-size: 1rem;
         position: absolute;
         left: 105%;
-        background: red;
+        background: var(--primary-color);
         border-radius: 50%;
+        border: none;
         cursor: pointer;
     }
 
@@ -482,6 +485,8 @@
 
     #remove-register-form > div:hover {
         opacity: 1;
+        transform: rotate(150deg);
+        transition: 0.5s ease-in-out;
     }
     .submitButton {
         width: 100px;

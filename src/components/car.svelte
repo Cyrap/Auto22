@@ -1,75 +1,86 @@
 <script lang="ts">
-   import { onMount } from "svelte";
+   import { createEventDispatcher } from "svelte";
 
-   let slideIndex = 1;
-   const slides = [
-      {
-         src: "https://images.unsplash.com/photo-1524781289445-ddf8f5695861?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-         text: "Caption Text",
-      },
-      {
-         src: "https://images.unsplash.com/photo-1610194352361-4c81a6a8967e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80",
-         text: "Caption Two",
-      },
-      {
-         src: "https://images.unsplash.com/photo-1618202133208-2907bebba9e1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-         text: "Caption Three",
-      },
-   ];
+   export let isInfoVisible: boolean = false;
+   const dispatch = createEventDispatcher();
 
-   function plusSlides(n: number) {
-      showSlides(slideIndex + n);
+   function hideCarInfo() {
+      isInfoVisible = false;
    }
 
-   function currentSlide(n: number) {
-      showSlides(n);
+   export function showCarInfo() {
+      isInfoVisible = true;
    }
 
-   function showSlides(n: number) {
-      if (n > slides.length) {
-         slideIndex = 1;
-      } else if (n < 1) {
-         slideIndex = slides.length;
-      } else {
-         slideIndex = n;
+   let current = 1;
+   function dic() {
+      current = current - 1;
+      if (current < 1) {
+         current = 3;
+      } else if (current > 3) {
+         current = 1;
       }
    }
-
-   onMount(() => {
-      const interval = setInterval(() => {
-         plusSlides(1);
-      }, 2000);
-
-      return () => clearInterval(interval);
-   });
+   function inc() {
+      current = current + 1;
+      if (current < 1) {
+         current = 3;
+      } else if (current > 3) {
+         current = 1;
+      }
+   }
+   let slideIndex = 1;
+   // const slides = [
+   //    {
+   //       src: "https://images.unsplash.com/photo-1524781289445-ddf8f5695861?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+   //       text: "Caption Text",
+   //    },
+   //    {
+   //       src: "https://images.unsplash.com/photo-1610194352361-4c81a6a8967e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80",
+   //       text: "Caption Two",
+   //    },
+   //    {
+   //       src: "https://images.unsplash.com/photo-1618202133208-2907bebba9e1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+   //       text: "Caption Three",
+   //    },
+   // ];
 </script>
 
-<div>
+<div class:register={isInfoVisible} class:hidden={!isInfoVisible}>
    <div class="main-container">
       <div class="slideshow-container">
-         <div class="slideshow-container">
-            {#each slides as slide, i (slideIndex)}
-               <div class="mySlides fade" class:selected={i + 1 === slideIndex}>
-                  <div class="numbertext">{i + 1} / {slides.length}</div>
-                  <img src={slide.src} alt="Image1s" />
-                  <div class="text">{slide.text}</div>
+         <div class="containerOfImage">
+            {#if current == 1}
+               <div class="img">
+                  <img
+                     src="https://images.unsplash.com/photo-1524781289445-ddf8f5695861?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+                     alt="Image1s"
+                  />
                </div>
-            {/each}
+            {/if}
 
-            <a class="prev" on:click={() => plusSlides(-1)}>❮</a>
-            <a class="next" on:click={() => plusSlides(1)}>❯</a>
-         </div>
+            {#if current == 2}
+               <div class="img">
+                  <img
+                     src="https://images.unsplash.com/photo-1610194352361-4c81a6a8967e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80"
+                     alt="img2"
+                  />
+               </div>
+            {/if}
 
-         <br />
-
-         <div style="text-align:center">
-            {#each slides as _, i}
-               <span
-                  class="dot"
-                  class:selected={i + 1 === slideIndex}
-                  on:click={() => currentSlide(i + 1)}
-               />
-            {/each}
+            {#if current == 3}
+               <div class="img">
+                  <img
+                     src="https://images.unsplash.com/photo-1618202133208-2907bebba9e1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+                     alt=""
+                  />
+               </div>
+            {/if}
+            <button class="dec" on:click={dic}>❮</button>
+            <button class="inc" on:click={inc}>❯</button>
+            <div class="num">
+               {current}/{3}
+            </div>
          </div>
       </div>
       <div class="second">
@@ -91,11 +102,14 @@
             </div>
          </form>
       </div>
-      <div class="third"><button>Order</button></div>
+      <div class="third"><button on:click={hideCarInfo}>remove</button></div>
    </div>
 </div>
 
 <style>
+   .hidden {
+      display: none;
+   }
    * {
       margin: 0;
       padding: 0;
@@ -104,11 +118,6 @@
    .main-container {
       display: flex;
    }
-
-   .mySlides {
-      display: none;
-   }
-
    .second {
       width: 30%;
       padding: 30px;
@@ -128,85 +137,14 @@
    .rate-container {
       margin-left: 20px;
    }
-
-   img {
-      height: 600px;
-      width: 700px;
-      object-fit: cover;
-      margin: 50px;
-   }
-
    /* Slideshow container */
    .slideshow-container {
-      position: relative;
       height: 100vh;
       width: 50%;
       background-color: #717171;
-   }
-
-   /* Next & previous buttons */
-   .prev,
-   .next {
-      cursor: pointer;
-      width: auto;
-      padding: 16px;
-      margin-top: -22px;
-      color: white;
-      font-weight: bold;
-      font-size: 18px;
-      transition: 0.6s ease;
-      border-radius: 0 3px 3px 0;
-      user-select: none;
-   }
-
-   .next {
-      left: 47%;
-      border-radius: 3px 0 0 3px;
-   }
-
-   .prev {
-      left: 3%;
-   }
-
-   .prev:hover,
-   .next:hover {
-      background-color: rgba(0, 0, 0, 0.8);
-   }
-
-   .text {
-      color: #f2f2f2;
-      font-size: 15px;
-      padding: 8px 12px;
-      position: absolute;
-      bottom: 8px;
-      width: 100%;
-      text-align: center;
-   }
-
-   .numbertext {
-      color: #f2f2f2;
-      font-size: 12px;
-      padding: 8px 12px;
-      position: absolute;
-      top: 0;
-   }
-
-   .dot {
-      cursor: pointer;
-      height: 15px;
-      width: 15px;
-      margin: 0 2px;
-      background-color: #bbb;
-      border-radius: 50%;
-      display: inline-block;
-      position: relative;
-      left: -16%;
-      transition: background-color 0.6s ease;
-   }
-
-   .active,
-   .dot:hover {
-      background-color: #717171;
+      display: flex;
+      align-items: center;
+      justify-content: center;
    }
 
    /* rate style */
@@ -224,12 +162,6 @@
    .rate-icon:hover,
    .rate-icon.active {
       color: #ffcc00;
-   }
-
-   /* Fading animation */
-   .fade {
-      animation-name: fade;
-      animation-duration: 1.5s;
    }
 
    #form-container {
@@ -252,7 +184,49 @@
       top: -100px;
       left: 50%;
    }
-
+   .containerOfImage {
+      background: red;
+      width: 500px;
+      height: 400px;
+   }
+   img {
+      width: 500px;
+      height: 400px;
+      object-fit: cover;
+      object-position: center;
+   }
+   .inc,
+   .dec {
+      cursor: pointer;
+      width: auto;
+      padding: 44px 15px;
+      margin-top: -20%;
+      background: none;
+      font-weight: bold;
+      font-size: 18px;
+      transition: 0.6s ease;
+      border-radius: 0 3px 3px 0;
+      user-select: none;
+      color: rgb(255, 255, 255);
+      font-size: 2rem;
+      position: relative;
+      top: -55%;
+      border: none;
+   }
+   .inc {
+      left: 79%;
+   }
+   .dec {
+      left: 0;
+   }
+   .num {
+      font-size: 1.4rem;
+      /* color: white; */
+      position: relative;
+      top: -27%;
+      color: white;
+      left: 90%;
+   }
    @keyframes fade {
       from {
          opacity: 0.4;
@@ -260,14 +234,6 @@
 
       to {
          opacity: 1;
-      }
-   }
-
-   @media only screen and (max-width: 300px) {
-      .prev,
-      .next,
-      .text {
-         font-size: 11px;
       }
    }
 </style>

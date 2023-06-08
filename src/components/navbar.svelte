@@ -5,6 +5,10 @@
    function handleShowDiv() {
       dispatch("showDiv");
    }
+
+   function handleShowInfo() {
+      dispatch("showCarInfo");
+   }
 </script>
 
 <div id="nav-container">
@@ -14,8 +18,9 @@
    </div>
    <div id="nav-form">
       <ul>
-         <li><a href="#">Түрээслэх</a></li>
-         <!-- ... -->
+         <li>
+            <button on:click={handleShowInfo}> vzeh</button>
+         </li>
          <li>
             <button id="register" on:click={handleShowDiv}>Бүртгүүлэх </button>
          </li>

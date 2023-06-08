@@ -25,7 +25,7 @@
       <p>Loading...</p>
    {/if}
 </div> -->
-<script lang="ts">
+<!-- <script lang="ts">
    import { onMount } from "svelte";
 
    let swaggerData: any = null;
@@ -39,15 +39,21 @@
          console.error("Error fetching Swagger data:", error);
       }
    }
-
-   // Call the fetchSwaggerData function when the component is mounted
    onMount(fetchSwaggerData);
    fetchSwaggerData();
 </script>
 
 {#if swaggerData}
-   <!-- Render the Swagger data in your component -->
    <pre>{JSON.stringify(swaggerData, null, 2)}</pre>
 {:else}
    <p>Loading Swagger data...</p>
-{/if}
+{/if} -->
+<!-- <script>
+   const getPosts = async () => {
+      const res = await fetch("https://api.publicapis.org/entries");
+      const data = await res.json();
+      console.log(data);
+      return data;
+   };
+   getPosts();
+</script> -->
