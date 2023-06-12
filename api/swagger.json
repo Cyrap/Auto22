@@ -57,17 +57,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/CarDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CarDto"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CarDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CarDto"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CarDto"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CarDto"
+                  }
                 }
               }
             }

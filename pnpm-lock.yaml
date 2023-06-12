@@ -17,6 +17,9 @@ dependencies:
   felte:
     specifier: ^1.2.7
     version: 1.2.7(svelte@3.59.1)
+  svelte-routing:
+    specifier: ^1.10.0
+    version: 1.10.0
 
 devDependencies:
   '@sveltejs/adapter-auto':
@@ -1008,6 +1011,10 @@ packages:
       svelte: 3.59.1
       typescript: 5.1.3
     dev: true
+
+  /svelte-routing@1.10.0:
+    resolution: {integrity: sha512-ZYQEj7FK03iVHpzNg1Uk7svlD8siFks0a+IPUxn7ckaEL7H1uQl17gTdYRMjuEw2f7ZtgE77l6WDjmGql14JbA==}
+    dev: false
 
   /svelte@3.59.1:
     resolution: {integrity: sha512-pKj8fEBmqf6mq3/NfrB9SLtcJcUvjYSWyePlfCqN9gujLB25RitWK8PvFzlwim6hD/We35KbPlRteuA6rnPGcQ==}

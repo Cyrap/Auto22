@@ -22,7 +22,8 @@
 	"dependencies": {
 		"@types/axios": "^0.14.0",
 		"axios": "^1.4.0",
+		"car-api": "link:api",
 		"felte": "^1.2.7",
-		"car-api": "link:api"
+		"svelte-routing": "^1.10.0"
 	}
 }

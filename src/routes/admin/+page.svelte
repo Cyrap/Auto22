@@ -2,7 +2,6 @@
    import Navbar from "../navbar.svelte";
    import CarList from "../../components/carList.svelte";
    import PageButton from "../../components/pageButton.svelte";
-   import Registeration from "../../components/registeration.svelte";
    import { createEventDispatcher } from "svelte";
    const dispatch = createEventDispatcher();
 
@@ -16,10 +15,6 @@
 </script>
 
 <Navbar />
-<Registeration bind:isDivVisible />
-<div class="addCar">
-   <button on:click={handleShowDiv}>Add car</button>
-</div>
 <title>Admin</title>
 <meta name="description" content="About this app" />
 <svelte:head>

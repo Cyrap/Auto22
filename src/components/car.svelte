@@ -102,7 +102,13 @@
             </div>
          </form>
       </div>
-      <div class="third"><button on:click={hideCarInfo}>X</button></div>
+      <div class="third">
+         <button id="remove-register-form" on:click={hideCarInfo}>
+            <div id="toogle">
+               <div />
+            </div>
+         </button>
+      </div>
    </div>
 </div>
 

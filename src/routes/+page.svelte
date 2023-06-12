@@ -5,54 +5,69 @@
     import Footer from "../components/footer.svelte";
     import Navbar from "./navbar.svelte";
     import Dashboard from "../components/dashboard.svelte";
-    import CarRegister from "../components/registeration.svelte";
     import Slider from "../components/slider.svelte";
     import PageButton from "../components/pageButton.svelte";
     import TrendingCars from "../components/trendingCars.svelte";
     import ApItest from "../components/APItest.svelte";
     import News from "../components/News.svelte";
+    import { API } from "../logic/api";
+    import type { CarDto } from "car-api";
 
-    import * as CarApi from "car-api";
+    let busy = true;
+    let error: any;
+
+    let posts: CarDto[] = [];
     let isDivVisible = false;
 
     const handleShowDiv = () => {
         isDivVisible = true;
     };
     const getPosts = async () => {
-        const res = await new CarApi.CarApi().apiCarGet();
-        const data = res.data;
+        busy = true;
 
-        console.log(data);
-        return data.hvrd;
+        try {
+            const res = await API.Car.apiCarGet();
+            console.log(res.data);
+
+            return res.data;
+        } catch (e) {
+            error = e;
+        } finally {
+            busy = false;
+        }
+
+        return [];
     };
-
-    // let apiData: any;
-
-    // onMount(async () => {
-    //     apiData = await getPosts();
-    // });
-    // console.log(apiData);
+    onMount(async () => {
+        posts = await getPosts();
+    });
 </script>
 
 <svelte:head>
     <title>Home</title>
     <meta name="description" content="Svelte demo app" />
 </svelte:head>
-<!-- {#await getPosts()}
-    <p>loading</p>
-{:then data}
-    {#each data as { count, entries }}
-        <div class="grid">
-            <p>{count}{entries}</p>
-        </div>
-    {/each}
-{/await} -->
-<!-- {#if isDivVisible}<CarRegister />{/if} -->
 <Navbar on:showDiv={handleShowDiv} />
-<Dashboard />
-<TrendingCars />
-<News />
-<Slider />
-<!-- <CarPage /> -->
+<main>
+    {#if busy}
+        Loading...
+    {:else if error}
+        <span style="color:red">Error: {error}</span>
+    {:else}
+        <Dashboard />
+        <TrendingCars trending={posts.slice(0, 5)} />
+        <News />
+        <Slider />
+
+        {#each posts as post}
+            <div>{post}</div>
+        {/each}
+    {/if}
+    <Dashboard />
+    <TrendingCars trending={posts.slice(0, 5)} />
+    <News />
+    <Slider />
+</main>
 <Footer />
 <ApItest />
+<a href="/table">table</a>

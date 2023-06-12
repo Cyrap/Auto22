@@ -4,16 +4,26 @@
 
 <div class="buttonContainer">
    <div>
-      <button>Pre</button>
-      <button>1</button>
-      <button>2</button>
-      <button>3</button>
-      <button>...</button>
-      <button>Next</button>
+      <a href="/registerPage">Pre</a>
+      <a href="/registerPage">1</a>
+      <a href="/registerPage">2</a>
+      <a href="/registerPage">3</a>
+      <a href="/registerPage">...</a>
+      <a href="/registerPage">Next</a>
+      <a href="/registerPage" class="add">Add car</a>
    </div>
 </div>
 
 <style>
+   .add {
+      background: var(--secondary-color);
+      box-shadow: none;
+      border-radius: 5px;
+      margin-left: 20vw;
+   }
+   a {
+      color: var(--background-color);
+   }
    .buttonContainer {
       display: flex;
       justify-content: center;
@@ -27,9 +37,10 @@
       box-shadow: 5px black;
       border-radius: 10px;
       position: relative;
-      left: 10%;
+      left: -10vw;
+      align-items: center;
    }
-   button {
+   a {
       background: var(--primary-color);
       border: var(--background-color);
       color: var(--background-color);
@@ -43,7 +54,7 @@
          rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
          rgba(0, 0, 0, 0.09) 0px 32px 16px;
    }
-   button:hover {
+   a:hover {
       box-shadow: rgba(35, 69, 49, 0.17) 0px -23px 25px 0px inset,
          rgba(11, 67, 56, 0.15) 0px -36px 30px 0px inset,
          rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset,

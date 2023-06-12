@@ -2,6 +2,13 @@
    import { onMount } from "svelte";
 
    import CarElement from "./car.svelte";
+   function handleNameChange(event: any, row: any) {
+      row.name = event.target.innerText;
+   }
+
+   function handleAgeChange(event: any, row: any) {
+      row.age = parseInt(event.target.innerText);
+   }
 
    interface Car {
       mark: string;
@@ -182,11 +189,27 @@
          <tbody>
             {#each getCurrentCars() as car}
                <tr>
-                  <td>{car.mark}</td>
-                  <td>{car.age}</td>
-                  <td>{car.color}</td>
-                  <td>{car.phone}</td>
-                  <td>{car.roadTraveled}</td>
+                  <td
+                     contenteditable="true"
+                     on:blur={(e) => handleNameChange(e, car)}>{car.mark}</td
+                  >
+                  <td
+                     contenteditable="true"
+                     on:blur={(e) => handleNameChange(e, car)}>{car.age}</td
+                  >
+                  <td
+                     contenteditable="true"
+                     on:blur={(e) => handleNameChange(e, car)}>{car.color}</td
+                  >
+                  <td
+                     contenteditable="true"
+                     on:blur={(e) => handleNameChange(e, car)}>{car.phone}</td
+                  >
+                  <td
+                     contenteditable="true"
+                     on:blur={(e) => handleNameChange(e, car)}
+                     >{car.roadTraveled}</td
+                  >
                   <td
                      ><button on:click={showCarInfo}>
                         {car.mark}
@@ -201,8 +224,9 @@
 
 <style>
    .list-info {
+      margin-left: -30vw;
       background: var(--background-color);
-      width: 50vw;
+      width: 90vw;
    }
 
    table {
