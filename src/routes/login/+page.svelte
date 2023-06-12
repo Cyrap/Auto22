@@ -21,6 +21,7 @@
 
       <label for="input">Нууц үг</label>
       <input type="password" name="kjdhjk" id="" />
+      <a class="forgot" href="/">Нууц үгээ мартсан</a>
       <!-- <div>1: <input {type} {value} {...$$restProps} on:input={onInput} /></div>
       <div>2: <input {type} {value} on:input={onInput} /></div>
       <button type="button" on:click={() => (show_password = !show_password)}
@@ -52,6 +53,18 @@
       top: 25vh;
       padding: 50px;
    }
+   .forgot {
+      background: none;
+      color: var(--primary-color);
+      margin: -10px;
+      padding: 0;
+      position: relative;
+      top: 5vh;
+      left: 23vw;
+   }
+   .forgot:hover {
+      color: rgb(52, 163, 147);
+   }
    a {
       background: var(--primary-color);
       color: var(--background-color);
@@ -62,18 +75,24 @@
       margin: 20px;
       position: relative;
       top: 10vh;
-      left: 15vw;
+      left: 21vw;
    }
    label {
       font-size: 1.3rem;
       margin: 10px;
    }
    input {
+      padding: 0.3rem 1rem;
       height: 2rem;
       background: rgba(255, 255, 255, 0.711);
       border: none;
       border-bottom: 3px rgba(0, 0, 0, 0.439) solid;
       font-size: 1.2rem;
       width: 30vw;
+   }
+   input::-webkit-outer-spin-button,
+   input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
    }
 </style>
