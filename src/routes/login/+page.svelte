@@ -1,5 +1,12 @@
-<script>
+<script lang="ts">
    import Navbar from "../navbar.svelte";
+   // let show_password = true;
+   // let type = show_password ? "text" : "password";
+   // let value = "";
+
+   // function onInput(event: Event) {
+   //    value = (event.target as HTMLInputElement).value;
+   // }
 </script>
 
 <Navbar />
@@ -10,10 +17,15 @@
 <div class="main">
    <div class="form">
       <label for="input">Утас</label>
-      <input type="text" />
+      <input type="number" />
 
       <label for="input">Нууц үг</label>
-      <input type="text" />
+      <input type="password" name="kjdhjk" id="" />
+      <!-- <div>1: <input {type} {value} {...$$restProps} on:input={onInput} /></div>
+      <div>2: <input {type} {value} on:input={onInput} /></div>
+      <button type="button" on:click={() => (show_password = !show_password)}
+         >{show_password ? "Hide" : "Show"}</button
+      > -->
 
       <a href="/admin">Нэвтрэх</a>
    </div>
@@ -43,7 +55,8 @@
    a {
       background: var(--primary-color);
       color: var(--background-color);
-      padding: 10px 20px;
+      padding: 10px 0px;
+      text-align: center;
       border-radius: 10px;
       width: 10vw;
       margin: 20px;

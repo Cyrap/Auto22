@@ -1,0 +1,33 @@
+{
+  "name": "cuko_api_swagger",
+  "version": "0.0.5",
+  "description": "OpenAPI client for cuko_api_swagger",
+  "author": "OpenAPI-Generator Contributors",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GIT_USER_ID/GIT_REPO_ID.git"
+  },
+  "keywords": [
+    "axios",
+    "typescript",
+    "openapi-client",
+    "openapi-generator",
+    "cuko_api_swagger"
+  ],
+  "license": "Unlicense",
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "module": "./dist/index.mjs",
+  "sideEffects": false,
+  "dependencies": {
+    "axios": "^0.27.2"
+  },
+  "devDependencies": {
+    "@types/node": "^12.11.5",
+    "tsup": "^6.7.0",
+    "typescript": "^4.0"
+  },
+  "publishConfig": {
+    "registry": "https://github.com/sadespresso/cuko_api_swagger"
+  }
+}

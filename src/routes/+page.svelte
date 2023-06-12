@@ -11,24 +11,27 @@
     import TrendingCars from "../components/trendingCars.svelte";
     import ApItest from "../components/APItest.svelte";
     import News from "../components/News.svelte";
+
+    import * as CarApi from "car-api";
     let isDivVisible = false;
 
     const handleShowDiv = () => {
         isDivVisible = true;
     };
     const getPosts = async () => {
-        const res = await fetch("http://192.168.1.174:5262/api/Car"); // Replace with your API URL
-        const data = await res.json();
+        const res = await new CarApi.CarApi().apiCarGet();
+        const data = res.data;
+
         console.log(data);
-        return data;
+        return data.hvrd;
     };
 
-    let apiData: any;
+    // let apiData: any;
 
-    onMount(async () => {
-        apiData = await getPosts();
-    });
-    console.log(apiData);
+    // onMount(async () => {
+    //     apiData = await getPosts();
+    // });
+    // console.log(apiData);
 </script>
 
 <svelte:head>
