@@ -196,17 +196,6 @@
             {/each}
          </tbody>
       </table>
-
-      <div>
-         <!-- Pagination -->
-         <button on:click={handlePreviousPage} disabled={currentPage === 1}
-            >Previous</button
-         >
-         <button
-            on:click={handleNextPage}
-            disabled={currentPage * carsPerPage >= cars.length}>Next</button
-         >
-      </div>
    </div>
 </div>
 

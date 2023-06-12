@@ -102,7 +102,7 @@
             </div>
          </form>
       </div>
-      <div class="third"><button on:click={hideCarInfo}>X</button></div>
+      <div class="third"><a href="/">return</a></div>
    </div>
 </div>
 
@@ -131,7 +131,7 @@
    .third {
       width: 25%;
       display: flex;
-      align-items: start;
+      align-items: end;
    }
 
    .rate-container {
@@ -178,20 +178,12 @@
       border-bottom: 5px rgba(140, 104, 104, 0.215) solid;
    }
 
-   button {
+   a {
       background-color: var(--primary-color);
       padding: 10px;
-      margin-top: 10px;
       position: relative;
-      z-index: 989;
-      color: var(--background-color);
+      top: -100px;
       left: 50%;
-      width: 50px;
-      height: 50px;
-      border: none;
-      font-size: 2rem;
-      border-radius: 50%;
-      cursor: pointer;
    }
    .containerOfImage {
       background: red;

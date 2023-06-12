@@ -1,14 +1,5 @@
 <script>
-   import { createEventDispatcher } from "svelte";
-   const dispatch = createEventDispatcher();
-
-   function handleShowDiv() {
-      dispatch("showDiv");
-   }
-
-   function handleShowInfo() {
-      dispatch("showCarInfo");
-   }
+   import { page } from "$app/stores";
 </script>
 
 <div id="nav-container">
@@ -18,11 +9,16 @@
    </div>
    <div id="nav-form">
       <ul>
-         <li>
-            <button on:click={handleShowInfo}> vzeh</button>
+         <li aria-current={$page.url.pathname === "/" ? "page" : undefined}>
+            <a href="/">Home</a>
          </li>
          <li>
-            <button id="register" on:click={handleShowDiv}>Бүртгүүлэх </button>
+            <a href="/about">About</a>
+         </li>
+         <li
+            aria-current={$page.url.pathname === "/login" ? "page" : undefined}
+         >
+            <a href="/login">Login</a>
          </li>
       </ul>
    </div>
@@ -31,12 +27,6 @@
 <style>
    h1 {
       color: var(--background-color);
-   }
-   button {
-      background: none;
-      border: none;
-      color: aliceblue;
-      font-weight: bold;
    }
    #nav-container {
       z-index: 99;
@@ -60,17 +50,12 @@
       align-items: center;
    }
 
-   #nav-container #nav-form ul li button {
+   #nav-container #nav-form ul li a {
       padding: 15px 1px;
       width: 150px;
       list-style: none;
       text-align: center;
       cursor: pointer;
-   }
-
-   #nav-container #nav-form ul li a {
-      color: var(--background-color);
-      font-weight: bold;
    }
 
    #nav-container #logo {

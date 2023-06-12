@@ -21,6 +21,7 @@
 	"type": "module",
 	"dependencies": {
 		"@types/axios": "^0.14.0",
-		"axios": "^1.4.0"
+		"axios": "^1.4.0",
+		"felte": "^1.2.7"
 	}
 }
