@@ -58,7 +58,6 @@
         <TrendingCars trending={posts.slice(0, 5)} />
         <News />
         <Slider />
-
         {#each posts as post}
             <div>{post}</div>
         {/each}
@@ -70,4 +69,3 @@
 </main>
 <Footer />
 <ApItest />
-<a href="/table">table</a>
