@@ -1,12 +1,22 @@
 <script lang="ts">
    import Navbar from "../navbar.svelte";
-   // let show_password = true;
-   // let type = show_password ? "text" : "password";
-   // let value = "";
+   import { flip } from "svelte/animate";
 
-   // function onInput(event: Event) {
-   //    value = (event.target as HTMLInputElement).value;
-   // }
+   let show_password = false;
+   let password = "";
+   let phoneNumber = "";
+
+   function togglePasswordVisibility() {
+      show_password = !show_password;
+   }
+
+   function handlePasswordInput(event: Event) {
+      password = (event.target as HTMLInputElement).value;
+   }
+
+   function handlePhoneInput(event: Event) {
+      phoneNumber = (event.target as HTMLInputElement).value;
+   }
 </script>
 
 <Navbar />
@@ -16,18 +26,36 @@
 </svelte:head>
 <div class="main">
    <div class="form">
-      <label for="input">Утас</label>
-      <input type="number" />
+      <label for="phoneNumber">Утас</label>
+      <input
+         type="tel"
+         id="phoneNumber"
+         value={phoneNumber}
+         on:input={handlePhoneInput}
+         required
+         pattern="[0-9]{8}"
+      />
 
-      <label for="input">Нууц үг</label>
-      <input type="password" name="kjdhjk" id="" />
+      <label for="password">Нууц үг</label>
+      <div class="password-input">
+         <input
+            type={show_password ? "text" : "password"}
+            id="password"
+            value={password}
+            on:input={handlePasswordInput}
+            required
+            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8}$"
+         />
+         <button class="show-password-btn" on:click={togglePasswordVisibility}>
+            {#if show_password}
+               <span class="hide-icon">Hide</span>
+            {:else}
+               <span class="show-icon">Show</span>
+            {/if}
+         </button>
+      </div>
+
       <a class="forgot" href="/">Нууц үгээ мартсан</a>
-      <!-- <div>1: <input {type} {value} {...$$restProps} on:input={onInput} /></div>
-      <div>2: <input {type} {value} on:input={onInput} /></div>
-      <button type="button" on:click={() => (show_password = !show_password)}
-         >{show_password ? "Hide" : "Show"}</button
-      > -->
-
       <a href="/admin">Нэвтрэх</a>
    </div>
 </div>
@@ -94,5 +122,39 @@
    input::-webkit-inner-spin-button {
       -webkit-appearance: none;
       margin: 0;
+   }
+   .password-input {
+      position: relative;
+   }
+   .show-password-btn {
+      position: absolute;
+      top: 50%;
+      right: 0.5rem;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+   }
+   .show-icon,
+   .hide-icon {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: var(--primary-color);
+      background-color: transparent;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 0;
+      margin: 0;
+      transition: color 0.3s;
+   }
+   .hide-icon {
+      display: none;
+   }
+   .show-password-btn:hover .hide-icon {
+      display: block;
+   }
+   .show-password-btn:hover .show-icon {
+      display: none;
    }
 </style>

@@ -3,20 +3,54 @@
 </script>
 
 <Navbar />
-<div>
+<div class="about-container">
+   <h2>Auto22 тухай</h2>
    <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus
-      illo eligendi neque sunt, cupiditate suscipit exercitationem, labore,
-      impedit harum quia explicabo incidunt numquam error amet iste. Nihil
-      aliquam aut reiciendis. Lorem ipsum dolor, sit amet consectetur
-      adipisicing elit. Illo blanditiis, alias cum consequuntur ea suscipit ipsa
-      aliquam qui explicabo delectus molestias eos sapiente fugiat ipsum sequi
-      omnis dolor officiis inventore!
+      Auto22 нь та машинуудтай холбогдсон анхны хаяг болон мэдээлэлтэй вэбсайт
+      юм. Машины техник мэдээллийг хайх, харах, харьцуулах, мэдээлэл авахын тулд
+      та манай сайтаас илүү дэлгэрэнгүй мэдээлэл авах боломжтой.
+   </p>
+   <p>
+      Auto22 нь машины брэнд, модель, техникийн дэлгэрэнгүй үзүүлэлт,
+      харьцуулалтыг олон жилийн туршлагаар судлах боломжтой мэдээлэл таагдаж буй
+      шийдэлүүдийг бүрэн таньд түгээхээр ажилладаг.
+   </p>
+   <p>
+      Auto22 дэлгэрэнгүй машины жагсаалтанд оролцох, ялгаатай техникийн
+      мэдээлэл, зургийг үзэх, харьцуулах, худалдаж авах боломжтой. Бид
+      хэрэглэгчидэд машин худалдаа явуулах явцад туслах, аюулгүй байдлыг
+      анхааруулахын тулд сайн үйлчилгээ үзүүлж байна.
+   </p>
+   <p>
+      Auto22-н хэлтэс нь машинуудыг хайх, үзэх, судалгаа хийх, асуулт хариулах
+      зэрэг үйлчилгээг олон хүнтэйгээ хамт хуваалцан ажиллаж буй салбар юм.
+      Машиныхан зориг авах, түүхийг хуваалцах, харилцах нэгдэл болон сонирхолтой
+      хэлэлцээрэй!
+   </p>
+   <p>
+      Auto22 вэбсайтыг хэрэглэх таны сонирхол, хүсэлт, авах хэрэгтэй зүйлдээ
+      санал болгохыг хүсвэл бидэнтэй холбогдоно уу. Бид чадвартай нэгдсэн
+      хүмүүсийн хамт олонд баярлалаа!
    </p>
 </div>
 
 <style>
-   div {
-      margin: 10px 200px;
+   .about-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   }
+
+   h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+   }
+
+   p {
+      margin-bottom: 15px;
+      line-height: 1.6;
    }
 </style>

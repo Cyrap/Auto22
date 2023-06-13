@@ -3,10 +3,10 @@
 </script>
 
 <div id="nav-container">
-   <div id="logo">
+   <a href="/" id="logo">
       <img id="logo-pic" src="../src/img/logo.png" alt="Logo" />
       <h1>Auto22.mn</h1>
-   </div>
+   </a>
    <div id="nav-form">
       <ul>
          <li aria-current={$page.url.pathname === "/" ? "page" : undefined}>
@@ -28,6 +28,7 @@
    h1 {
       color: var(--background-color);
    }
+
    #nav-container {
       z-index: 99;
       background: linear-gradient(
@@ -38,6 +39,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding: 0 2%;
    }
 
    #nav-container #nav-form {
@@ -48,22 +50,28 @@
       display: flex;
       flex-direction: row;
       align-items: center;
+      padding: 0;
+      margin: 0;
+   }
+
+   #nav-container #nav-form ul li {
+      list-style: none;
+      text-align: center;
    }
 
    #nav-container #nav-form ul li a {
-      padding: 15px 1px;
-      width: 150px;
-      list-style: none;
-      text-align: center;
+      padding: 15px 10px;
+      color: var(--text-color);
+      text-decoration: none;
       cursor: pointer;
    }
 
    #nav-container #logo {
       display: flex;
       align-items: center;
-      padding-left: 10%;
       color: var(--text-color);
       cursor: pointer;
+      text-decoration: none;
    }
 
    #nav-container #logo #logo-pic {
@@ -72,7 +80,7 @@
 
    #nav-container #nav-form ul li:hover {
       background-color: var(--disabled);
-      transition: 1s;
+      transition: 0.3s;
       border-radius: 3px;
    }
 </style>

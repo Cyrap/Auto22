@@ -200,7 +200,6 @@
       cursor: pointer;
    }
    .containerOfImage {
-      background: red;
       width: 500px;
       height: 400px;
    }

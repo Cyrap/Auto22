@@ -1,5 +1,4 @@
 <script>
-   import { each } from "svelte/internal";
    const car = [
       {
          mark: "toyota",
@@ -19,27 +18,34 @@
 </div>
 
 <style>
+   :root {
+      --background-color: #f0f0f0;
+   }
+
    .dashboard {
       position: relative;
       background-color: var(--background-color);
       width: 100vw;
+      max-width: 1200px;
       height: 30vh;
-      border: #00172e;
       border-radius: 10px;
-      background: var(--background-color);
-      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-      margin: 2%;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.35);
+      margin: 2% auto;
    }
+
    ul {
       display: grid;
-      grid-template-columns: repeat(3, 0.5fr);
-      margin: 10px;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 10px;
       padding: 10px;
+      list-style: none;
+      margin: 0;
    }
+
    ul li {
       text-align: center;
-      width: 40%;
-      border-bottom: #596a7b42 solid;
-      list-style: none;
+      border-bottom: 1px solid #596a7b42;
+      padding: 10px;
+      cursor: pointer;
    }
 </style>

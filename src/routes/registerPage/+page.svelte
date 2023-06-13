@@ -165,6 +165,7 @@
       }
    });
    import { createEventDispatcher } from "svelte";
+   import { each } from "svelte/internal";
 
    export let isDivVisible = true;
    const dispatch = createEventDispatcher();
@@ -188,193 +189,18 @@
       <h2>Машын бүртгэлийн хэсэг</h2>
       <form on:submit|preventDefault={addCar}>
          <div class="form-group">
-            <div>
-               <label class="form-label" for="first-name"
-                  >Монгол улсад орж ирсэн он.</label
-               >
-               <input
-                  class="form-input"
-                  type="text"
-                  bind:value={car.age}
-                  required
-               />
-            </div>
-            <div>
-               <label class="form-label" for="first-name"
-                  >Монгол улсад орж ирсэн он.</label
-               >
-               <input
-                  class="form-input"
-                  type="text"
-                  bind:value={car.age}
-                  required
-               />
-            </div>
-            <div>
-               <label class="form-label" for="first-name"
-                  >Монгол улсад орж ирсэн он.</label
-               >
-               <input
-                  class="form-input"
-                  type="text"
-                  bind:value={car.age}
-                  required
-               />
-            </div>
-            <div>
-               <label class="form-label" for="first-name"
-                  >Монгол улсад орж ирсэн он.</label
-               >
-               <input
-                  class="form-input"
-                  type="text"
-                  bind:value={car.age}
-                  required
-               />
-            </div>
-            <div>
-               <label class="form-label" for="first-name"
-                  >Монгол улсад орж ирсэн он.</label
-               >
-               <input
-                  class="form-input"
-                  type="text"
-                  bind:value={car.age}
-                  required
-               />
-            </div>
-            <div>
-               <label class="form-label" for="first-name"
-                  >Монгол улсад орж ирсэн он.</label
-               >
-               <input
-                  class="form-input"
-                  type="text"
-                  bind:value={car.age}
-                  required
-               />
-            </div>
-            <div>
-               <label class="form-label" for="first-name"
-                  >Монгол улсад орж ирсэн он.</label
-               >
-               <input
-                  class="form-input"
-                  type="text"
-                  bind:value={car.age}
-                  required
-               />
-            </div>
-            <div>
-               <label class="form-label" for="first-name"
-                  >Монгол улсад орж ирсэн он.</label
-               >
-               <input
-                  class="form-input"
-                  type="text"
-                  bind:value={car.age}
-                  required
-               />
-            </div>
-            <div>
-               <label class="form-label" for="first-name"
-                  >Монгол улсад орж ирсэн он.</label
-               >
-               <input
-                  class="form-input"
-                  type="text"
-                  bind:value={car.age}
-                  required
-               />
-            </div>
-            <div>
-               <label class="form-label" for="first-name"
-                  >Монгол улсад орж ирсэн он.</label
-               >
-               <input
-                  class="form-input"
-                  type="text"
-                  bind:value={car.age}
-                  required
-               />
-            </div>
-            <div>
-               <label class="form-label" for="first-name"
-                  >Монгол улсад орж ирсэн он.</label
-               >
-               <input
-                  class="form-input"
-                  type="text"
-                  bind:value={car.age}
-                  required
-               />
-            </div>
-            <div>
-               <label class="form-label" for="first-name"
-                  >Монгол улсад орж ирсэн он.</label
-               >
-               <input
-                  class="form-input"
-                  type="text"
-                  bind:value={car.age}
-                  required
-               />
-            </div>
-            <div>
-               <label class="form-label" for="first-name"
-                  >Монгол улсад орж ирсэн он.</label
-               >
-               <input
-                  class="form-input"
-                  type="text"
-                  bind:value={car.age}
-                  required
-               />
-            </div>
-            <div>
-               <label class="form-label" for="first-name"
-                  >Монгол улсад орж ирсэн он.</label
-               >
-               <input
-                  class="form-input"
-                  type="text"
-                  bind:value={car.age}
-                  required
-               />
-            </div>
-            <div>
-               <label class="form-label" for="first-name"
-                  >Монгол улсад орж ирсэн он.</label
-               >
-               <input
-                  class="form-input"
-                  type="text"
-                  bind:value={car.age}
-                  required
-               />
-            </div>
-            <div>
-               <label class="form-label" for="first-name"
-                  >Монгол улсад орж ирсэн он.</label
-               >
-               <input
-                  class="form-input"
-                  type="text"
-                  bind:value={car.age}
-                  required
-               />
-            </div>
-            <div>
-               <label class="form-label" for="first-name"
-                  >Монгол улсад орж ирсэн он.</label
-               >
-               <input
-                  class="form-input"
-                  type="text"
-                  bind:value={car.age}
-                  required
-               />
-            </div>
+            {#each Object.keys(car) as key}
+               <div>
+                  <label class="form-label" for={key}>{key}</label>
+                  <input
+                     class="form-input"
+                     type="text"
+                     bind:value={car[key]}
+                     required
+                  />
+               </div>
+            {/each}
+
             <div>
                <a href="/admin" class="exit">
                   <button id="remove-register-form">
@@ -385,6 +211,7 @@
                >
             </div>
          </div>
+         <div />
          <button class="submitButton" on:click={addCar}>Add</button>
       </form>
    </div>

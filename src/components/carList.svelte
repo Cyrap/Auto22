@@ -2,145 +2,26 @@
    import { onMount } from "svelte";
 
    import CarElement from "./car.svelte";
-   function handleNameChange(event: any, row: any) {
-      row.name = event.target.innerText;
-   }
-
-   function handleAgeChange(event: any, row: any) {
-      row.age = parseInt(event.target.innerText);
-   }
 
    interface Car {
       mark: string;
       age: number;
       color: string;
-      phone: string;
+      phone: number;
       roadTraveled: string;
       power: number;
    }
 
    let cars: Car[] = [
+      // ... car objects
       {
-         mark: "prius",
-         age: 2001,
-         color: "white",
-         phone: "94232720",
-         roadTraveled: "2400km",
-         power: 240,
+         mark: "Kia",
+         age: 2023,
+         color: "black",
+         phone: 99111111,
+         roadTraveled: "0km",
+         power: 1000,
       },
-      {
-         mark: "prius",
-         age: 2001,
-         color: "white",
-         phone: "94232720",
-         roadTraveled: "2400km",
-         power: 240,
-      },
-      {
-         mark: "prius",
-         age: 2001,
-         color: "white",
-         phone: "94232720",
-         roadTraveled: "2400km",
-         power: 240,
-      },
-      {
-         mark: "prius",
-         age: 2001,
-         color: "white",
-         phone: "94232720",
-         roadTraveled: "2400km",
-         power: 240,
-      },
-      {
-         mark: "prius",
-         age: 2001,
-         color: "white",
-         phone: "94232720",
-         roadTraveled: "2400km",
-         power: 240,
-      },
-      {
-         mark: "prius",
-         age: 2001,
-         color: "white",
-         phone: "94232720",
-         roadTraveled: "2400km",
-         power: 240,
-      },
-      {
-         mark: "prius",
-         age: 2001,
-         color: "white",
-         phone: "94232720",
-         roadTraveled: "2400km",
-         power: 240,
-      },
-      {
-         mark: "prius",
-         age: 2001,
-         color: "white",
-         phone: "94232720",
-         roadTraveled: "2400km",
-         power: 240,
-      },
-      {
-         mark: "land",
-         age: 2001,
-         color: "white",
-         phone: "94232720",
-         roadTraveled: "2400km",
-         power: 240,
-      },
-      {
-         mark: "land",
-         age: 2001,
-         color: "white",
-         phone: "94232720",
-         roadTraveled: "2400km",
-         power: 240,
-      },
-      {
-         mark: "land",
-         age: 2001,
-         color: "white",
-         phone: "94232720",
-         roadTraveled: "2400km",
-         power: 240,
-      },
-      {
-         mark: "land",
-         age: 2001,
-         color: "white",
-         phone: "94232720",
-         roadTraveled: "2400km",
-         power: 240,
-      },
-      {
-         mark: "land",
-         age: 2001,
-         color: "white",
-         phone: "94232720",
-         roadTraveled: "2400km",
-         power: 240,
-      },
-      {
-         mark: "land",
-         age: 2001,
-         color: "white",
-         phone: "94232720",
-         roadTraveled: "2400km",
-         power: 240,
-      },
-      {
-         mark: "land",
-         age: 2001,
-         color: "white",
-         phone: "94232720",
-         roadTraveled: "2400km",
-         power: 240,
-      },
-      // ... other car objects
    ];
 
    let currentPage = 1;
@@ -165,61 +46,64 @@
    onMount(() => {
       // Fetch cars data from an API or perform any initialization tasks
    });
+
    let isInfoVisible = false;
    const showCarInfo = () => {
       isInfoVisible = true;
    };
+
+   function handleNameChange(event: any, row: Car) {
+      row.mark = event.target.innerText;
+   }
+
+   function handleAgeChange(event: any, row: Car) {
+      row.age = parseInt(event.target.innerText);
+   }
 </script>
 
 <CarElement bind:isInfoVisible />
-<div>
-   <div class="list-info">
-      <ul id="car-list" />
-      <table id="carTable">
-         <thead>
-            <tr class="table-row">
-               <th>Автомашины марк</th>
-               <th>Үйлдвэрлэсэн он</th>
-               <th>Өнгө</th>
-               <th>Холбогдох утас</th>
-               <th>Туулсан зам</th>
-               <th>Дэлгэрэнгүй</th>
+
+<div class="list-info">
+   <table id="carTable">
+      <thead>
+         <tr class="table-row">
+            <th>Автомашины марк</th>
+            <th>Үйлдвэрлэсэн он</th>
+            <th>Өнгө</th>
+            <th>Холбогдох утас</th>
+            <th>Туулсан зам</th>
+            <th>Дэлгэрэнгүй</th>
+         </tr>
+      </thead>
+      <tbody>
+         {#each getCurrentCars() as car}
+            <tr>
+               <td
+                  contenteditable="true"
+                  on:blur={(e) => handleNameChange(e, car)}>{car.mark}</td
+               >
+               <td
+                  contenteditable="true"
+                  on:blur={(e) => handleAgeChange(e, car)}>{car.age}</td
+               >
+               <td
+                  contenteditable="true"
+                  on:blur={(e) => handleNameChange(e, car)}>{car.color}</td
+               >
+               <td
+                  contenteditable="true"
+                  on:blur={(e) => handleNameChange(e, car)}>{car.phone}</td
+               >
+               <td
+                  contenteditable="true"
+                  on:blur={(e) => handleNameChange(e, car)}
+                  >{car.roadTraveled}</td
+               >
+               <td><button on:click={showCarInfo}>{car.mark}</button></td>
             </tr>
-         </thead>
-         <tbody>
-            {#each getCurrentCars() as car}
-               <tr>
-                  <td
-                     contenteditable="true"
-                     on:blur={(e) => handleNameChange(e, car)}>{car.mark}</td
-                  >
-                  <td
-                     contenteditable="true"
-                     on:blur={(e) => handleNameChange(e, car)}>{car.age}</td
-                  >
-                  <td
-                     contenteditable="true"
-                     on:blur={(e) => handleNameChange(e, car)}>{car.color}</td
-                  >
-                  <td
-                     contenteditable="true"
-                     on:blur={(e) => handleNameChange(e, car)}>{car.phone}</td
-                  >
-                  <td
-                     contenteditable="true"
-                     on:blur={(e) => handleNameChange(e, car)}
-                     >{car.roadTraveled}</td
-                  >
-                  <td
-                     ><button on:click={showCarInfo}>
-                        {car.mark}
-                     </button>
-                  </td>
-               </tr>
-            {/each}
-         </tbody>
-      </table>
-   </div>
+         {/each}
+      </tbody>
+   </table>
 </div>
 
 <style>
