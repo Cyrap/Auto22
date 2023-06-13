@@ -59,6 +59,7 @@
                      <img src={url} class="image" alt="img" />
                   </a>
                   <div class="image-description">{description}</div>
+                  <button class="more-button">More</button>
                </div>
             </div>
          {/each}
@@ -132,5 +133,28 @@
       color: white;
       font-size: 14px;
       text-align: center;
+   }
+
+   .more-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.604);
+      padding: 10px 30px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 1.2rem;
+   }
+
+   .image-wrapper:hover .image {
+      filter: blur(2px);
+   }
+
+   .image-wrapper:hover .more-button {
+      opacity: 1;
    }
 </style>
