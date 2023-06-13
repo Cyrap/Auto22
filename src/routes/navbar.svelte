@@ -31,11 +31,7 @@
 
    #nav-container {
       z-index: 99;
-      background: linear-gradient(
-         90deg,
-         var(--primary-color),
-         rgb(4, 161, 140)
-      );
+      background: linear-gradient(0, var(--background-color), var(--disabled));
       display: flex;
       align-items: center;
       justify-content: space-between;

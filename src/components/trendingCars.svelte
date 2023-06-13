@@ -3,22 +3,37 @@
 
    let imageUrls = [
       {
-         url: "https://images.unsplash.com/photo-1524781289445-ddf8f5695861?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-         description: "Description 1",
+         url: "./src/img/images.jpg",
+         description: "Land 200",
          link: "/car", // Add the link property to the image object
       },
       {
-         url: "https://images.unsplash.com/photo-1610194352361-4c81a6a8967e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80",
-         description: "Description 2",
+         url: "./src/img/porter.jpg",
+         description: "Porter zarna",
          link: "/car", // Add the link property to the image object
       },
       {
-         url: "https://images.unsplash.com/photo-1618202133208-2907bebba9e1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-         description: "Description 3",
+         url: "./src/img/prius.jpg",
+         description: "Prius",
          link: "/car", // Add the link property to the image object
       },
       {
-         url: "https://images.unsplash.com/photo-1495805442109-bf1cf975750b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+         url: "./src/img/aqua.jpg",
+         description: "Description 4",
+         link: "/car", // Add the link property to the image object
+      },
+      {
+         url: "./src/img/200.jpg",
+         description: "Description 4",
+         link: "/car", // Add the link property to the image object
+      },
+      {
+         url: "./src/img/2653900c2ac3a978_large.jpg",
+         description: "Description 4",
+         link: "/car", // Add the link property to the image object
+      },
+      {
+         url: "./src/img/hyundai-motor-group-a3vDd8hzuYs-unsplash.jpg",
          description: "Description 4",
          link: "/car", // Add the link property to the image object
       },
@@ -27,35 +42,48 @@
    export let trending: CarDto[];
 </script>
 
-<div
-   id="image-track"
-   data-mouse-down-at="0"
-   data-prev-percentage="0"
-   class="scrollable-container"
->
-   <div id="scroll-content">
-      {#each imageUrls as { url, description, link }}
-         <div class="image-container">
-            <div class="image-wrapper">
-               <a href={link}>
-                  <!-- Wrap the img element with an a tag and set the href attribute -->
-                  <img src={url} class="image" alt="img" />
-               </a>
-               <div class="image-description">{description}</div>
+<div class="container">
+   <div
+      id="image-track"
+      data-mouse-down-at="0"
+      data-prev-percentage="0"
+      class="scrollable-container"
+   >
+      <h4>Онцлох автомашинууд</h4>
+      <div id="scroll-content">
+         {#each imageUrls as { url, description, link }}
+            <div class="image-container">
+               <div class="image-wrapper">
+                  <a href={link}>
+                     <!-- Wrap the img element with an a tag and set the href attribute -->
+                     <img src={url} class="image" alt="img" />
+                  </a>
+                  <div class="image-description">{description}</div>
+               </div>
             </div>
-         </div>
-      {/each}
+         {/each}
+      </div>
    </div>
 </div>
 
 <style>
+   .container {
+      display: flex;
+      width: 100vw;
+      align-items: center;
+      justify-content: center;
+   }
    .scrollable-container {
       position: relative;
       width: 90vw; /* Set the desired width for the scrollable container */
       overflow: hidden;
       -webkit-overflow-scrolling: touch; /* Enable momentum scrolling on iOS devices */
    }
-
+   h4 {
+      position: relative;
+      left: 5%;
+      font-size: 1.5rem;
+   }
    #scroll-content {
       display: flex;
       gap: 4vmin;
@@ -64,6 +92,7 @@
       overflow-y: hidden;
       -ms-overflow-style: none; /* Hide scrollbar on Internet Explorer and Edge */
       scrollbar-width: none; /* Hide scrollbar on Firefox */
+      scroll-snap-type: x mandatory;
    }
 
    .image-container {
@@ -71,11 +100,13 @@
       flex-direction: column;
       align-items: center;
       position: relative;
+      scroll-snap-align: start;
    }
 
    .image-wrapper {
       width: 40vmin;
-      height: 56vmin;
+      border-radius: 5px;
+      height: 25vmin;
       overflow: hidden;
       position: relative;
    }

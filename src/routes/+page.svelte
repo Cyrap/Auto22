@@ -52,7 +52,7 @@
     {#if busy}
         Loading...
     {:else if error}
-        <span style="color:red">Error: {error}</span>
+        <span style="color:yellow">Error: {error}</span>
     {:else}
         <Dashboard />
         <TrendingCars trending={posts.slice(0, 5)} />

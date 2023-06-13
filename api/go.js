@@ -3,9 +3,9 @@ const { get } = require('http');
 // const { get } = require('https');
 const { exec, execSync } = require("child_process");
 
-const definitions = "http://192.168.1.174:5262/swagger/v1/swagger.json";
+const definitions = "http://taiwnaa.dev.spacehub.mn/swagger/v1/swagger.json";
 
-process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 1;
 // const host = "localhost:44302";
 
 const versionTracker = readFileSync("./versionTracker", 'utf8');

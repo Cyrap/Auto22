@@ -1,4 +1,5 @@
 <script lang="ts">
+   import Navbar from "../navbar.svelte";
    import { createEventDispatcher } from "svelte";
 
    export let isInfoVisible: boolean = true;
@@ -30,22 +31,9 @@
       }
    }
    let slideIndex = 1;
-   // const slides = [
-   //    {
-   //       src: "https://images.unsplash.com/photo-1524781289445-ddf8f5695861?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-   //       text: "Caption Text",
-   //    },
-   //    {
-   //       src: "https://images.unsplash.com/photo-1610194352361-4c81a6a8967e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80",
-   //       text: "Caption Two",
-   //    },
-   //    {
-   //       src: "https://images.unsplash.com/photo-1618202133208-2907bebba9e1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-   //       text: "Caption Three",
-   //    },
-   // ];
 </script>
 
+<Navbar />
 <div class:register={isInfoVisible} class:hidden={!isInfoVisible}>
    <div class="main-container">
       <div class="slideshow-container">
@@ -139,7 +127,7 @@
    }
    /* Slideshow container */
    .slideshow-container {
-      height: 100vh;
+      height: 86vh;
       width: 50%;
       background-color: #717171;
       display: flex;

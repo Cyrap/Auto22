@@ -2,40 +2,178 @@
    const car = [
       {
          mark: "toyota",
+         company: "Facebook",
+         model: "AQUA",
+         age: 2022,
+         condition: "New",
       },
       {
          mark: "nissan",
+         company: "twitter",
+         model: "Prius",
+         age: 2023,
+         condition: "New",
+      },
+      {
+         mark: "BMW",
+         company: "Github",
+         model: "Land",
+         age: 2002,
+         condition: "New",
+      },
+      {
+         mark: "Honda",
+         company: "spacehub",
+         model: "Ford",
+         age: 1985,
+         condition: "New",
+      },
+      {
+         mark: "Mercedes-Benz",
+         company: "Auto22",
+         model: "Porter",
+         age: 2013,
+         condition: "New",
       },
    ];
+   var isMarkVisible = false;
+   var isCompanyVisible = false;
+   var isModelVisible = false;
+   var isAgeVisible = false;
+   var isConditionVisible = false;
+   function showMark() {
+      isMarkVisible = !isMarkVisible;
+   }
+   function showCompany() {
+      isCompanyVisible = !isCompanyVisible;
+   }
+   function showModel() {
+      isModelVisible = !isModelVisible;
+   }
+   function showAge() {
+      isAgeVisible = !isAgeVisible;
+   }
+   function showCondition() {
+      isConditionVisible = !isConditionVisible;
+   }
 </script>
 
 <div class="dashboard">
-   <ul id="data-list">
-      {#each car as item}
-         <li>{item.mark}</li>
-      {/each}
+   <h4>Автомашин хайх</h4>
+   <ul id="data-list ">
+      <ul class="menu">
+         <li on:click={showMark}>
+            Төрөл<span
+               >{#if isMarkVisible}
+                  ▲
+               {:else}
+                  ▼
+               {/if}
+            </span>
+         </li>
+         {#if isMarkVisible}
+            <div>
+               {#each car as item}
+                  <li>{item.mark}</li>
+               {/each}
+            </div>
+         {/if}
+      </ul>
+      <ul class="menu">
+         <li on:click={showCompany}>
+            Үйлдвэрлэгч<span
+               >{#if isCompanyVisible}
+                  ▲
+               {:else}
+                  ▼
+               {/if}
+            </span>
+         </li>
+         {#if isCompanyVisible}
+            <div>
+               {#each car as item}
+                  <li>{item.company}</li>
+               {/each}
+            </div>
+         {/if}
+      </ul>
+      <ul class="menu">
+         <li on:click={showModel}>
+            Загвар<span
+               >{#if isModelVisible}
+                  ▲
+               {:else}
+                  ▼
+               {/if}
+            </span>
+         </li>
+         {#if isModelVisible}
+            <div>
+               {#each car as item}
+                  <li>{item.model}</li>
+               {/each}
+            </div>
+         {/if}
+      </ul>
+      <ul class="menu">
+         <li on:click={showAge}>
+            Он<span
+               >{#if isAgeVisible}
+                  ▲
+               {:else}
+                  ▼
+               {/if}
+            </span>
+         </li>
+         {#if isAgeVisible}
+            <div>
+               {#each car as item}
+                  <li>{item.age}</li>
+               {/each}
+            </div>
+         {/if}
+      </ul>
+      <ul class="menu">
+         <li on:click={showCondition}>
+            Нөхцөл<span
+               >{#if isConditionVisible}
+                  ▲
+               {:else}
+                  ▼
+               {/if}
+            </span>
+         </li>
+         {#if isConditionVisible}
+            <div>
+               {#each car as item}
+                  <li>{item.condition}</li>
+               {/each}
+            </div>
+         {/if}
+      </ul>
    </ul>
 </div>
 
 <style>
-   :root {
-      --background-color: #f0f0f0;
+   span {
+      position: relative;
+      left: 20%;
    }
 
    .dashboard {
+      user-select: none; /* Standard syntax */
       position: relative;
-      background-color: var(--background-color);
+      background-color: var(--primary-color);
       width: 100vw;
-      max-width: 1200px;
-      height: 30vh;
+      max-width: 90vw;
+      height: 20vh;
       border-radius: 10px;
-      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.35);
       margin: 2% auto;
    }
 
    ul {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       grid-gap: 10px;
       padding: 10px;
       list-style: none;
@@ -44,8 +182,27 @@
 
    ul li {
       text-align: center;
-      border-bottom: 1px solid #596a7b42;
+      width: 13rem;
       padding: 10px;
       cursor: pointer;
+      background: var(--background-color);
+      border-radius: 10px;
+   }
+   .menu {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 847847;
+   }
+   div {
+      border-radius: 10px;
+      background: var(--background-color);
+   }
+   h4 {
+      color: var(--background-color);
+      position: relative;
+      top: 0.3rem;
+      left: 2rem;
+      font-size: 2rem;
    }
 </style>
