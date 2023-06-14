@@ -12,6 +12,8 @@
     import News from "../components/News.svelte";
     import { API } from "../logic/api";
     import type { CarDto } from "car-api";
+    import LastAddedCars from "../components/LastAddedCars.svelte";
+    import Loading from "../components/loading.svelte";
 
     let busy = true;
     let error: any;
@@ -47,25 +49,22 @@
     <title>Home</title>
     <meta name="description" content="Svelte demo app" />
 </svelte:head>
-<Navbar on:showDiv={handleShowDiv} />
 <main>
     {#if busy}
-        Loading...
+        <Loading />
     {:else if error}
-        <span style="color:yellow">Error: {error}</span>
+        <span style="color:red">Error: {error}</span>
     {:else}
+        <Navbar on:showDiv={handleShowDiv} />
         <Dashboard />
-        <TrendingCars trending={posts.slice(0, 5)} />
+        <TrendingCars trending={posts} />
+        <LastAddedCars />
         <News />
-        <Slider />
+        <div>{posts}</div>
         {#each posts as post}
-            <div>{post}</div>
+            <div>{post.madeCompany}</div>
         {/each}
     {/if}
-    <Dashboard />
-    <TrendingCars trending={posts.slice(0, 5)} />
-    <News />
-    <Slider />
 </main>
 <Footer />
 <ApItest />

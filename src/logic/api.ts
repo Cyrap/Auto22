@@ -1,5 +1,8 @@
-import { CarApi } from "car-api";
+import { CarApi, UsersApi } from "car-api";
 
 export abstract class API {
-   static Car = new CarApi(undefined, "http://192.168.1.174:5262");
+   static baseUrl = "https://taiwnaa.dev.spacehub.mn";
+
+   static Car = new CarApi(undefined, API.baseUrl);
+   static User = new UsersApi(undefined, API.baseUrl);
 }

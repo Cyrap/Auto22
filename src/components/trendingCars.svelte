@@ -1,45 +1,90 @@
 <script lang="ts">
    import type { CarDto } from "car-api";
-
+   import { onMount } from "svelte";
    let imageUrls = [
       {
          url: "./src/img/images.jpg",
          description: "Land 200",
-         link: "/car", // Add the link property to the image object
+         link: "/car",
       },
       {
          url: "./src/img/porter.jpg",
          description: "Porter zarna",
-         link: "/car", // Add the link property to the image object
+         link: "/car",
       },
       {
          url: "./src/img/prius.jpg",
          description: "Prius",
-         link: "/car", // Add the link property to the image object
+         link: "/car",
       },
       {
          url: "./src/img/aqua.jpg",
          description: "Description 4",
-         link: "/car", // Add the link property to the image object
+         link: "/car",
       },
       {
          url: "./src/img/200.jpg",
          description: "Description 4",
-         link: "/car", // Add the link property to the image object
+         link: "/car",
       },
       {
          url: "./src/img/2653900c2ac3a978_large.jpg",
          description: "Description 4",
-         link: "/car", // Add the link property to the image object
+         link: "/car",
       },
       {
          url: "./src/img/hyundai-motor-group-a3vDd8hzuYs-unsplash.jpg",
          description: "Description 4",
-         link: "/car", // Add the link property to the image object
+         link: "/car",
       },
    ];
+   export let trending;
 
-   export let trending: CarDto[];
+   onMount(() => {
+      const scrollContent = document.getElementById(
+         "scroll-content"
+      ) as HTMLElement;
+      const leftButton = document.querySelector(
+         ".left-button"
+      ) as HTMLElement | null;
+      const rightButton = document.querySelector(
+         ".right-button"
+      ) as HTMLElement | null;
+
+      if (leftButton && rightButton) {
+         leftButton.addEventListener("click", () => {
+            scrollContent.scrollBy({
+               left: -250,
+               behavior: "smooth",
+            });
+         });
+
+         rightButton.addEventListener("click", () => {
+            scrollContent.scrollBy({
+               left: 250,
+               behavior: "smooth",
+            });
+         });
+
+         scrollContent.addEventListener("scroll", () => {
+            const scrollPosition = scrollContent.scrollLeft;
+            const scrollWidth = scrollContent.scrollWidth;
+            const containerWidth = scrollContent.clientWidth;
+
+            if (scrollPosition === 0) {
+               leftButton.style.display = "none";
+            } else {
+               leftButton.style.display = "block";
+            }
+
+            if (scrollPosition + containerWidth >= scrollWidth) {
+               rightButton.style.display = "none";
+            } else {
+               rightButton.style.display = "block";
+            }
+         });
+      }
+   });
 </script>
 
 <div class="container">
@@ -49,13 +94,12 @@
       data-prev-percentage="0"
       class="scrollable-container"
    >
-      <h4>Онцлох автомашинууд</h4>
+      <h4>Сүүлд нэмэгдсэн автомашинууд</h4>
       <div id="scroll-content">
          {#each imageUrls as { url, description, link }}
             <div class="image-container">
                <div class="image-wrapper">
                   <a href={link}>
-                     <!-- Wrap the img element with an a tag and set the href attribute -->
                      <img src={url} class="image" alt="img" />
                   </a>
                   <div class="image-description">{description}</div>
@@ -64,6 +108,8 @@
             </div>
          {/each}
       </div>
+      <button class="scroll-button left-button">&lt;</button>
+      <button class="scroll-button right-button">&gt;</button>
    </div>
 </div>
 
@@ -73,26 +119,28 @@
       width: 100vw;
       align-items: center;
       justify-content: center;
+      overflow: hidden; /* Added to prevent horizontal scrollbar */
    }
+
    .scrollable-container {
       position: relative;
-      width: 90vw; /* Set the desired width for the scrollable container */
+      width: 90vw;
       overflow: hidden;
-      -webkit-overflow-scrolling: touch; /* Enable momentum scrolling on iOS devices */
+      -webkit-overflow-scrolling: touch;
    }
+
    h4 {
       position: relative;
       left: 5%;
       font-size: 1.5rem;
+      margin-top: 0; /* Added to remove default margin */
    }
+
    #scroll-content {
       display: flex;
       gap: 4vmin;
       margin: 30px;
-      overflow-x: scroll;
-      overflow-y: hidden;
-      -ms-overflow-style: none; /* Hide scrollbar on Internet Explorer and Edge */
-      scrollbar-width: none; /* Hide scrollbar on Firefox */
+      overflow: hidden;
       scroll-snap-type: x mandatory;
    }
 
@@ -148,6 +196,9 @@
       border-radius: 20px;
       font-weight: bold;
       font-size: 1.2rem;
+      cursor: pointer; /* Added cursor pointer on hover */
+      border: none; /* Removed default button border */
+      outline: none; /* Removed default button outline */
    }
 
    .image-wrapper:hover .image {
@@ -156,5 +207,35 @@
 
    .image-wrapper:hover .more-button {
       opacity: 1;
+   }
+
+   .scroll-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      background-color: transparent;
+      border: none;
+      color: #333;
+      font-size: 1.5rem;
+      transition: color 0.3s;
+      background: rgba(0, 0, 0, 0.364);
+      padding: 10px 10px; /* Adjusted padding for better button appearance */
+      cursor: pointer; /* Added cursor pointer on hover */
+      outline: none; /* Removed default button outline */
+      border-radius: 10px;
+   }
+
+   .scroll-button:hover {
+      color: #000;
+   }
+
+   .left-button {
+      left: 5px;
+   }
+
+   .right-button {
+      right: 5px;
    }
 </style>

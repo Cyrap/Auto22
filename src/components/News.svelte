@@ -26,26 +26,25 @@
    {#each cars as car}
       <div class="feed">
          <div class="car">
-            <div class="image-wrapper">
-               <img src={car.src} alt="car" />
-            </div>
+            <img src={car.src} alt="car-image" />
             <div class="information">
                <div class="first">
                   <h4>{car.mark}</h4>
                   <ul>
-                     <li>Main informations here...</li>
-                     <li>Main informations here...</li>
-                     <li>Main informations here...</li>
-                     <li>Main informations here...</li>
-                     <li>Main informations here...</li>
-                     <li>Main informations here...</li>
-                     <li>Main informations here...</li>
-                     <li>Main informations here...</li>
+                     <li />
+                     <p>Main informations here...</p>
+                     <p>Main informations here...</p>
+                     <p>Main informations here...</p>
+                     <p>Main informations here...</p>
+                     <p>Main informations here...</p>
+                     <p>Main informations here...</p>
+                     <p>Main informations here...</p>
+                     <p>Main informations here...</p>
                   </ul>
                </div>
                <div class="main">
-                  <div class="price"><a href="/car">Price</a></div>
-                  <div class="contact">Contact</div>
+                  <div class="price"><a href="/car">price</a></div>
+                  <div class="contact">Утас</div>
                </div>
             </div>
          </div>
@@ -54,91 +53,61 @@
 </div>
 
 <style>
-   :root {
-      --secondary-color: #6c757d; /* Secondary color (gray) */
-      --accent-color: #ffc107; /* Accent color (yellow) */
-      --text-color: #333333; /* Text color (dark gray) */
-      --background-color: #ffffff; /* Background color (white) */
-   }
-
    .container {
       display: flex;
       flex-direction: column;
+      height: inherit;
       align-items: center;
-      padding: 2rem;
    }
-
    .car {
       background-color: var(--background-color);
+      height: 20vh;
       width: 70vw;
-      height: auto;
+      border-bottom: 4px solid;
+      height: 15rem;
       display: grid;
       grid-template-columns: 1fr 2.5fr;
       box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
          rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
          rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
    }
-
-   .image-wrapper {
-      height: 100%;
-      display: flex;
-      align-items: center;
-   }
-
-   img {
-      height: 100%;
-      width: 100%;
-      object-fit: cover;
-      object-position: center;
-   }
-
    .information {
       display: grid;
       grid-template-columns: 3fr 1fr;
-      padding: 1rem;
    }
-
    .first {
-      padding-right: 1rem;
+      padding-left: 2rem;
    }
-
    h4 {
       font-size: 2rem;
-      margin-bottom: 1rem;
+      margin-left: 20px;
    }
-
    ul {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 0.5rem;
-      margin-bottom: 1rem;
    }
-
-   li {
-      list-style-type: disc;
-      margin-left: 1.5rem;
+   img {
+      height: 30vh;
+      width: 30vw;
+      object-fit: cover;
+      object-position: center;
    }
-
    .main > div {
-      padding: 0.5rem;
+      position: relative;
+      padding: 10px 30px;
       border-radius: 10px;
       font-size: 1.4rem;
       text-align: center;
-      margin: 0.5rem;
+      margin: 10px;
+      width: 50px;
    }
-
    .contact {
       background: var(--primary-color);
-      color: white;
    }
-
    .price {
       background: var(--secondary-color);
-      color: white;
    }
-
    a {
       color: var(--background-color);
-      text-decoration: none;
    }
 </style>
