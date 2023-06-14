@@ -53,9 +53,9 @@
         <span style="color:red">Error: {error}</span>
     {:else}
         <Navbar on:showDiv={handleShowDiv} />
-        <Dashboard />
+        <Dashboard {posts} />
         <TrendingCars trending={posts} />
-        <News />
+        <News {posts} />
         <Footer />
         {#each posts as post}
             <div>

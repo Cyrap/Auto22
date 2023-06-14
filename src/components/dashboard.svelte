@@ -1,4 +1,6 @@
-<script>
+<script lang="ts">
+   import type { CarDto } from "car-api";
+   export let posts: CarDto[] = [];
    const car = [
       {
          mark: "toyota",
