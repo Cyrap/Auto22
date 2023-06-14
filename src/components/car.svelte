@@ -1,6 +1,7 @@
 <script lang="ts">
    import { createEventDispatcher } from "svelte";
-
+   import type { CarDto } from "car-api";
+   export let posts: CarDto[] = [];
    export let isInfoVisible: boolean = true;
    const dispatch = createEventDispatcher();
 
@@ -29,21 +30,6 @@
          current = 1;
       }
    }
-   let slideIndex = 1;
-   // const slides = [
-   //    {
-   //       src: "https://images.unsplash.com/photo-1524781289445-ddf8f5695861?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-   //       text: "Caption Text",
-   //    },
-   //    {
-   //       src: "https://images.unsplash.com/photo-1610194352361-4c81a6a8967e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80",
-   //       text: "Caption Two",
-   //    },
-   //    {
-   //       src: "https://images.unsplash.com/photo-1618202133208-2907bebba9e1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-   //       text: "Caption Three",
-   //    },
-   // ];
 </script>
 
 <div class:register={isInfoVisible} class:hidden={!isInfoVisible}>
@@ -84,7 +70,11 @@
          </div>
       </div>
       <div class="second">
-         <h3>Toyota</h3>
+         <h3>
+            {#each posts as post}
+               {post.model}
+            {/each}
+         </h3>
          <div class="rate-container">
             <span class="rate-icon">&#9733;</span>
             <span class="rate-icon">&#9733;</span>
@@ -95,9 +85,22 @@
          <form action="">
             <div id="form-container">
                <form action="">
-                  <div class="list">object</div>
-                  <div class="list">object</div>
-                  <div class="list">object</div>
+                  <div class="list">
+                     {#each posts as post}
+                        Үйлдвэрлэсэн газар: {post.madeCompany}
+                     {/each}
+                  </div>
+                  <div class="list">
+                     {#each posts as post}
+                        Загвар: {post.model}
+                     {/each}
+                  </div>
+                  <div class="list">
+                     {#each posts as post}
+                        Үйлдвэрлэсэн он:
+                        {post.madeYear}
+                     {/each}
+                  </div>
                </form>
             </div>
          </form>

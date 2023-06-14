@@ -1,19 +1,14 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    // Машиний үндсэн мэдээлэл хадгалах object
-    import CarList from "../components/carList.svelte";
-    import Footer from "../components/footer.svelte";
-    import Navbar from "./navbar.svelte";
-    import Dashboard from "../components/dashboard.svelte";
-    import Slider from "../components/slider.svelte";
-    import PageButton from "../components/pageButton.svelte";
-    import TrendingCars from "../components/trendingCars.svelte";
-    import ApItest from "../components/APItest.svelte";
-    import News from "../components/News.svelte";
     import { API } from "../logic/api";
     import type { CarDto } from "car-api";
-    import LastAddedCars from "../components/LastAddedCars.svelte";
+    import Footer from "../components/footer.svelte";
+    import Navbar from "../components/navbar.svelte";
+    import Dashboard from "../components/dashboard.svelte";
+    import TrendingCars from "../components/trendingCars.svelte";
+    import News from "../components/News.svelte";
     import Loading from "../components/loading.svelte";
+    import Car from "../components/car.svelte";
 
     let busy = true;
     let error: any;
@@ -29,9 +24,9 @@
 
         try {
             const res = await API.Car.apiCarGet();
-            console.log(res.data);
+            console.log(res.data.items);
 
-            return res.data;
+            return res.data.items ?? [];
         } catch (e) {
             error = e;
         } finally {
@@ -44,6 +39,8 @@
         posts = await getPosts();
     });
 </script>
+
+<Car {posts} />
 
 <svelte:head>
     <title>Home</title>
@@ -58,13 +55,17 @@
         <Navbar on:showDiv={handleShowDiv} />
         <Dashboard />
         <TrendingCars trending={posts} />
-        <LastAddedCars />
         <News />
-        <div>{posts}</div>
+        <Footer />
         {#each posts as post}
-            <div>{post.madeCompany}</div>
+            <div>
+                <p>OID: {post.oid}</p>
+                <p>Made Company: {post.madeCompany}</p>
+                <p>Model: {post.model}</p>
+                <p>Made Year: {post.madeYear}</p>
+                <p>Made Month: {post.madeMonth}</p>
+                <!-- Add other properties as needed -->
+            </div>
         {/each}
     {/if}
 </main>
-<Footer />
-<ApItest />

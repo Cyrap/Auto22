@@ -1,171 +1,5 @@
 <script lang="ts">
-   import { onMount } from "svelte";
-   export var car: {
-      mark: string; //toyota
-      age: number; // orj irsen on
-      color: string; //ongo
-      id: number; // zogsooliin dugaar
-      roadTraveled: number; // gvilt
-      power: number; // HPs
-      leasing: boolean; //lizingtei eseh
-      hutlugch: string; // hotlogchiin utga
-      engine: string; // mototiin torol hybrid eswel torol
-      type: string; // torol a b c
-      company: string; // vildwerlesen gazar
-      made: number; // vildwerlesen on
-      hvrd: string; // zow buruu
-      engineCapacity: number; // hodolgvvriin bagtaamj
-      hrop: string; // hrop
-      phone: number; // holbiogdoh duugaar
-      ageMonth: number; //vildwerlesen sar
-      condition: boolean; //dugaartai dugaargvi eseh
-      number: number; // dugaar
-      carCategoryId: number;
-   } = {
-      mark: "", //toyota
-      age: 0, // orj irsen on
-      color: "", //ongo
-      id: 0, // zogsooliin dugaar
-      roadTraveled: 0, // gvilt
-      power: 0, // HPs
-      leasing: false, //lizingtei eseh
-      hutlugch: "", // hotlogchiin utga
-      engine: "", // mototiin torol hybrid eswel torol
-      type: "", // torol a b c
-      company: "", // vildwerlesen gazar
-      made: 0, // vildwerlesen on
-      hvrd: "", // zow buruu
-      engineCapacity: 0, // hodolgvvriin bagtaamj
-      hrop: "", // hrop
-      phone: 0, // holbiogdoh duugaar
-      ageMonth: 0, //vildwerlesen sar
-      condition: false, //dugaartai dugaargvi eseh
-      number: 0, // dugaar
-      carCategoryId: 1,
-   };
-
-   let cars2: {
-      color: string;
-      age: number;
-      model: string; //toyota
-   }[] = [];
-
-   function addCar() {
-      const newCar2 = {
-         color: "Red",
-         age: 3,
-         model: "Sedan",
-         // Add other properties as needed
-      };
-      cars2 = [...cars2, newCar2];
-   }
-   let cars: {
-      mark: string; //toyota
-      age: number; // orj irsen on
-      color: string; //ongo
-      id: number; // zogsooliin dugaar
-      roadTraveled: number; // gvilt
-      power: number; // HPs
-      leasing: boolean; //lizingtei eseh
-      hutlugch: string; // hotlogchiin utga
-      engine: string; // mototiin torol hybrid eswel torol
-      type: string; // torol a b c
-      company: string; // vildwerlesen gazar
-      made: number; // vildwerlesen on
-      hvrd: string; // zow buruu
-      engineCapacity: number; // hodolgvvriin bagtaamj
-      hrop: string; // hrop
-      phone: number; // holbiogdoh duugaar
-      ageMonth: number; //vildwerlesen sar
-      condition: boolean; //dugaartai dugaargvi eseh
-      number: number; // dugaar
-      carCategoryId: number;
-   }[] = [];
-   function clone<T>(source: T): T {
-      if (source === null || typeof source !== "object") {
-         return source;
-      }
-
-      if (Array.isArray(source)) {
-         return source.map((item) => clone(item)) as unknown as T;
-      }
-
-      const clonedObj = Object.create(Object.getPrototypeOf(source));
-
-      for (const key in source) {
-         if (Object.prototype.hasOwnProperty.call(source, key)) {
-            clonedObj[key] = clone(source[key]);
-         }
-      }
-      return clonedObj;
-   }
-   var clone1 = {
-      age: 21,
-      name: "testClone",
-   };
-   function saveCar() {
-      cars.push(clone(car));
-      clearCar();
-   }
-   // console.log(clone(car));
-   function clearCar() {
-      car = {
-         mark: "", //toyota
-         age: 0, // orj irsen on
-         color: "", //ongo
-         id: 0, // zogsooliin dugaar
-         roadTraveled: 0, // gvilt
-         power: 0, // HPs
-         leasing: false, //lizingtei eseh
-         hutlugch: "", // hotlogchiin utga
-         engine: "", // mototiin torol hybrid eswel torol
-         type: "", // torol a b c
-         company: "", // vildwerlesen gazar
-         made: 0, // vildwerlesen on
-         hvrd: "", // zow buruu
-         engineCapacity: 0, // hodolgvvriin bagtaamj
-         hrop: "", // hrop
-         phone: 0, // holbiogdoh duugaar
-         ageMonth: 0, //vildwerlesen sar
-         condition: false, //dugaartai dugaargvi eseh
-         number: 0, // dugaar
-         carCategoryId: 1,
-      };
-   }
-
-   // Bvrtgeliin formig hargddag bolgoh
-   var carCategories = [
-      {
-         id: 1,
-         name: "toyota",
-      },
-      {
-         id: 2,
-         name: "nissan",
-      },
-      {
-         id: 3,
-         name: "Ford",
-      },
-      {
-         id: 3,
-         name: "Chevrolet",
-      },
-   ];
-   // hereglegchees orj irsen mashinii medeellvdig niited n hadgalah function
-   let list: HTMLUListElement;
-   onMount(() => {
-      if (list) {
-         for (let item of carCategories) {
-            let text = document.createTextNode(item.name);
-            let listItem = document.createElement("li");
-            listItem.appendChild(text);
-            list.appendChild(listItem);
-         }
-      }
-   });
    import { createEventDispatcher } from "svelte";
-   import { each } from "svelte/internal";
 
    export let isDivVisible = true;
    const dispatch = createEventDispatcher();
@@ -187,20 +21,9 @@
 >
    <div class="register-container">
       <h2>Машын бүртгэлийн хэсэг</h2>
-      <form on:submit|preventDefault={addCar}>
+      <form>
          <div class="form-group">
-            {#each Object.keys(car) as key}
-               <div>
-                  <label class="form-label" for={key}>{key}</label>
-                  <input
-                     class="form-input"
-                     type="text"
-                     bind:value={car[key]}
-                     required
-                  />
-               </div>
-            {/each}
-
+            <a href="/car" />
             <div>
                <a href="/admin" class="exit">
                   <button id="remove-register-form">
@@ -212,7 +35,7 @@
             </div>
          </div>
          <div />
-         <button class="submitButton" on:click={addCar}>Add</button>
+         <button>Add</button>
       </form>
    </div>
 </section>
@@ -264,20 +87,6 @@
       flex-direction: column;
    }
 
-   .form-group > div input {
-      background: rgba(214, 214, 214, 0.675);
-      width: 70%;
-      padding: 0.5rem;
-      border-radius: 15px;
-      height: 1rem;
-      margin-top: -8%;
-   }
-
-   .form-label {
-      margin-bottom: 3.3rem;
-      font-weight: bold;
-   }
-
    #remove-register-form {
       display: flex;
       align-items: center;
@@ -322,28 +131,5 @@
       opacity: 1;
       transform: rotate(150deg);
       transition: 0.5s ease-in-out;
-   }
-   .submitButton {
-      width: 100px;
-      padding: 10px 20px;
-      border-radius: 60px;
-      position: relative;
-      top: 10%;
-      left: 90%;
-      background: var(--hover-color);
-      color: var(--primary-color);
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 1.3rem;
-   }
-   .submitButton:hover {
-      margin: -3px -3px;
-      padding: 13px 23px;
-   }
-   @media screen and (min-width: 1700px) {
-      .form-label {
-         margin-bottom: 4rem;
-         font-weight: bold;
-      }
    }
 </style>
