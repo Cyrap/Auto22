@@ -31,13 +31,28 @@
         } finally {
             busy = false;
         }
-
         return [];
     };
     onMount(async () => {
         posts = await getPosts();
     });
+
+    import CarButton from "../components/CarButton.svelte";
+
+    let selectedCar: CarDto | null;
+
+    const onClose = () => {
+        selectedCar = null;
+    };
 </script>
+
+{#each posts as post}
+    <CarButton {post} on:carClicked={(event) => (selectedCar = event.detail)} />
+{/each}
+
+{#if selectedCar}
+    <Car post={selectedCar} {onClose} />
+{/if}
 
 <svelte:head>
     <title>Home</title>
@@ -49,7 +64,7 @@
     {:else if error}
         <span style="color:red">Error: {error}</span>
     {:else}
-        <Car info={posts} />
+        <!-- <Car info={posts} /> -->
         <Navbar on:showDiv={handleShowDiv} />
         <Dashboard {posts} />
         <TrendingCars trending={posts} />
@@ -57,3 +72,4 @@
         <Footer />
     {/if}
 </main>
+<Loading />

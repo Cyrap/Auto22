@@ -1,6 +1,6 @@
 <div>
    <a class="exit">
-      <button id="remove-register-form">
+      <button id="remove-register-form" on:click on:dblclick>
          <div id="toogle">
             <div />
          </div>

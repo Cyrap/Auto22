@@ -2,7 +2,7 @@
    import type { CarDto } from "car-api";
    import Car from "./car.svelte";
    import { onMount } from "svelte";
-   export let posts: CarDto[] = [];
+   import CloseButton from "./CloseButton.svelte";
    let imageUrls = [
       {
          url: "./src/img/images.jpg",
@@ -89,9 +89,10 @@
    console.log("Trending car data working: ", { trending });
 </script>
 
-{#if isCarExpanded}
-   <Car />
-{/if}
+<div />
+<!-- {#if isCarExpanded}
+   <Car {car=selectedCar}/>
+{/if} -->
 
 <div class="container">
    <div

@@ -1,43 +1,38 @@
 <script lang="ts">
    import type { CarDto } from "car-api";
    export let posts: CarDto[] = [];
-   var cars = [
-      {
-         mark: "sonata",
-         src: "./src/img/hyundai-motor-group-a3vDd8hzuYs-unsplash.jpg",
-      },
-   ];
 </script>
 
 <div class="container">
-   {#each cars as car}
-      <div class="feed">
+   <div class="feed">
+      {#each posts as post}
          <div class="car">
-            {#each posts as post}
-               <div class="image-wrapper">
-                  <img src={car.src} alt="car" />
+            <div class="image-wrapper">
+               <img
+                  src="./src/img/hyundai-motor-group-a3vDd8hzuYs-unsplash.jpg"
+                  alt="car"
+               />
+            </div>
+            <div class="information">
+               <div class="first">
+                  <h4>{post.model}</h4>
+                  <ul>
+                     {#each Object.entries(post) as [key, value]}
+                        <li>
+                           <strong>{key}:</strong>
+                           {value}
+                        </li>
+                     {/each}
+                  </ul>
                </div>
-               <div class="information">
-                  <div class="first">
-                     <h4>{car.mark}</h4>
-                     <ul>
-                        {#each Object.entries(post) as [key, value]}
-                           <li>
-                              <strong>{key}:</strong>
-                              {value}
-                           </li>
-                        {/each}
-                     </ul>
-                  </div>
-                  <div class="main">
-                     <div class="price"><a href="/car">Price</a></div>
-                     <div class="contact">Contact</div>
-                  </div>
+               <div class="main">
+                  <div class="price"><a href="/car">Price</a></div>
+                  <div class="contact">Contact</div>
                </div>
-            {/each}
+            </div>
          </div>
-      </div>
-   {/each}
+      {/each}
+   </div>
 </div>
 
 <style>
@@ -64,6 +59,8 @@
       box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
          rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
          rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+      /* border-bottom: 5px solid; */
+      margin-bottom: 1rem;
    }
 
    .image-wrapper {
