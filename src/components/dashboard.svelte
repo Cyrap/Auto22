@@ -1,6 +1,8 @@
 <script lang="ts">
    import type { CarDto } from "car-api";
    export let posts: CarDto[] = [];
+   console.log("here is dashboard's :", posts);
+
    const car = [
       {
          mark: "toyota",
@@ -184,7 +186,7 @@
 
    ul li {
       text-align: center;
-      width: 13rem;
+      width: 140px;
       padding: 10px;
       cursor: pointer;
       background: var(--background-color);
@@ -194,7 +196,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      z-index: 847847;
+      z-index: 1;
    }
    div {
       border-radius: 10px;

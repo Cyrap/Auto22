@@ -1,9 +1,9 @@
 const { readFileSync, writeFileSync, createWriteStream, unlink } = require('fs');
-const { get } = require('http');
+const { get } = require('https');
 // const { get } = require('https');
 const { exec, execSync } = require("child_process");
 
-const definitions = "http://taiwnaa.dev.spacehub.mn/swagger/v1/swagger.json";
+const definitions = "https://taiwnaa.dev.spacehub.mn/swagger/v1/swagger.json";
 
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 1;
 // const host = "localhost:44302";

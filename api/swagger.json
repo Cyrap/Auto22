@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "AutoShop",
-    "version": "1.0"
+    "title": "JWTToken_Auth_API",
+    "version": "v1"
   },
   "paths": {
     "/api/Car": {
@@ -435,6 +435,11 @@
           "carNumber": {
             "type": "integer",
             "format": "int32"
+          },
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -532,6 +537,18 @@
         },
         "additionalProperties": false
       }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
+      }
     }
-  }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
 }

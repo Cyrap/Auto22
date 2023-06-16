@@ -9,7 +9,6 @@
     import News from "../components/News.svelte";
     import Loading from "../components/loading.svelte";
     import Car from "../components/car.svelte";
-
     let busy = true;
     let error: any;
 
@@ -40,8 +39,6 @@
     });
 </script>
 
-<Car {posts} />
-
 <svelte:head>
     <title>Home</title>
     <meta name="description" content="Svelte demo app" />
@@ -52,20 +49,11 @@
     {:else if error}
         <span style="color:red">Error: {error}</span>
     {:else}
+        <Car info={posts} />
         <Navbar on:showDiv={handleShowDiv} />
         <Dashboard {posts} />
         <TrendingCars trending={posts} />
         <News {posts} />
         <Footer />
-        {#each posts as post}
-            <div>
-                <p>OID: {post.oid}</p>
-                <p>Made Company: {post.madeCompany}</p>
-                <p>Model: {post.model}</p>
-                <p>Made Year: {post.madeYear}</p>
-                <p>Made Month: {post.madeMonth}</p>
-                <!-- Add other properties as needed -->
-            </div>
-        {/each}
     {/if}
 </main>

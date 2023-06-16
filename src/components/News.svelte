@@ -13,28 +13,28 @@
    {#each cars as car}
       <div class="feed">
          <div class="car">
-            <div class="image-wrapper">
-               <img src={car.src} alt="car" />
-            </div>
-            <div class="information">
-               <div class="first">
-                  <h4>{car.mark}</h4>
-                  <ul>
-                     {#each posts as post}
+            {#each posts as post}
+               <div class="image-wrapper">
+                  <img src={car.src} alt="car" />
+               </div>
+               <div class="information">
+                  <div class="first">
+                     <h4>{car.mark}</h4>
+                     <ul>
                         {#each Object.entries(post) as [key, value]}
                            <li>
                               <strong>{key}:</strong>
                               {value}
                            </li>
                         {/each}
-                     {/each}
-                  </ul>
+                     </ul>
+                  </div>
+                  <div class="main">
+                     <div class="price"><a href="/car">Price</a></div>
+                     <div class="contact">Contact</div>
+                  </div>
                </div>
-               <div class="main">
-                  <div class="price"><a href="/car">Price</a></div>
-                  <div class="contact">Contact</div>
-               </div>
-            </div>
+            {/each}
          </div>
       </div>
    {/each}

@@ -1,11 +1,11 @@
 <script lang="ts">
    import { createEventDispatcher } from "svelte";
    import type { CarDto } from "car-api";
-
-   export let posts: CarDto[] = [];
+   import CloseButton from "./CloseButton.svelte";
    export let isInfoVisible: boolean = true;
    const dispatch = createEventDispatcher();
-
+   export let info: CarDto[] = [];
+   console.log(info);
    function hideCarInfo() {
       isInfoVisible = false;
    }
@@ -33,6 +33,7 @@
    function toggleImage() {
       isImageExpanded = !isImageExpanded;
    }
+   console.log("is car data working? :", { info });
 </script>
 
 <div class:register={isInfoVisible} class:hidden={!isInfoVisible}>
@@ -40,7 +41,7 @@
       <div class="slideshow-container">
          <div class="containerOfImage">
             {#if current == 1}
-               <div class="img">
+               <div class="img" class:Divexpanded={isImageExpanded}>
                   <img
                      src="./src/img/VX-High01.jpg"
                      alt="Image1s"
@@ -56,7 +57,7 @@
             {/if}
 
             {#if current == 2}
-               <div class="img">
+               <div class="img" class:Divexpanded={isImageExpanded}>
                   <img
                      src="./src/img/200.jpg"
                      alt="img2"
@@ -72,7 +73,7 @@
             {/if}
 
             {#if current == 3}
-               <div class="img">
+               <div class="img" class:Divexpanded={isImageExpanded}>
                   <img
                      src="./src/img/200-side.jpg"
                      alt=""
@@ -96,8 +97,8 @@
       </div>
       <div class="second">
          <h3>
-            {#each posts as post}
-               {post.model}
+            {#each info as i}
+               {i.madeCompany}
             {/each}
          </h3>
          <div class="rate-container">
@@ -110,8 +111,8 @@
          <form action="">
             <div id="form-container">
                <ul class="list">
-                  {#each posts as post}
-                     {#each Object.entries(post) as [key, value]}
+                  {#each info as i}
+                     {#each Object.entries(i) as [key, value]}
                         <li style="background: rgba(140, 104, 104, 0.215);">
                            <strong>{key}:</strong>
                            {value}
@@ -123,16 +124,26 @@
          </form>
       </div>
       <div class="third">
-         <button id="remove-register-form" on:click={hideCarInfo}>
-            <div class="toggle">
-               <div />
-            </div>
-         </button>
+         <div class="CloseButton" on:click={hideCarInfo}>
+            <CloseButton />
+         </div>
       </div>
    </div>
 </div>
 
 <style>
+   .CloseButton {
+      position: absolute;
+      left: 90%;
+      top: 2%;
+   }
+   .expanded {
+      z-index: 1;
+      width: 90vw;
+      height: 90vh;
+      background: blue;
+   }
+
    .hidden {
       display: none;
    }
@@ -144,6 +155,17 @@
 
    .main-container {
       display: flex;
+      background: var(--background-color);
+      position: absolute;
+      top: 0%;
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
    }
 
    .second {
@@ -170,7 +192,7 @@
    .slideshow-container {
       height: 100vh;
       width: 50%;
-      background-color: #717171;
+      background-color: var(--primary-color);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -212,23 +234,36 @@
       list-style: none;
       padding: 10px;
    }
-
-   button {
-      background-color: var(--disabled);
-      padding: 10px;
-      margin-top: 10px;
-      position: relative;
-      z-index: 989;
-      color: var(--background-color);
-      left: 50%;
-      width: 50px;
-      height: 50px;
-      border: none;
-      font-size: 2rem;
-      border-radius: 50%;
-      cursor: pointer;
+   .Divexpanded {
+      position: sticky;
    }
-
+   .Divexpanded {
+      position: absolute;
+      top: 0%;
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+      background: rgba(34, 32, 32, 0.748);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+   }
+   .Divexpanded ~ .inc {
+      font-size: 5rem;
+      left: 80vw;
+      top: 28vh;
+      transition: 0s;
+   }
+   .Divexpanded ~ .dec {
+      font-size: 5rem;
+      top: 28vh;
+      transition: 0s;
+   }
+   .close-button {
+      position: relative;
+      left: 50vw;
+      display: none;
+   }
    .containerOfImage {
       width: 500px;
       height: 400px;
@@ -247,7 +282,6 @@
       width: auto;
       padding: 44px 15px;
       margin-top: -20%;
-      background: none;
       font-weight: bold;
       font-size: 18px;
       transition: 0.6s ease;
@@ -258,6 +292,7 @@
       position: relative;
       top: -55%;
       border: none;
+      background: none;
    }
 
    .inc {

@@ -39,7 +39,7 @@ a {
 }
 
 ::-webkit-scrollbar {
-   width: 20px;
+   width: 12px;
 }
 
 ::-webkit-scrollbar-track {
@@ -48,10 +48,10 @@ a {
 }
 
 ::-webkit-scrollbar-thumb {
-   background: var(--primary-color);
+   background: var(--disabled);
    border-radius: 10px;
 }
 
-::-webkit-scrollbar-thumb:hover {
+s::-webkit-scrollbar-thumb:hover {
    background: var(--text-color);
 }

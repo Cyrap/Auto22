@@ -1,44 +1,40 @@
 <script lang="ts">
    import type { CarDto } from "car-api";
+   import Car from "./car.svelte";
    import { onMount } from "svelte";
+   export let posts: CarDto[] = [];
    let imageUrls = [
       {
          url: "./src/img/images.jpg",
          description: "Land 200",
-         link: "/car",
       },
       {
          url: "./src/img/porter.jpg",
          description: "Porter zarna",
-         link: "/car",
       },
       {
          url: "./src/img/prius.jpg",
          description: "Prius",
-         link: "/car",
       },
       {
          url: "./src/img/aqua.jpg",
          description: "Description 4",
-         link: "/car",
       },
       {
          url: "./src/img/200.jpg",
          description: "Description 4",
-         link: "/car",
       },
       {
          url: "./src/img/2653900c2ac3a978_large.jpg",
          description: "Description 4",
-         link: "/car",
       },
       {
          url: "./src/img/hyundai-motor-group-a3vDd8hzuYs-unsplash.jpg",
          description: "Description 4",
-         link: "/car",
       },
    ];
-   export let trending;
+   export let trending: CarDto[] = [];
+   console.log(trending);
 
    onMount(() => {
       const scrollContent = document.getElementById(
@@ -85,7 +81,17 @@
          });
       }
    });
+   let isCarExpanded = false;
+   function toggleImage() {
+      isCarExpanded = !isCarExpanded;
+   }
+
+   console.log("Trending car data working: ", { trending });
 </script>
+
+{#if isCarExpanded}
+   <Car />
+{/if}
 
 <div class="container">
    <div
@@ -95,25 +101,49 @@
       class="scrollable-container"
    >
       <h4>Сүүлд нэмэгдсэн автомашинууд</h4>
+      <button class="scroll-button left-button">&lt;</button>
       <div id="scroll-content">
-         {#each imageUrls as { url, description, link }}
+         {#each imageUrls as { url, description }}
             <div class="image-container">
-               <div class="image-wrapper">
-                  <a href={link}>
-                     <img src={url} class="image" alt="img" />
-                  </a>
+               <div class="image-wrapper" on:click={toggleImage}>
+                  <img src={url} class="image" alt="img" />
                   <div class="image-description">{description}</div>
                   <button class="more-button">More</button>
                </div>
             </div>
          {/each}
+         {#each trending as { madeCompany }}
+            <div class="image-container">
+               <div class="image-wrapper" on:click={toggleImage}>
+                  <img
+                     src="./src/img/hyundai-motor-group-a3vDd8hzuYs-unsplash.jpg"
+                     class="image"
+                     alt="img"
+                  />
+                  <div class="image-description">{madeCompany}</div>
+                  <button class="more-button">More</button>
+               </div>
+            </div>
+         {/each}
       </div>
-      <button class="scroll-button left-button">&lt;</button>
+
       <button class="scroll-button right-button">&gt;</button>
    </div>
 </div>
 
 <style>
+   .CarPage {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+   }
+
    .container {
       display: flex;
       width: 100vw;
@@ -211,20 +241,16 @@
 
    .scroll-button {
       position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 40px;
-      height: 40px;
-      background-color: transparent;
+      top: 30%;
       border: none;
-      color: #333;
+      color: #ffffff;
       font-size: 1.5rem;
       transition: color 0.3s;
       background: rgba(0, 0, 0, 0.364);
-      padding: 10px 10px; /* Adjusted padding for better button appearance */
       cursor: pointer; /* Added cursor pointer on hover */
       outline: none; /* Removed default button outline */
       border-radius: 10px;
+      padding: 50px 10px;
    }
 
    .scroll-button:hover {
@@ -232,10 +258,14 @@
    }
 
    .left-button {
-      left: 5px;
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px;
+      left: 0px;
    }
 
    .right-button {
-      right: 5px;
+      border-top-left-radius: 0px;
+      border-bottom-left-radius: 0px;
+      right: -0px;
    }
 </style>
