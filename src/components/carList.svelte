@@ -1,152 +1,141 @@
 <script lang="ts">
-   import { onMount } from "svelte";
-
-   import CarElement from "./car.svelte";
-
-   interface Car {
-      mark: string;
-      age: number;
-      color: string;
-      phone: number;
-      roadTraveled: string;
-      power: number;
-   }
-
-   let cars: Car[] = [
-      // ... car objects
-      {
-         mark: "Kia",
-         age: 2023,
-         color: "black",
-         phone: 99111111,
-         roadTraveled: "0km",
-         power: 1000,
-      },
-   ];
-
-   let currentPage = 1;
-   const carsPerPage = 10; // Number of cars to display per page
-
-   function handleNextPage() {
-      currentPage++;
-   }
-
-   function handlePreviousPage() {
-      if (currentPage > 1) {
-         currentPage--;
-      }
-   }
-
-   function getCurrentCars(): Car[] {
-      const startIndex = (currentPage - 1) * carsPerPage;
-      const endIndex = startIndex + carsPerPage;
-      return cars.slice(startIndex, endIndex);
-   }
-
+   import { onMount, afterUpdate } from "svelte";
+   import type { CarDto } from "car-api";
+   import { createEventDispatcher } from "svelte";
+   const dispatch = createEventDispatcher();
+   export let posts: CarDto[] = [];
+   let columnWidths: Record<string, number> = {};
    onMount(() => {
-      // Fetch cars data from an API or perform any initialization tasks
+     if (posts.length > 0) {
+       const firstPost = posts[0];
+       for (const key in firstPost) {
+         columnWidths[key] = 0; // Set initial width (adjust as needed)
+       }
+     }
    });
-
-   let isInfoVisible = false;
-   const showCarInfo = () => {
-      isInfoVisible = true;
-   };
-
-   function handleNameChange(event: any, row: Car) {
-      row.mark = event.target.innerText;
+   afterUpdate(() => {
+     dispatch("columnWidthsUpdated", columnWidths);
+   });
+   let isResizing = false;
+   let startX = 0;
+   let startWidth = 0;
+   let resizingKey = "";
+   function handleMouseDown(event: MouseEvent, key: string) {
+     isResizing = true;
+     startX = event.clientX;
+     startWidth = columnWidths[key] || 0;
+     resizingKey = key;
    }
-
-   function handleAgeChange(event: any, row: Car) {
-      row.age = parseInt(event.target.innerText);
+   function handleMouseMove(event: MouseEvent) {
+     if (!isResizing) return;
+     const widthChange = event.clientX - startX;
+     columnWidths = {
+       ...columnWidths,
+       [resizingKey]: startWidth + widthChange,
+     };
    }
-</script>
-
-<CarElement bind:isInfoVisible />
-
-<div class="list-info">
-   <table id="carTable">
-      <thead>
-         <tr class="table-row">
-            <th>Автомашины марк</th>
-            <th>Үйлдвэрлэсэн он</th>
-            <th>Өнгө</th>
-            <th>Холбогдох утас</th>
-            <th>Туулсан зам</th>
-            <th>Дэлгэрэнгүй</th>
-         </tr>
-      </thead>
-      <tbody>
-         {#each getCurrentCars() as car}
-            <tr>
-               <td
-                  contenteditable="true"
-                  on:blur={(e) => handleNameChange(e, car)}>{car.mark}</td
+   function handleMouseUp() {
+     isResizing = false;
+     startX = 0;
+     startWidth = 0;
+     resizingKey = "";
+   }
+ </script>
+ <div class="list-info">
+   <div class="table-container">
+     {#if posts.length > 0}
+       <table id="carTable">
+         <thead>
+           <tr class="table-row">
+             {#each Object.entries(posts[0]) as [key, value]}
+               <th
+                 class="resizable"
+                 style="min-width: 50px; width: {columnWidths[key]}px;"
+                 on:mousedown={(event) => handleMouseDown(event, key)}
+                 on:mousemove={handleMouseMove}
+                 on:mouseup={handleMouseUp}
                >
-               <td
-                  contenteditable="true"
-                  on:blur={(e) => handleAgeChange(e, car)}>{car.age}</td
-               >
-               <td
-                  contenteditable="true"
-                  on:blur={(e) => handleNameChange(e, car)}>{car.color}</td
-               >
-               <td
-                  contenteditable="true"
-                  on:blur={(e) => handleNameChange(e, car)}>{car.phone}</td
-               >
-               <td
-                  contenteditable="true"
-                  on:blur={(e) => handleNameChange(e, car)}
-                  >{car.roadTraveled}</td
-               >
-               <td><button on:click={showCarInfo}>{car.mark}</button></td>
-            </tr>
-         {/each}
-      </tbody>
-   </table>
-</div>
-
-<style>
+                 <div
+                   class="resizer"
+                   on:mouseenter={() => document.body.style.cursor = 'col-resize'}
+                   on:mouseleave={() => document.body.style.cursor = ''}
+                 ></div>
+                 {key}
+               </th>
+             {/each}
+           </tr>
+         </thead>
+         <tbody>
+           {#each posts as post}
+             <tr>
+               {#each Object.values(post) as value}
+                 <td>{value}</td>
+               {/each}
+             </tr>
+           {/each}
+         </tbody>
+       </table>
+     {:else}
+       <p>No data available.</p>
+     {/if}
+   </div>
+ </div>
+ <style>
    .list-info {
-      margin-left: -30vw;
-      background: var(--background-color);
-      width: 90vw;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     height: inherit;
+     width: 100vw;
+     background: var(--primary-color);
    }
-
+ 
+   .table-container {
+     overflow-x: auto;
+     width: 90vw;
+   }
+ 
    table {
-      border-collapse: collapse;
-      width: 100%;
-      height: 90vh;
-      background: var(--background-color);
-      border: 2px solid;
-      position: relative;
-      left: 35vw;
+     border-collapse: collapse;
+     width: 100%;
+     background: var(--background-color);
+     border: 2px solid;
    }
-
-   td > button {
-      width: 100%;
-      height: 100%;
-   }
-
+ 
    th,
    td {
-      border: 1px solid var(--hover-color);
-      padding: 8px;
+     border: 1px solid var(--hover-color);
+     padding: 8px;
    }
-
+ 
    th {
-      background-color: var(--background-color);
+     background-color: var(--background-color);
+     position: relative;
    }
-
+ 
    .table-row {
-      height: 50px !important;
+     height: 50px !important;
    }
-
+ 
    tr:nth-child(even) {
-      background-color: var(--background-color);
+     background-color: var(--background-color);
    }
-
+ 
    tr:hover {
-      background-color: var(--hover-color);
+     background-color: var(--hover-color);
    }
-</style>
+ 
+   .resizable {
+     position: relative;
+   }
+ 
+   .resizer {
+     position: absolute;
+     top: 0;
+     right: -5px;
+     bottom: 0;
+     width: 10px;
+     background-color: #ccc;
+     cursor: col-resize;
+   }
+ </style>

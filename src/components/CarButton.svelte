@@ -10,4 +10,15 @@
    }
 </script>
 
-<button on:click={handleClick}>{post.madeCompany}</button>
+<button on:click={handleClick}>{post.model}</button>
+<style>
+   button{
+      background: var(--primary-color);
+      padding: 15px 70px;
+      border-radius: 10px;
+      border: none;
+      color: white;
+      font-weight: bold;
+      font-size: 1.1rem;
+   }
+</style>

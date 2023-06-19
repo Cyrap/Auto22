@@ -1,5 +1,4 @@
 <script lang="ts">
-   import Admin from "../../components/admin.svelte";
+   import Admin from "../../components/Admin.svelte";
 </script>
-
-<Admin />
+<Admin/>

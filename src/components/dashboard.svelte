@@ -77,8 +77,8 @@
          </li>
          {#if isMarkVisible}
             <div>
-               {#each car as item}
-                  <li>{item.mark}</li>
+               {#each posts as post}
+                  <li>{post.turul}</li>
                {/each}
             </div>
          {/if}
@@ -95,8 +95,8 @@
          </li>
          {#if isCompanyVisible}
             <div>
-               {#each car as item}
-                  <li>{item.company}</li>
+               {#each posts as post}
+                  <li>{post.madeCompany}</li>
                {/each}
             </div>
          {/if}
@@ -113,8 +113,8 @@
          </li>
          {#if isModelVisible}
             <div>
-               {#each car as item}
-                  <li>{item.model}</li>
+               {#each posts as post}
+                  <li>{post.model}</li>
                {/each}
             </div>
          {/if}
@@ -131,8 +131,8 @@
          </li>
          {#if isAgeVisible}
             <div>
-               {#each car as item}
-                  <li>{item.age}</li>
+               {#each posts as post}
+                  <li>{post.madeYear}</li>
                {/each}
             </div>
          {/if}
@@ -149,8 +149,8 @@
          </li>
          {#if isConditionVisible}
             <div>
-               {#each car as item}
-                  <li>{item.condition}</li>
+               {#each posts as post}
+                  <li>{post.condition}</li>
                {/each}
             </div>
          {/if}

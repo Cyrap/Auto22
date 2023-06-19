@@ -23,7 +23,6 @@
       <h2>Машын бүртгэлийн хэсэг</h2>
       <form>
          <div class="form-group">
-            <a href="/car" />
             <div>
                <a href="/admin" class="exit">
                   <button id="remove-register-form">

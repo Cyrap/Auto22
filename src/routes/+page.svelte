@@ -3,12 +3,13 @@
     import { API } from "../logic/api";
     import type { CarDto } from "car-api";
     import Footer from "../components/footer.svelte";
-    import Navbar from "../components/navbar.svelte";
+    import Navbar from "../components/Navbar.svelte";
     import Dashboard from "../components/dashboard.svelte";
-    import TrendingCars from "../components/trendingCars.svelte";
+    import TrendingCars from "../components/TrendingCars.svelte";
     import News from "../components/News.svelte";
-    import Loading from "../components/loading.svelte";
-    import Car from "../components/car.svelte";
+    import Loading from "../components/Loading.svelte";
+    import CarList from "../components/CarList.svelte";
+    import Table from "../components/table/Main.svelte"
     let busy = true;
     let error: any;
 
@@ -46,13 +47,13 @@
     };
 </script>
 
-{#each posts as post}
+<!-- {#each posts as post}
     <CarButton {post} on:carClicked={(event) => (selectedCar = event.detail)} />
 {/each}
 
 {#if selectedCar}
     <Car post={selectedCar} {onClose} />
-{/if}
+{/if} -->
 
 <svelte:head>
     <title>Home</title>
@@ -64,12 +65,13 @@
     {:else if error}
         <span style="color:red">Error: {error}</span>
     {:else}
-        <!-- <Car info={posts} /> -->
+        <!--     <Car info={posts} /> -->
         <Navbar on:showDiv={handleShowDiv} />
         <Dashboard {posts} />
-        <TrendingCars trending={posts} />
+        <TrendingCars {posts} />
         <News {posts} />
         <Footer />
+        <CarList {posts}/>
+        <Table {posts}/>
     {/if}
 </main>
-<Loading />

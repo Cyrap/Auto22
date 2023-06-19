@@ -1,99 +1,17 @@
 <script lang="ts">
    import type { CarDto } from "car-api";
-   import Car from "./car.svelte";
    import { onMount } from "svelte";
-   import CloseButton from "./CloseButton.svelte";
-   let imageUrls = [
-      {
-         url: "./src/img/images.jpg",
-         description: "Land 200",
-      },
-      {
-         url: "./src/img/porter.jpg",
-         description: "Porter zarna",
-      },
-      {
-         url: "./src/img/prius.jpg",
-         description: "Prius",
-      },
-      {
-         url: "./src/img/aqua.jpg",
-         description: "Description 4",
-      },
-      {
-         url: "./src/img/200.jpg",
-         description: "Description 4",
-      },
-      {
-         url: "./src/img/2653900c2ac3a978_large.jpg",
-         description: "Description 4",
-      },
-      {
-         url: "./src/img/hyundai-motor-group-a3vDd8hzuYs-unsplash.jpg",
-         description: "Description 4",
-      },
-   ];
-   export let trending: CarDto[] = [];
-   console.log(trending);
-
-   onMount(() => {
-      const scrollContent = document.getElementById(
-         "scroll-content"
-      ) as HTMLElement;
-      const leftButton = document.querySelector(
-         ".left-button"
-      ) as HTMLElement | null;
-      const rightButton = document.querySelector(
-         ".right-button"
-      ) as HTMLElement | null;
-
-      if (leftButton && rightButton) {
-         leftButton.addEventListener("click", () => {
-            scrollContent.scrollBy({
-               left: -250,
-               behavior: "smooth",
-            });
-         });
-
-         rightButton.addEventListener("click", () => {
-            scrollContent.scrollBy({
-               left: 250,
-               behavior: "smooth",
-            });
-         });
-
-         scrollContent.addEventListener("scroll", () => {
-            const scrollPosition = scrollContent.scrollLeft;
-            const scrollWidth = scrollContent.scrollWidth;
-            const containerWidth = scrollContent.clientWidth;
-
-            if (scrollPosition === 0) {
-               leftButton.style.display = "none";
-            } else {
-               leftButton.style.display = "block";
-            }
-
-            if (scrollPosition + containerWidth >= scrollWidth) {
-               rightButton.style.display = "none";
-            } else {
-               rightButton.style.display = "block";
-            }
-         });
-      }
-   });
-   let isCarExpanded = false;
-   function toggleImage() {
-      isCarExpanded = !isCarExpanded;
-   }
-
-   console.log("Trending car data working: ", { trending });
+   import CarButton from "./CarButton.svelte";
+   import Car from "./Car.svelte";
+   export let posts: CarDto[] = [];
+   let selectedCar: CarDto | null;
+   const onClose = () => {
+    selectedCar = null;
+   };
+   import { register } from 'swiper/element/bundle';
+   register();
+   const spaceBetween = 10;
 </script>
-
-<div />
-<!-- {#if isCarExpanded}
-   <Car {car=selectedCar}/>
-{/if} -->
-
 <div class="container">
    <div
       id="image-track"
@@ -102,49 +20,56 @@
       class="scrollable-container"
    >
       <h4>Сүүлд нэмэгдсэн автомашинууд</h4>
-      <button class="scroll-button left-button">&lt;</button>
-      <div id="scroll-content">
-         {#each imageUrls as { url, description }}
-            <div class="image-container">
-               <div class="image-wrapper" on:click={toggleImage}>
-                  <img src={url} class="image" alt="img" />
-                  <div class="image-description">{description}</div>
-                  <button class="more-button">More</button>
-               </div>
-            </div>
-         {/each}
-         {#each trending as { madeCompany }}
-            <div class="image-container">
-               <div class="image-wrapper" on:click={toggleImage}>
-                  <img
-                     src="./src/img/hyundai-motor-group-a3vDd8hzuYs-unsplash.jpg"
-                     class="image"
-                     alt="img"
-                  />
-                  <div class="image-description">{madeCompany}</div>
-                  <button class="more-button">More</button>
-               </div>
-            </div>
-         {/each}
-      </div>
-
-      <button class="scroll-button right-button">&gt;</button>
+      <swiper-container
+  slides-per-view={2}
+  space-between={spaceBetween}
+  pagination={{
+    hideOnClick: true,
+  }}
+  breakpoints={{
+    700: {
+      slidesPerView: 4.5,
+    },
+    650: {
+      slidesPerView: 3,
+    },
+    
+    400: {
+      slidesPerView: 2,
+    },
+    200: {
+      slidesPerView: 1,
+    },
+  }}
+>
+  {#each posts as post}
+  <swiper-slide>
+  <div class="image-container">
+     <div class="image-wrapper" >
+        <img
+           src="./src/img/hyundai-motor-group-a3vDd8hzuYs-unsplash.jpg"
+           class="image"
+           alt="img"
+        />
+        <div class="image-description">{post.model}</div>
+        <div class="more-button">
+           <CarButton {post} on:carClicked={(event) => (selectedCar = event.detail)}>
+              <span>Дэлгэрэнгүй</span>
+           </CarButton>
+        </div>
+     </div>
+  </div>
+  </swiper-slide>
+{/each}
+</swiper-container>
    </div>
 </div>
 
-<style>
-   .CarPage {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 5;
-   }
+{#if selectedCar}
+    <Car post={selectedCar} {onClose} />
+{/if}
 
+<style>
    .container {
       display: flex;
       width: 100vw;
@@ -165,14 +90,6 @@
       left: 5%;
       font-size: 1.5rem;
       margin-top: 0; /* Added to remove default margin */
-   }
-
-   #scroll-content {
-      display: flex;
-      gap: 4vmin;
-      margin: 30px;
-      overflow: hidden;
-      scroll-snap-type: x mandatory;
    }
 
    .image-container {
@@ -238,35 +155,5 @@
 
    .image-wrapper:hover .more-button {
       opacity: 1;
-   }
-
-   .scroll-button {
-      position: absolute;
-      top: 30%;
-      border: none;
-      color: #ffffff;
-      font-size: 1.5rem;
-      transition: color 0.3s;
-      background: rgba(0, 0, 0, 0.364);
-      cursor: pointer; /* Added cursor pointer on hover */
-      outline: none; /* Removed default button outline */
-      border-radius: 10px;
-      padding: 50px 10px;
-   }
-
-   .scroll-button:hover {
-      color: #000;
-   }
-
-   .left-button {
-      border-top-right-radius: 0px;
-      border-bottom-right-radius: 0px;
-      left: 0px;
-   }
-
-   .right-button {
-      border-top-left-radius: 0px;
-      border-bottom-left-radius: 0px;
-      right: -0px;
    }
 </style>

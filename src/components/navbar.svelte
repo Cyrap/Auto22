@@ -71,7 +71,7 @@
    }
 
    #nav-container #logo #logo-pic {
-      height: 100px;
+      height: 80px;
    }
 
    #nav-container #nav-form ul li:hover {

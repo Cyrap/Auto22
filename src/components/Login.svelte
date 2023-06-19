@@ -1,5 +1,5 @@
 <script lang="ts">
-   import Navbar from "../components/navbar.svelte";
+   import Navbar from "./Navbar.svelte";
    import { flip } from "svelte/animate";
 
    let show_password = false;

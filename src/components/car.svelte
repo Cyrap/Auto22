@@ -8,8 +8,6 @@
    const dispatch = createEventDispatcher();
    export let info: CarDto[] = [];
    export let post: CarDto;
-   console.log("Here is post", post);
-   console.log(info);
    function hideCarInfo() {
       isInfoVisible = false;
       if (onClose) {
@@ -41,52 +39,50 @@
       isImageExpanded = !isImageExpanded;
    }
    console.log("is car data working? :", { info });
-</script>
 
+   var titles: any = {
+      carNumber: "Машины дугаар",
+      color: "Өнгө",
+      condition: "Нөхцөл",
+      engine: " Хөдөлгүүр",
+      engineCapacity: "Хөдөлгүүрийн багтаамж",
+      hrop: "Хорооп",
+      hutlugch: "Хөтлөгч",
+      hvrd: "Хүрд",
+      madeCompany: "Үйлдвэрлэсэн газар",
+      madeMonth: "Үйлдвэрлэсэн сар",
+      madeYear: "Үйлдвэрлэсэн жил",
+      model: "Загвар",
+      oid: "OID",
+      phone: "Утас",
+      power: "Хүч",
+      roadTraveled: "Туулсан зам",
+      turul: "Төрөл",
+   };
+</script>
 <div class:register={isInfoVisible} class:hidden={!isInfoVisible}>
    <div class="main-container">
       <div class="slideshow-container">
          <div class="containerOfImage">
             {#if current == 1}
                <div class="img" class:Divexpanded={isImageExpanded}>
-                  <img
-                     src="./src/img/VX-High01.jpg"
-                     alt="Image1s"
-                     on:click={toggleImage}
-                     class:expanded={isImageExpanded}
-                  />
+                  <img src="./src/img/VX-High01.jpg" alt="Image1s" on:click={toggleImage}  class:expanded={isImageExpanded} />
                   {#if isImageExpanded}
-                     <button class="close-button" on:click={toggleImage}
-                        >Close</button
-                     >
+                     <button class="close-button" on:click={toggleImage}>Close</button>
                   {/if}
                </div>
             {/if}
-
             {#if current == 2}
                <div class="img" class:Divexpanded={isImageExpanded}>
-                  <img
-                     src="./src/img/200.jpg"
-                     alt="img2"
-                     on:click={toggleImage}
-                     class:expanded={isImageExpanded}
-                  />
+                  <img src="./src/img/200.jpg" alt="img2" on:click={toggleImage} class:expanded={isImageExpanded}/>
                   {#if isImageExpanded}
-                     <button class="close-button" on:click={toggleImage}
-                        >Close</button
-                     >
+                     <button class="close-button" on:click={toggleImage}>Close</button>
                   {/if}
                </div>
             {/if}
-
             {#if current == 3}
                <div class="img" class:Divexpanded={isImageExpanded}>
-                  <img
-                     src="./src/img/200-side.jpg"
-                     alt=""
-                     on:click={toggleImage}
-                     class:expanded={isImageExpanded}
-                  />
+                  <img src="./src/img/200-side.jpg" alt="" on:click={toggleImage} class:expanded={isImageExpanded}/>
                   {#if isImageExpanded}
                      <button class="close-button" on:click={toggleImage}
                         >Close</button
@@ -94,7 +90,6 @@
                   {/if}
                </div>
             {/if}
-
             <button class="dec" on:click={dic}>❮</button>
             <button class="inc" on:click={inc}>❯</button>
             <div class="num">
@@ -119,8 +114,17 @@
          <form action="">
             <div id="form-container">
                <ul class="list">
-                  {#each getKeys(post) as key (key)}
+                  <!-- {#each getKeys(post) as key (key)}
                      <p>{key}: {post[key]}</p>
+                  {/each} -->
+
+                  {#each Object.entries(post) as [key, value]}
+                     {#if key in titles}
+                        <li>
+                           <strong>{titles[key]}:</strong>
+                           {value}
+                        </li>
+                     {/if}
                   {/each}
 
                   {#each info as i}
@@ -168,9 +172,10 @@
    .main-container {
       display: flex;
       background: var(--background-color);
-      position: absolute;
-      top: 0%;
-      left: 0;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       height: 100vh;
       width: 100vw;
       background: white;
@@ -209,19 +214,16 @@
       align-items: center;
       justify-content: center;
    }
-
    /* rate style */
    .rate-container {
       display: inline-block;
       cursor: pointer;
       padding: 30px;
    }
-
    .rate-icon {
       color: #ddd;
       font-size: 24px;
    }
-
    .rate-icon:hover,
    .rate-icon.active {
       color: #ffcc00;
@@ -230,7 +232,6 @@
    #form-container {
       width: 50vw;
       display: grid;
-
       padding: 40px;
    }
    .list {

@@ -1,48 +1,121 @@
 <script lang="ts">
    import type { CarDto } from "car-api";
+   import Car from "./Car.svelte";
+   import CarButton from "./CarButton.svelte";
    export let posts: CarDto[] = [];
+   const perPage = 5; // Number of posts per page
+   let currentPage = 1; // Current page number
+
+   var titles: any = {
+      carNumber: "Машины дугаар",
+      color: "Өнгө",
+      condition: "Нөхцөл",
+      engine: "Хөдөлгүүр",
+      engineCapacity: "Хөдөлгүүрийн багтаамж",
+      hrop: "Хорооп",
+      hutlugch: "Хөтлөгч",
+      hvrd: "Хүрд",
+      madeCompany: "Үйлдвэрлэсэн газар",
+      madeMonth: "Үйлдвэрлэсэн сар",
+      madeYear: "Үйлдвэрлэсэн жил",
+      model: "Загвар",
+      oid: "OID",
+      phone: "Утас",
+      power: "Хүч",
+      roadTraveled: "Туулсан зам",
+      turul: "Төрөл",
+   };
+
+   function setPage(page: number) {
+      currentPage = page;
+   }
+   let selectedCar: CarDto | null;
+
+   const onClose = () => {
+    selectedCar = null;
+   };
 </script>
 
 <div class="container">
    <div class="feed">
-      {#each posts as post}
+      {#each posts.slice((currentPage - 1) * perPage, currentPage * perPage) as post}
          <div class="car">
             <div class="image-wrapper">
-               <img
-                  src="./src/img/hyundai-motor-group-a3vDd8hzuYs-unsplash.jpg"
-                  alt="car"
-               />
+               <img src="./src/img/hyundai-motor-group-a3vDd8hzuYs-unsplash.jpg" alt="car" />
             </div>
             <div class="information">
                <div class="first">
                   <h4>{post.model}</h4>
                   <ul>
                      {#each Object.entries(post) as [key, value]}
-                        <li>
-                           <strong>{key}:</strong>
-                           {value}
-                        </li>
+                        {#if key in titles}
+                           <li>
+                              <strong>{titles[key]}:</strong>
+                              {value}
+                           </li>
+                        {/if}
                      {/each}
                   </ul>
                </div>
-               <div class="main">
-                  <div class="price"><a href="/car">Price</a></div>
-                  <div class="contact">Contact</div>
+               <div class="main">     
+                     <CarButton  {post} on:carClicked={(event) => (selectedCar = event.detail)} />
+                  <div class="contact">{post.phone}</div>
                </div>
             </div>
          </div>
       {/each}
+
+
+{#if selectedCar}
+    <Car post={selectedCar} {onClose} />
+{/if}
+   </div>
+   <div class="pagination">
+      {#if currentPage > 1}
+         <button on:click={() => setPage(currentPage - 1)}>Previous</button>
+      {/if}
+
+      {#if currentPage > 3}
+         <button on:click={() => setPage(1)}>1</button>
+         <span>...</span>
+      {/if}
+
+      {#if currentPage > 2}
+         <button on:click={() => setPage(currentPage - 2)}>{currentPage - 2}</button>
+      {/if}
+
+      {#if currentPage > 1}
+         <button on:click={() => setPage(currentPage - 1)}>{currentPage - 1}</button>
+      {/if}
+
+      <button class="active" disabled>{currentPage}</button>
+
+      {#if (currentPage * perPage) < posts.length}
+         <button on:click={() => setPage(currentPage + 1)}>{currentPage + 1}</button>
+      {/if}
+
+      {#if (currentPage + 1) * perPage < posts.length}
+         <button on:click={() => setPage(currentPage + 2)}>{currentPage + 2}</button>
+      {/if}
+
+      {#if currentPage < Math.ceil(posts.length / perPage) - 2}
+         <span>...</span>
+         <button on:click={() => setPage(Math.ceil(posts.length / perPage))}>{Math.ceil(posts.length / perPage)}</button>
+      {/if}
+
+      {#if currentPage < Math.ceil(posts.length / perPage)}
+         <button on:click={() => setPage(currentPage + 1)}>Next</button>
+      {/if}
    </div>
 </div>
 
 <style>
    :root {
       --secondary-color: #6c757d; /* Secondary color (gray) */
-      --accent-color: #ffc107; /* Accent color (yellow) */
+      --accent-color: var(--primary-color); /* Accent color (yellow) */
       --text-color: #333333; /* Text color (dark gray) */
       --background-color: #ffffff; /* Background color (white) */
    }
-
    .container {
       display: flex;
       flex-direction: column;
@@ -53,14 +126,11 @@
    .car {
       background-color: var(--background-color);
       width: 70vw;
-      height: auto;
+      height: 400px;
       display: grid;
       grid-template-columns: 1fr 2.5fr;
-      box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-         rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
-         rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-      /* border-bottom: 5px solid; */
-      margin-bottom: 1rem;
+      border: #333333 1px solid;
+      margin-bottom: 10px; 
    }
 
    .image-wrapper {
@@ -126,5 +196,30 @@
    a {
       color: var(--background-color);
       text-decoration: none;
+   }
+
+   .pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+   }
+
+   .pagination button,
+   .pagination span {
+      padding: 0.5rem 1rem;
+      border: none;
+      background-color: var(--secondary-color);
+      color: white;
+      margin-right: 0.5rem;
+      cursor: pointer;
+   }
+
+   .pagination button.active {
+      background-color: var(--accent-color);
+   }
+
+   .pagination button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
    }
 </style>

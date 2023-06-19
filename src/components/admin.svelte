@@ -1,7 +1,7 @@
 <script>
-   import Navbar from "../components/navbar.svelte";
-   import CarList from "../components/carList.svelte";
-   import PageButton from "../components/pageButton.svelte";
+   import Navbar from "./Navbar.svelte";
+   import CarList from "./CarList.svelte";
+   import PageButton from "./PageButton.svelte";
    import { createEventDispatcher } from "svelte";
    const dispatch = createEventDispatcher();
 

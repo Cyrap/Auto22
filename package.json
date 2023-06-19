@@ -1,29 +1,39 @@
 {
-	"name": "test",
-	"version": "0.0.1",
-	"private": true,
-	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
-		"preview": "vite preview",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
-	},
-	"devDependencies": {
-		"@sveltejs/adapter-auto": "^2.0.0",
-		"@sveltejs/kit": "^1.5.0",
-		"svelte": "^3.54.0",
-		"svelte-check": "^3.0.1",
-		"tslib": "^2.4.1",
-		"typescript": "^5.0.0",
-		"vite": "^4.3.0"
-	},
-	"type": "module",
-	"dependencies": {
-		"@types/axios": "^0.14.0",
-		"axios": "^1.4.0",
-		"car-api": "link:api",
-		"felte": "^1.2.7",
-		"svelte-routing": "^1.10.0"
-	}
+  "name": "test",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-auto": "^2.0.0",
+    "@sveltejs/kit": "^1.5.0",
+    "@vincjo/datatables": "^1.10.3",
+    "svelte": "^3.54.0",
+    "svelte-check": "^3.0.1",
+    "tslib": "^2.4.1",
+    "typescript": "^5.0.0",
+    "vite": "^4.3.0"
+  },
+  "type": "module",
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "axios": "^1.4.0",
+    "car-api": "link:api",
+    "data": "link:C:/Program Files/Git/data",
+    "extended-table": "^2.1.1",
+    "felte": "^1.2.7",
+    "local": "link:C:/Program Files/Git/local",
+    "svelte-routing": "^1.10.0",
+    "swiper": "^9.4.1"
+  },
+  "description": "Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).",
+  "main": "svelte.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
