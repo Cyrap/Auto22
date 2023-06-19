@@ -35,7 +35,6 @@
     selectedCar = null;
    };
 </script>
-
 <div class="container">
    <div class="feed">
       {#each posts.slice((currentPage - 1) * perPage, currentPage * perPage) as post}

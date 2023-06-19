@@ -8,7 +8,6 @@
     import TrendingCars from "../components/TrendingCars.svelte";
     import News from "../components/News.svelte";
     import Loading from "../components/Loading.svelte";
-    import CarList from "../components/CarList.svelte";
     import Table from "../components/table/Main.svelte"
     let busy = true;
     let error: any;
@@ -71,7 +70,6 @@
         <TrendingCars {posts} />
         <News {posts} />
         <Footer />
-        <CarList {posts}/>
         <Table {posts}/>
     {/if}
 </main>

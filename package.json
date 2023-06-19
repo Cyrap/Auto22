@@ -12,6 +12,7 @@
   "devDependencies": {
     "@sveltejs/adapter-auto": "^2.0.0",
     "@sveltejs/kit": "^1.5.0",
+    "@types/uuid": "^9.0.2",
     "@vincjo/datatables": "^1.10.3",
     "svelte": "^3.54.0",
     "svelte-check": "^3.0.1",
@@ -29,7 +30,8 @@
     "felte": "^1.2.7",
     "local": "link:C:/Program Files/Git/local",
     "svelte-routing": "^1.10.0",
-    "swiper": "^9.4.1"
+    "swiper": "^9.4.1",
+    "uuid": "^9.0.0"
   },
   "description": "Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).",
   "main": "svelte.config.js",
