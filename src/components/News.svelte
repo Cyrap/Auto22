@@ -37,8 +37,7 @@
 
    let searchTerm = "";
 
-   $: filteredList = posts.filter((post) => post.model.indexOf(searchTerm) !== -1);
-
+   $: filteredList = posts.filter((post) => post.model?.indexOf(searchTerm) !== -1);
    let start: any;
    let end: any;
    //lakgbbbbbbbbbbvdevdbsjksjksjksjksjksjksjksjksjksjksjksjksjksjksjkvb
@@ -50,10 +49,13 @@ Filter: <input bind:value={searchTerm} />
 
 <div class="container">
    <VirtualList posts={filteredList} bind:start bind:end let:item>
-      <ListItem {...posts} />
+      {#each filteredList.slice(start, end) as post}
+         <ListItem {post} />
+      {/each}
    </VirtualList>
-   <p>showing items {start}-{end}</p>
+   <p>Showing items {start}-{end}</p>
 </div>
+
 <!-- kjdsvbjkvbdkjkdssssssssssssv -->
 <div class="container">
    <div class="feed">

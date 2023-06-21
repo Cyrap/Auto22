@@ -4,7 +4,7 @@
    // props
    export let posts: CarDto[] = [];
    export let height = "100%";
-   export let itemHeight: any = undefined;
+   export let postHeight: any = undefined;
    let foo;
    // read-only, but visible to consumers via bind:start
    export let start = 0;
@@ -24,8 +24,8 @@
       return { index: i + start, data };
    });
    // whenever `posts` changes, invalidate the current heightmap
-   $: if (mounted) refresh(posts, viewport_height, itemHeight);
-   async function refresh(posts: any, viewport_height: any, itemHeight: any) {
+   $: if (mounted) refresh(posts, viewport_height, postHeight);
+   async function refresh(posts: any, viewport_height: any, postHeight: any) {
       const { scrollTop } = viewport;
       await tick(); // wait until the DOM is up to date
       let content_height = top - scrollTop;
@@ -37,7 +37,7 @@
             await tick(); // render the newly visible row
             row = rows[i - start];
          }
-         const row_height = (height_map[i] = itemHeight || row.offsetHeight);
+         const row_height = (height_map[i] = postHeight || row.offsetHeight);
          content_height += row_height;
          i += 1;
       }
@@ -53,7 +53,7 @@
       const { scrollTop } = viewport;
       const old_start = start;
       for (let v = 0; v < rows.length; v += 1) {
-         height_map[start + v] = itemHeight || rows[v].offsetHeight;
+         height_map[start + v] = postHeight || rows[v].offsetHeight;
       }
       let i = 0;
       let y = 0;
@@ -85,7 +85,7 @@
          for (let i = start; i < old_start; i += 1) {
             if (rows[i - start]) {
                expected_height += height_map[i];
-               actual_height += itemHeight || rows[i - start].offsetHeight;
+               actual_height += postHeight || rows[i - start].offsetHeight;
             }
          }
          const d = actual_height - expected_height;

@@ -12,12 +12,16 @@
     import Login from "../components/Login.svelte";
     import AddCar from "../components/AddCar.svelte";
     import About from "../components/About.svelte";
+    import Error from "../components/Error.svelte";
     let busy = true;
     let error: any;
 
     let posts: CarDto[] = [];
     let isDivVisible = false;
     let isFormVisible = true;
+
+    let modelFilter = "";
+
     const handleShowForm = () => {
         isFormVisible = true;
     };
@@ -28,7 +32,7 @@
         busy = true;
 
         try {
-            const res = await API.Car.apiCarGet();
+            const res = await API.Car.apiCarGet({ modelFilter });
             console.log(res.data.items);
             return res.data.items ?? [];
         } catch (e) {
@@ -59,6 +63,7 @@
         <Loading />
     {:else if error}
         <span style="color:red">Error: {error}</span>
+        <Error />
     {:else}
         <Navbar on:showDiv={handleShowDiv} bind:selected />
         {#if selected === "home"}
