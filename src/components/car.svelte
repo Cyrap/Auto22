@@ -2,7 +2,6 @@
    import { createEventDispatcher } from "svelte";
    import type { CarDto } from "car-api";
    import CloseButton from "./CloseButton.svelte";
-   import { getKeys } from "../logic/utils";
    export let onClose: (() => any) | undefined = undefined;
    export let isInfoVisible: boolean = true;
    const dispatch = createEventDispatcher();
@@ -39,7 +38,6 @@
       isImageExpanded = !isImageExpanded;
    }
    console.log("is car data working? :", { info });
-
    var titles: any = {
       carNumber: "Машины дугаар",
       color: "Өнгө",
@@ -103,20 +101,9 @@
                {i.madeCompany}
             {/each}
          </h3>
-         <div class="rate-container">
-            <span class="rate-icon">&#9733;</span>
-            <span class="rate-icon">&#9733;</span>
-            <span class="rate-icon">&#9733;</span>
-            <span class="rate-icon active">&#9733;</span>
-            <span class="rate-icon">&#9733;</span>
-         </div>
          <form action="">
             <div id="form-container">
                <ul class="list">
-                  <!-- {#each getKeys(post) as key (key)}
-                     <p>{key}: {post[key]}</p>
-                  {/each} -->
-
                   {#each Object.entries(post) as [key, value]}
                      {#if key in titles}
                         <li>
@@ -125,7 +112,6 @@
                         </li>
                      {/if}
                   {/each}
-
                   {#each info as i}
                      {#each Object.entries(i) as [key, value]}
                         <li style="background: rgba(140, 104, 104, 0.215);">
@@ -158,16 +144,13 @@
       height: 90vh;
       background: blue;
    }
-
    .hidden {
       display: none;
    }
-
    * {
       margin: 0;
       padding: 0;
    }
-
    .main-container {
       display: flex;
       background: var(--background-color);
@@ -183,51 +166,19 @@
       justify-content: center;
       z-index: 10;
    }
-
    .second {
       width: 30%;
       padding: 30px;
    }
-
    h3 {
       font-size: 2rem;
       margin-left: 50px;
    }
-
    .third {
       width: 25%;
       display: flex;
       align-items: start;
    }
-
-   .rate-container {
-      margin-left: 20px;
-   }
-
-   /* Slideshow container */
-   .slideshow-container {
-      height: 100vh;
-      width: 100%;
-      background-color: var(--primary-color);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-   }
-   /* rate style */
-   .rate-container {
-      display: inline-block;
-      cursor: pointer;
-      padding: 30px;
-   }
-   .rate-icon {
-      color: #ddd;
-      font-size: 24px;
-   }
-   .rate-icon:hover,
-   .rate-icon.active {
-      color: #ffcc00;
-   }
-
    #form-container {
       width: 50vw;
       display: grid;

@@ -15,22 +15,14 @@
     import Error from "../components/Error.svelte";
     let busy = true;
     let error: any;
-
     let posts: CarDto[] = [];
     let isDivVisible = false;
-    let isFormVisible = true;
-
     let modelFilter = "";
-
-    const handleShowForm = () => {
-        isFormVisible = true;
-    };
     const handleShowDiv = () => {
         isDivVisible = true;
     };
     const getPosts = async () => {
         busy = true;
-
         try {
             const res = await API.Car.apiCarGet({ modelFilter });
             console.log(res.data.items);
