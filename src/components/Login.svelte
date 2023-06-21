@@ -1,47 +1,48 @@
 <script lang="ts">
-   import Navbar from "./Navbar.svelte";
-   import { flip } from "svelte/animate";
-
+   import { API } from "../logic/api";
+   import type { AuthenticateRequest } from "car-api";
    let show_password = false;
-   let password = "";
-   let phoneNumber = "";
-
    function togglePasswordVisibility() {
       show_password = !show_password;
    }
-
    function handlePasswordInput(event: Event) {
-      password = (event.target as HTMLInputElement).value;
+      newUser.password = (event.target as HTMLInputElement).value;
+   }
+   function handlePhoneInput(event: Event) {
+      newUser.username = (event.target as HTMLInputElement).value;
    }
 
-   function handlePhoneInput(event: Event) {
-      phoneNumber = (event.target as HTMLInputElement).value;
+   let newUser: AuthenticateRequest = {
+      username: "",
+      password: "",
+   };
+
+   async function Login() {
+      try {
+         const response = await API.User.usersAuthenticatePost({
+            authenticateRequest: newUser,
+         });
+         console.log("Login button daragdlaa", response.data); // Display the response data
+      } catch (error) {
+         console.error("ERROR IS HERE", error);
+      }
    }
 </script>
 
-<Navbar />
 <svelte:head>
    <title>Login</title>
    <meta name="description" content="About this app" />
 </svelte:head>
 <div class="main">
    <div class="form">
-      <label for="phoneNumber">Утас</label>
-      <input
-         type="tel"
-         id="phoneNumber"
-         value={phoneNumber}
-         on:input={handlePhoneInput}
-         required
-         pattern="[0-9]{8}"
-      />
-
+      <label for="phoneNumber">User name</label>
+      <input type="tel" id="phoneNumber" value={newUser.username} on:input={handlePhoneInput} required pattern="[0-9]{8}" />
       <label for="password">Нууц үг</label>
       <div class="password-input">
          <input
             type={show_password ? "text" : "password"}
             id="password"
-            value={password}
+            value={newUser.password}
             on:input={handlePasswordInput}
             required
             pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8}$"
@@ -56,7 +57,7 @@
       </div>
 
       <a class="forgot" href="/">Нууц үгээ мартсан</a>
-      <a href="/admin">Нэвтрэх</a>
+      <button on:click={Login} class="login">Login</button>
    </div>
 </div>
 
@@ -93,7 +94,8 @@
    .forgot:hover {
       color: rgb(52, 163, 147);
    }
-   a {
+   a,
+   .login {
       background: var(--primary-color);
       color: var(--background-color);
       padding: 10px 0px;

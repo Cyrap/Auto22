@@ -26,6 +26,9 @@ dependencies:
   local:
     specifier: link:C:/Program Files/Git/local
     version: link:../../../../../Program Files/Git/local
+  namey-mcnameface:
+    specifier: ^1.0.3
+    version: 1.0.3
   svelte-routing:
     specifier: ^1.10.0
     version: 1.10.0
@@ -825,6 +828,10 @@ packages:
   /ms@2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
     dev: true
+
+  /namey-mcnameface@1.0.3:
+    resolution: {integrity: sha512-+dJemBKxp9cD0h4+wkmXa+xC0WeKgwryOATgPWhp62T3OGe2BPa6X/4arKtFT5hOk93onptx1BPWkoVSvrzKvg==}
+    dev: false
 
   /nanoid@3.3.6:
     resolution: {integrity: sha512-BGcqMMJuToF7i1rt+2PWSNVnWIkGCU78jBG3RxO/bZlnZPK2Cmi2QaffxGO/2RvWi9sL+FAiRiXMgsyxQ1DIDA==}

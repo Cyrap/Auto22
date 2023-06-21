@@ -1,25 +1,30 @@
 <script lang="ts">
-   import { page } from "$app/stores";
+   export var selected;
+   var home = () => {
+      selected = "home";
+   };
+   var about = () => {
+      selected = "about";
+   };
+   var Login = () => {
+      selected = "Login";
+   };
+   var AddCar = () => {
+      selected = "AddCar";
+   };
 </script>
 
 <div id="nav-container">
-   <a href="/" id="logo">
+   <a href="/" id="logo" on:click={home}>
       <img id="logo-pic" src="../src/img/logo.png" alt="Logo" />
       <h1>Auto22.mn</h1>
    </a>
    <div id="nav-form">
       <ul>
-         <li aria-current={$page.url.pathname === "/" ? "page" : undefined}>
-            <a href="/">Home</a>
-         </li>
-         <li>
-            <a href="/about">About</a>
-         </li>
-         <li
-            aria-current={$page.url.pathname === "/login" ? "page" : undefined}
-         >
-            <a href="/login">Login</a>
-         </li>
+         <button on:click={home}>Home</button>
+         <button on:click={about}>About</button>
+         <button on:click={Login}>AddCar</button>
+         <button on:click={AddCar}>Login</button>
       </ul>
    </div>
 </div>
@@ -28,7 +33,6 @@
    h1 {
       color: var(--background-color);
    }
-
    #nav-container {
       z-index: 99;
       background: linear-gradient(0, var(--background-color), var(--disabled));
@@ -37,11 +41,9 @@
       justify-content: space-between;
       padding: 0 2%;
    }
-
    #nav-container #nav-form {
       padding-right: 10%;
    }
-
    #nav-container #nav-form ul {
       display: flex;
       flex-direction: row;
@@ -49,19 +51,12 @@
       padding: 0;
       margin: 0;
    }
-
-   #nav-container #nav-form ul li {
-      list-style: none;
-      text-align: center;
+   #nav-container #nav-form ul button {
+      background-color: rgba(255, 0, 0, 0);
+      padding: 10px 20px;
+      margin: 0px 20px;
+      border: none;
    }
-
-   #nav-container #nav-form ul li a {
-      padding: 15px 10px;
-      color: var(--text-color);
-      text-decoration: none;
-      cursor: pointer;
-   }
-
    #nav-container #logo {
       display: flex;
       align-items: center;
@@ -71,10 +66,10 @@
    }
 
    #nav-container #logo #logo-pic {
-      height: 80px;
+      height: 60px;
    }
 
-   #nav-container #nav-form ul li:hover {
+   #nav-container #nav-form ul button:hover {
       background-color: var(--disabled);
       transition: 0.3s;
       border-radius: 3px;

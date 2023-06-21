@@ -60,13 +60,14 @@
       turul: "Төрөл",
    };
 </script>
+
 <div class:register={isInfoVisible} class:hidden={!isInfoVisible}>
    <div class="main-container">
       <div class="slideshow-container">
          <div class="containerOfImage">
             {#if current == 1}
                <div class="img" class:Divexpanded={isImageExpanded}>
-                  <img src="./src/img/VX-High01.jpg" alt="Image1s" on:click={toggleImage}  class:expanded={isImageExpanded} />
+                  <img src="./src/img/VX-High01.jpg" alt="Image1s" on:click={toggleImage} class:expanded={isImageExpanded} />
                   {#if isImageExpanded}
                      <button class="close-button" on:click={toggleImage}>Close</button>
                   {/if}
@@ -74,7 +75,7 @@
             {/if}
             {#if current == 2}
                <div class="img" class:Divexpanded={isImageExpanded}>
-                  <img src="./src/img/200.jpg" alt="img2" on:click={toggleImage} class:expanded={isImageExpanded}/>
+                  <img src="./src/img/200.jpg" alt="img2" on:click={toggleImage} class:expanded={isImageExpanded} />
                   {#if isImageExpanded}
                      <button class="close-button" on:click={toggleImage}>Close</button>
                   {/if}
@@ -82,11 +83,9 @@
             {/if}
             {#if current == 3}
                <div class="img" class:Divexpanded={isImageExpanded}>
-                  <img src="./src/img/200-side.jpg" alt="" on:click={toggleImage} class:expanded={isImageExpanded}/>
+                  <img src="./src/img/200-side.jpg" alt="" on:click={toggleImage} class:expanded={isImageExpanded} />
                   {#if isImageExpanded}
-                     <button class="close-button" on:click={toggleImage}
-                        >Close</button
-                     >
+                     <button class="close-button" on:click={toggleImage}>Close</button>
                   {/if}
                </div>
             {/if}

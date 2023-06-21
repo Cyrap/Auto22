@@ -8,13 +8,19 @@
     import TrendingCars from "../components/TrendingCars.svelte";
     import News from "../components/News.svelte";
     import Loading from "../components/Loading.svelte";
-    import Table from "../components/table/Main.svelte"
+    import Table from "../components/table/Main.svelte";
+    import Login from "../components/Login.svelte";
+    import AddCar from "../components/AddCar.svelte";
+    import About from "../components/About.svelte";
     let busy = true;
     let error: any;
 
     let posts: CarDto[] = [];
     let isDivVisible = false;
-
+    let isFormVisible = true;
+    const handleShowForm = () => {
+        isFormVisible = true;
+    };
     const handleShowDiv = () => {
         isDivVisible = true;
     };
@@ -24,7 +30,6 @@
         try {
             const res = await API.Car.apiCarGet();
             console.log(res.data.items);
-
             return res.data.items ?? [];
         } catch (e) {
             error = e;
@@ -36,23 +41,14 @@
     onMount(async () => {
         posts = await getPosts();
     });
-
-    import CarButton from "../components/CarButton.svelte";
-
     let selectedCar: CarDto | null;
-
     const onClose = () => {
         selectedCar = null;
     };
+    let selected: any;
+    selected = "home";
+    let success = true;
 </script>
-
-<!-- {#each posts as post}
-    <CarButton {post} on:carClicked={(event) => (selectedCar = event.detail)} />
-{/each}
-
-{#if selectedCar}
-    <Car post={selectedCar} {onClose} />
-{/if} -->
 
 <svelte:head>
     <title>Home</title>
@@ -64,12 +60,21 @@
     {:else if error}
         <span style="color:red">Error: {error}</span>
     {:else}
-        <!--     <Car info={posts} /> -->
-        <Navbar on:showDiv={handleShowDiv} />
-        <Dashboard {posts} />
-        <TrendingCars {posts} />
-        <News {posts} />
-        <Footer />
-        <Table {posts}/>
+        <Navbar on:showDiv={handleShowDiv} bind:selected />
+        {#if selected === "home"}
+            <Dashboard {posts} />PO432123456- <TrendingCars {posts} />
+            <News {posts} />
+            <Footer />
+        {:else if selected === "about"}
+            <About />
+        {:else if selected === "AddCar"}
+            {#if success == true}
+                <Table {posts} />
+            {:else}
+                <Login />
+            {/if}
+        {:else if selected === "Login"}
+            <AddCar />
+        {/if}
     {/if}
 </main>

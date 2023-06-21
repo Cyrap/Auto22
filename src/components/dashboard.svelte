@@ -2,44 +2,6 @@
    import type { CarDto } from "car-api";
    export let posts: CarDto[] = [];
    console.log("here is dashboard's :", posts);
-
-   const car = [
-      {
-         mark: "toyota",
-         company: "Facebook",
-         model: "AQUA",
-         age: 2022,
-         condition: "New",
-      },
-      {
-         mark: "nissan",
-         company: "twitter",
-         model: "Prius",
-         age: 2023,
-         condition: "New",
-      },
-      {
-         mark: "BMW",
-         company: "Github",
-         model: "Land",
-         age: 2002,
-         condition: "New",
-      },
-      {
-         mark: "Honda",
-         company: "spacehub",
-         model: "Ford",
-         age: 1985,
-         condition: "New",
-      },
-      {
-         mark: "Mercedes-Benz",
-         company: "Auto22",
-         model: "Porter",
-         age: 2013,
-         condition: "New",
-      },
-   ];
    var isMarkVisible = false;
    var isCompanyVisible = false;
    var isModelVisible = false;

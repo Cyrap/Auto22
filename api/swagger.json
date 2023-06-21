@@ -66,6 +66,23 @@
               "format": "int32",
               "default": 1
             }
+          },
+          {
+            "name": "modelFilter",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "MadeMonthFilter",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
           }
         ],
         "responses": {
@@ -169,6 +186,37 @@
             "schema": {
               "type": "integer",
               "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Car/{search}": {
+      "get": {
+        "tags": [
+          "Car"
+        ],
+        "parameters": [
+          {
+            "name": "model",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -436,10 +484,17 @@
             "type": "integer",
             "format": "int32"
           },
-          "file": {
-            "type": "string",
-            "format": "binary",
-            "nullable": true
+          "zogsoolBus": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "zogsoolDugaar": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "price": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

@@ -1,72 +1,63 @@
 <script lang="ts">
    import type { CarDto } from "car-api";
-   import { onMount } from "svelte";
    import CarButton from "./CarButton.svelte";
    import Car from "./Car.svelte";
    export let posts: CarDto[] = [];
    let selectedCar: CarDto | null;
    const onClose = () => {
-    selectedCar = null;
+      selectedCar = null;
    };
-   import { register } from 'swiper/element/bundle';
+   import { register } from "swiper/element/bundle";
    register();
-   const spaceBetween = 10;
+   const spaceBetween = 200;
 </script>
+
 <div class="container">
-   <div
-      id="image-track"
-      data-mouse-down-at="0"
-      data-prev-percentage="0"
-      class="scrollable-container"
-   >
+   <div id="image-track" data-mouse-down-at="0" data-prev-percentage="0" class="scrollable-container">
       <h4>Сүүлд нэмэгдсэн автомашинууд</h4>
       <swiper-container
-  slides-per-view={2}
-  space-between={spaceBetween}
-  pagination={{
-    hideOnClick: true,
-  }}
-  breakpoints={{
-    700: {
-      slidesPerView: 4.5,
-    },
-    650: {
-      slidesPerView: 3,
-    },
-    
-    400: {
-      slidesPerView: 2,
-    },
-    200: {
-      slidesPerView: 1,
-    },
-  }}
->
-  {#each posts as post}
-  <swiper-slide>
-  <div class="image-container">
-     <div class="image-wrapper" >
-        <img
-           src="./src/img/hyundai-motor-group-a3vDd8hzuYs-unsplash.jpg"
-           class="image"
-           alt="img"
-        />
-        <div class="image-description">{post.model}</div>
-        <div class="more-button">
-           <CarButton {post} on:carClicked={(event) => (selectedCar = event.detail)}>
-              <span>Дэлгэрэнгүй</span>
-           </CarButton>
-        </div>
-     </div>
-  </div>
-  </swiper-slide>
-{/each}
-</swiper-container>
+         slides-per-view={2}
+         space-between={spaceBetween}
+         pagination={{
+            hideOnClick: true,
+         }}
+         breakpoints={{
+            700: {
+               slidesPerView: 4.5,
+            },
+            650: {
+               slidesPerView: 3,
+            },
+
+            400: {
+               slidesPerView: 2,
+            },
+            200: {
+               slidesPerView: 1,
+            },
+         }}
+      >
+         {#each posts as post}
+            <swiper-slide>
+               <div class="image-container">
+                  <div class="image-wrapper">
+                     <img src="./src/img/hyundai-motor-group-a3vDd8hzuYs-unsplash.jpg" class="image" alt="img" />
+                     <div class="image-description">{post.model}</div>
+                     <div class="more-button">
+                        <CarButton {post} on:carClicked={(event) => (selectedCar = event.detail)}>
+                           <span>Дэлгэрэнгүй</span>
+                        </CarButton>
+                     </div>
+                  </div>
+               </div>
+            </swiper-slide>
+         {/each}
+      </swiper-container>
    </div>
 </div>
 
 {#if selectedCar}
-    <Car post={selectedCar} {onClose} />
+   <Car post={selectedCar} {onClose} />
 {/if}
 
 <style>

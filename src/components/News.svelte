@@ -3,9 +3,8 @@
    import Car from "./Car.svelte";
    import CarButton from "./CarButton.svelte";
    export let posts: CarDto[] = [];
-   const perPage = 5; // Number of posts per page
-   let currentPage = 1; // Current page number
-
+   const perPage = 10;
+   let currentPage = 1;
    var titles: any = {
       carNumber: "Машины дугаар",
       color: "Өнгө",
@@ -25,16 +24,37 @@
       roadTraveled: "Туулсан зам",
       turul: "Төрөл",
    };
-
    function setPage(page: number) {
       currentPage = page;
    }
    let selectedCar: CarDto | null;
-
    const onClose = () => {
-    selectedCar = null;
+      selectedCar = null;
    };
+   // lsvkdsvkdsvkdsvkdsvkdsvkdsvkdsvkdsvkdsvkdsvkdsvkd
+   import VirtualList from "./filter/VirtualList.svelte";
+   import ListItem from "./filter/ListItem.svelte";
+
+   let searchTerm = "";
+
+   $: filteredList = posts.filter((post) => post.model.indexOf(searchTerm) !== -1);
+
+   let start: any;
+   let end: any;
+   //lakgbbbbbbbbbbvdevdbsjksjksjksjksjksjksjksjksjksjksjksjksjksjksjkvb
 </script>
+
+<!-- kjdsvbjkvbdkjkdssssssssssssv -->
+Filter: <input bind:value={searchTerm} />
+{searchTerm}
+
+<div class="container">
+   <VirtualList posts={filteredList} bind:start bind:end let:item>
+      <ListItem {...posts} />
+   </VirtualList>
+   <p>showing items {start}-{end}</p>
+</div>
+<!-- kjdsvbjkvbdkjkdssssssssssssv -->
 <div class="container">
    <div class="feed">
       {#each posts.slice((currentPage - 1) * perPage, currentPage * perPage) as post}
@@ -56,18 +76,17 @@
                      {/each}
                   </ul>
                </div>
-               <div class="main">     
-                     <CarButton  {post} on:carClicked={(event) => (selectedCar = event.detail)} />
+               <div class="main">
+                  <CarButton {post} on:carClicked={(event) => (selectedCar = event.detail)} />
                   <div class="contact">{post.phone}</div>
                </div>
             </div>
          </div>
       {/each}
 
-
-{#if selectedCar}
-    <Car post={selectedCar} {onClose} />
-{/if}
+      {#if selectedCar}
+         <Car post={selectedCar} {onClose} />
+      {/if}
    </div>
    <div class="pagination">
       {#if currentPage > 1}
@@ -89,7 +108,7 @@
 
       <button class="active" disabled>{currentPage}</button>
 
-      {#if (currentPage * perPage) < posts.length}
+      {#if currentPage * perPage < posts.length}
          <button on:click={() => setPage(currentPage + 1)}>{currentPage + 1}</button>
       {/if}
 
@@ -129,7 +148,7 @@
       display: grid;
       grid-template-columns: 1fr 2.5fr;
       border: #333333 1px solid;
-      margin-bottom: 10px; 
+      margin-bottom: 10px;
    }
 
    .image-wrapper {
@@ -185,16 +204,6 @@
    .contact {
       background: var(--primary-color);
       color: white;
-   }
-
-   .price {
-      background: var(--secondary-color);
-      color: white;
-   }
-
-   a {
-      color: var(--background-color);
-      text-decoration: none;
    }
 
    .pagination {
