@@ -64,11 +64,9 @@
       cursor: pointer;
       text-decoration: none;
    }
-
    #nav-container #logo #logo-pic {
       height: 60px;
    }
-
    #nav-container #nav-form ul button:hover {
       background-color: var(--disabled);
       transition: 0.3s;

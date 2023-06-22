@@ -142,7 +142,6 @@ Filter: <input bind:value={searchTerm} />
       align-items: center;
       padding: 2rem;
    }
-
    .car {
       background-color: var(--background-color);
       width: 70vw;
@@ -152,49 +151,41 @@ Filter: <input bind:value={searchTerm} />
       border: #333333 1px solid;
       margin-bottom: 10px;
    }
-
    .image-wrapper {
       height: 100%;
       display: flex;
       align-items: center;
    }
-
    img {
       height: 100%;
       width: 100%;
       object-fit: cover;
       object-position: center;
    }
-
    .information {
       display: grid;
       grid-template-columns: 3fr 1fr;
       padding: 1rem;
    }
-
    .first {
       padding-right: 1rem;
    }
-
    h4 {
       font-size: 2rem;
       margin-bottom: 1rem;
    }
-
    ul {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 0.5rem;
       margin-bottom: 1rem;
    }
-
    li {
       list-style: none;
       margin-left: 1.5rem;
       display: flex;
       justify-content: space-between;
    }
-
    .main > div {
       padding: 0.5rem;
       border-radius: 10px;
@@ -202,18 +193,15 @@ Filter: <input bind:value={searchTerm} />
       text-align: center;
       margin: 0.5rem;
    }
-
    .contact {
       background: var(--primary-color);
       color: white;
    }
-
    .pagination {
       display: flex;
       justify-content: center;
       margin-top: 1rem;
    }
-
    .pagination button,
    .pagination span {
       padding: 0.5rem 1rem;
@@ -223,11 +211,9 @@ Filter: <input bind:value={searchTerm} />
       margin-right: 0.5rem;
       cursor: pointer;
    }
-
    .pagination button.active {
       background-color: var(--accent-color);
    }
-
    .pagination button:disabled {
       opacity: 0.5;
       cursor: not-allowed;

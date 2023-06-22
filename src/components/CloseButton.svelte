@@ -1,11 +1,9 @@
 <div>
-   <a class="exit">
-      <button id="remove-register-form" on:click on:dblclick>
-         <div id="toogle">
-            <div />
-         </div>
-      </button></a
-   >
+   <button class="exit" id="remove-register-form" on:click on:dblclick>
+      <div id="toogle">
+         <div />
+      </div>
+   </button>
 </div>
 
 <style>

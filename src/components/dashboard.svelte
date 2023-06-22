@@ -30,15 +30,10 @@
       <ul class="menu">
          <li on:click={showMark}>
             Төрөл<span
-               >{#if isMarkVisible}
-                  ▲
-               {:else}
-                  ▼
-               {/if}
-            </span>
+               >{#if isMarkVisible}▲{:else}▼{/if}</span
+            >
          </li>
-         {#if isMarkVisible}
-            <div>
+         {#if isMarkVisible}<div>
                {#each posts as post}
                   <li>{post.turul}</li>
                {/each}

@@ -1,8 +1,6 @@
 <script lang="ts">
    import { API } from "../logic/api";
    import type { CarDto } from "car-api";
-   import CloseButton from "./CloseButton.svelte";
-
    let newData: CarDto = {
       carNumber: undefined,
       color: "",
@@ -25,7 +23,6 @@
       zogsoolBus: undefined,
       zogsoolDugaar: undefined,
    };
-
    async function createCar() {
       try {
          const response = await API.Car.apiCarPost({
@@ -84,11 +81,7 @@
       top: 2vh;
       left: 75vw;
    }
-   /* .hidden {
-       display: none;
-   } */
    .register {
-      /* background: #333 url(../img/Slider-5.jpg) no-repeat center center/cover; */
       background: var(--primary-color);
       width: 100vw;
       z-index: 9999;
@@ -106,7 +99,6 @@
       color: rgb(0, 0, 0);
       height: 130vh;
    }
-
    .form-group {
       margin-bottom: 1rem;
       display: grid;
@@ -119,7 +111,6 @@
       position: relative;
       top: 50px;
    }
-
    .form-group > div {
       display: flex;
       flex-direction: column;

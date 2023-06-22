@@ -1,10 +1,8 @@
 <script lang="ts">
-   import { createEventDispatcher } from "svelte";
    import type { CarDto } from "car-api";
    import CloseButton from "./CloseButton.svelte";
    export let onClose: (() => any) | undefined = undefined;
    export let isInfoVisible: boolean = true;
-   const dispatch = createEventDispatcher();
    export let info: CarDto[] = [];
    export let post: CarDto;
    function hideCarInfo() {
@@ -13,11 +11,9 @@
          onClose();
       }
    }
-
    export function showCarInfo() {
       isInfoVisible = true;
    }
-
    let current = 1;
    function dic() {
       current = current - 1;
@@ -25,19 +21,16 @@
          current = 3;
       }
    }
-
    function inc() {
       current = current + 1;
       if (current > 3) {
          current = 1;
       }
    }
-
    let isImageExpanded = false;
    function toggleImage() {
       isImageExpanded = !isImageExpanded;
    }
-   console.log("is car data working? :", { info });
    var titles: any = {
       carNumber: "Машины дугаар",
       color: "Өнгө",

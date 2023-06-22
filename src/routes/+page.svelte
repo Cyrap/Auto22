@@ -59,17 +59,14 @@
     {:else}
         <Navbar on:showDiv={handleShowDiv} bind:selected />
         {#if selected === "home"}
-            <Dashboard {posts} />PO432123456- <TrendingCars {posts} />
+            <Dashboard {posts} />
+            <TrendingCars {posts} />
             <News {posts} />
             <Footer />
         {:else if selected === "about"}
             <About />
         {:else if selected === "AddCar"}
-            {#if success == true}
-                <Table {posts} />
-            {:else}
-                <Login />
-            {/if}
+            <Login />
         {:else if selected === "Login"}
             <AddCar />
         {/if}

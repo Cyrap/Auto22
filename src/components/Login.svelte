@@ -11,12 +11,10 @@
    function handlePhoneInput(event: Event) {
       newUser.username = (event.target as HTMLInputElement).value;
    }
-
    let newUser: AuthenticateRequest = {
       username: "",
       password: "",
    };
-
    async function Login() {
       try {
          const response = await API.User.usersAuthenticatePost({
@@ -55,7 +53,6 @@
             {/if}
          </button>
       </div>
-
       <a class="forgot" href="/">Нууц үгээ мартсан</a>
       <button on:click={Login} class="login">Login</button>
    </div>

@@ -66,23 +66,20 @@
       width: 100vw;
       align-items: center;
       justify-content: center;
-      overflow: hidden; /* Added to prevent horizontal scrollbar */
+      overflow: hidden;
    }
-
    .scrollable-container {
       position: relative;
       width: 90vw;
       overflow: hidden;
       -webkit-overflow-scrolling: touch;
    }
-
    h4 {
       position: relative;
       left: 5%;
       font-size: 1.5rem;
-      margin-top: 0; /* Added to remove default margin */
+      margin-top: 0;
    }
-
    .image-container {
       display: flex;
       flex-direction: column;
@@ -90,7 +87,6 @@
       position: relative;
       scroll-snap-align: start;
    }
-
    .image-wrapper {
       width: 40vmin;
       border-radius: 5px;
@@ -98,18 +94,15 @@
       overflow: hidden;
       position: relative;
    }
-
    .image {
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform 0.3s;
    }
-
    .image:hover {
       transform: scale(1.1);
    }
-
    .image-description {
       position: absolute;
       bottom: 0;
@@ -121,7 +114,6 @@
       font-size: 14px;
       text-align: center;
    }
-
    .more-button {
       position: absolute;
       top: 50%;
@@ -135,15 +127,13 @@
       border-radius: 20px;
       font-weight: bold;
       font-size: 1.2rem;
-      cursor: pointer; /* Added cursor pointer on hover */
-      border: none; /* Removed default button border */
-      outline: none; /* Removed default button outline */
+      cursor: pointer;
+      border: none;
+      outline: none;
    }
-
    .image-wrapper:hover .image {
       filter: blur(2px);
    }
-
    .image-wrapper:hover .more-button {
       opacity: 1;
    }

@@ -77,7 +77,6 @@
          transform: translateX(-150px) rotate(-15deg);
       }
    }
-
    .cuerda-cuadro-interno {
       position: absolute;
       top: 42px;
