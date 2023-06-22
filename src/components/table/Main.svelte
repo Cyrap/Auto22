@@ -25,8 +25,6 @@
 
     $: handler = new DataHandler(posts as (CarDto & Record<string, unknown>)[], { rowsPerPage: 15 });
     $: rows = handler.getRows();
-
-    console.log({ posts, rows: $rows });
 </script>
 
 <Datatable {handler}>

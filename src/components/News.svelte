@@ -1,7 +1,9 @@
 <script lang="ts">
+   import MiniSearch from "minisearch";
    import type { CarDto } from "car-api";
    import Car from "./Car.svelte";
    import CarButton from "./CarButton.svelte";
+   import { construct_svelte_component } from "svelte/internal";
    export let posts: CarDto[] = [];
    const perPage = 10;
    let currentPage = 1;
@@ -31,32 +33,30 @@
    const onClose = () => {
       selectedCar = null;
    };
-   // lsvkdsvkdsvkdsvkdsvkdsvkdsvkdsvkdsvkdsvkdsvkdsvkd
-   import VirtualList from "./filter/VirtualList.svelte";
-   import ListItem from "./filter/ListItem.svelte";
+   let searchQuery = "";
+   let results: any[] = [];
 
-   let searchTerm = "";
+   let miniSearch = new MiniSearch({
+      fields: ["carNumber"],
+      storeFields: ["0"],
+   });
 
-   $: filteredList = posts.filter((post) => post.model?.indexOf(searchTerm) !== -1);
-   let start: any;
-   let end: any;
-   //lakgbbbbbbbbbbvdevdbsjksjksjksjksjksjksjksjksjksjksjksjksjksjksjkvb
+   miniSearch.addAll(posts);
+
+   const handleSearch = () => {
+      results = miniSearch.search(searchQuery);
+      console.log(results, "is here");
+   };
+   console.log(handleSearch());
 </script>
 
-<!-- kjdsvbjkvbdkjkdssssssssssssv -->
-Filter: <input bind:value={searchTerm} />
-{searchTerm}
+<input type="text" bind:value={searchQuery} on:input={handleSearch} />
 
-<div class="container">
-   <VirtualList posts={filteredList} bind:start bind:end let:item>
-      {#each filteredList.slice(start, end) as post}
-         <ListItem {post} />
-      {/each}
-   </VirtualList>
-   <p>Showing items {start}-{end}</p>
-</div>
-
-<!-- kjdsvbjkvbdkjkdssssssssssssv -->
+<ul>
+   {#each posts as result}
+      <li>{result.carNumber}</li>
+   {/each}
+</ul>
 <div class="container">
    <div class="feed">
       {#each posts.slice((currentPage - 1) * perPage, currentPage * perPage) as post}

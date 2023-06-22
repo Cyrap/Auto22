@@ -2,22 +2,26 @@
     import { onMount } from "svelte";
     import { API } from "../logic/api";
     import type { CarDto } from "car-api";
+    import type { UserDto } from "car-api";
     import Footer from "../components/footer.svelte";
     import Navbar from "../components/Navbar.svelte";
     import Dashboard from "../components/dashboard.svelte";
     import TrendingCars from "../components/TrendingCars.svelte";
     import News from "../components/News.svelte";
     import Loading from "../components/Loading.svelte";
-    import Table from "../components/table/Main.svelte";
     import Login from "../components/Login.svelte";
     import AddCar from "../components/AddCar.svelte";
     import About from "../components/About.svelte";
     import Error from "../components/Error.svelte";
+    import Table from "../components/table/Main.svelte";
     let busy = true;
     let error: any;
     let posts: CarDto[] = [];
+    let user: UserDto | undefined = undefined;
     let isDivVisible = false;
     let modelFilter = "";
+    let selected: any;
+    selected = "home";
     const handleShowDiv = () => {
         isDivVisible = true;
     };
@@ -37,15 +41,40 @@
     onMount(async () => {
         posts = await getPosts();
     });
-    let selectedCar: CarDto | null;
-    const onClose = () => {
-        selectedCar = null;
+
+    const loginFunc = async () => {
+        busy = true;
+        try {
+            const res = await API.User.usersAuthenticatePost();
+
+            // if (res.status == 200 || res.status == 201) {
+            //     getUser();
+            // }
+
+            console.log(res.data);
+            return res.data;
+        } catch (e) {
+            error = e;
+        } finally {
+            busy = false;
+        }
+        return [];
     };
-    let selected: any;
-    selected = "home";
-    let success = true;
+
+    // const getUser = () async => {
+    //     try {
+    //         const res = await API.User.usersUsersIdGet("adsadbsuaibdsuiavdyuadyusvadyud");
+
+    //         user = res.data;
+    //     } catch (error) {
+
+    //     }
+    // }
+
+    $: console.log(user);
 </script>
 
+<button on:click={loginFunc}> get Token</button>
 <svelte:head>
     <title>Home</title>
     <meta name="description" content="Svelte demo app" />
@@ -66,7 +95,11 @@
         {:else if selected === "about"}
             <About />
         {:else if selected === "AddCar"}
-            <Login />
+            {#if !posts}
+                <Table {posts} />
+            {:else}
+                <Login />
+            {/if}
         {:else if selected === "Login"}
             <AddCar />
         {/if}
