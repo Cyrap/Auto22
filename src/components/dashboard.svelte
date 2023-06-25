@@ -2,168 +2,153 @@
    import type { CarDto } from "car-api";
    export let posts: CarDto[] = [];
    console.log("here is dashboard's :", posts);
-   var isMarkVisible = false;
-   var isCompanyVisible = false;
-   var isModelVisible = false;
-   var isAgeVisible = false;
-   var isConditionVisible = false;
-   function showMark() {
-      isMarkVisible = !isMarkVisible;
-   }
-   function showCompany() {
-      isCompanyVisible = !isCompanyVisible;
-   }
-   function showModel() {
-      isModelVisible = !isModelVisible;
-   }
-   function showAge() {
-      isAgeVisible = !isAgeVisible;
-   }
-   function showCondition() {
-      isConditionVisible = !isConditionVisible;
+   var expandedItem: string | null = null;
+
+   function toggleItem(item: string) {
+      if (expandedItem === item) {
+         expandedItem = null;
+      } else {
+         expandedItem = item;
+      }
    }
 </script>
 
 <div class="dashboard">
    <h4>Автомашин хайх</h4>
-   <ul id="data-list ">
+   <div class="data-list">
       <ul class="menu">
-         <li on:click={showMark}>
-            Төрөл<span
-               >{#if isMarkVisible}▲{:else}▼{/if}</span
-            >
+         <li class="paretLi" on:click={() => toggleItem("mark")}>
+            Төрөл
+            <span>{expandedItem === "mark" ? "▲" : "▼"}</span>
          </li>
-         {#if isMarkVisible}<div>
-               {#each posts as post}
-                  <li>{post.turul}</li>
-               {/each}
-            </div>
-         {/if}
-      </ul>
-      <ul class="menu">
-         <li on:click={showCompany}>
-            Үйлдвэрлэгч<span
-               >{#if isCompanyVisible}
-                  ▲
-               {:else}
-                  ▼
-               {/if}
-            </span>
-         </li>
-         {#if isCompanyVisible}
+         {#if expandedItem === "mark"}
             <div>
                {#each posts as post}
-                  <li>{post.madeCompany}</li>
+                  <li class="childLi">{post.turul}</li>
                {/each}
             </div>
          {/if}
       </ul>
       <ul class="menu">
-         <li on:click={showModel}>
-            Загвар<span
-               >{#if isModelVisible}
-                  ▲
-               {:else}
-                  ▼
-               {/if}
-            </span>
+         <li class="paretLi" on:click={() => toggleItem("company")}>
+            Үйлдвэрлэгч
+            <span>{expandedItem === "company" ? "▲" : "▼"}</span>
          </li>
-         {#if isModelVisible}
+         {#if expandedItem === "company"}
             <div>
                {#each posts as post}
-                  <li>{post.model}</li>
+                  <li class="childLi">{post.madeCompany}</li>
                {/each}
             </div>
          {/if}
       </ul>
       <ul class="menu">
-         <li on:click={showAge}>
-            Он<span
-               >{#if isAgeVisible}
-                  ▲
-               {:else}
-                  ▼
-               {/if}
-            </span>
+         <li class="paretLi" on:click={() => toggleItem("model")}>
+            Загвар
+            <span>{expandedItem === "model" ? "▲" : "▼"}</span>
          </li>
-         {#if isAgeVisible}
+         {#if expandedItem === "model"}
             <div>
                {#each posts as post}
-                  <li>{post.madeYear}</li>
+                  <li class="childLi">{post.model}</li>
                {/each}
             </div>
          {/if}
       </ul>
       <ul class="menu">
-         <li on:click={showCondition}>
-            Нөхцөл<span
-               >{#if isConditionVisible}
-                  ▲
-               {:else}
-                  ▼
-               {/if}
-            </span>
+         <li class="paretLi" on:click={() => toggleItem("age")}>
+            Он
+            <span>{expandedItem === "age" ? "▲" : "▼"}</span>
          </li>
-         {#if isConditionVisible}
+         {#if expandedItem === "age"}
             <div>
                {#each posts as post}
-                  <li>{post.condition}</li>
+                  <li class="childLi">{post.madeYear}</li>
                {/each}
             </div>
          {/if}
       </ul>
-   </ul>
+      <ul class="menu">
+         <li class="paretLi" on:click={() => toggleItem("condition")}>
+            Нөхцөл
+            <span>{expandedItem === "condition" ? "▲" : "▼"}</span>
+         </li>
+         {#if expandedItem === "condition"}
+            <div>
+               {#each posts as post}
+                  <li class="childLi">{post.condition}</li>
+               {/each}
+            </div>
+         {/if}
+      </ul>
+   </div>
 </div>
 
 <style>
    span {
-      position: relative;
-      left: 20%;
+      position: absolute;
+      left: 85%;
    }
 
    .dashboard {
       user-select: none; /* Standard syntax */
       position: relative;
       background-color: var(--primary-color);
-      width: 100vw;
-      max-width: 90vw;
-      height: 20vh;
+      width: 30vw;
+      max-width: 90%;
+      height: auto;
       border-radius: 10px;
       margin: 2% auto;
    }
 
-   ul {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
+   .data-list {
       grid-gap: 10px;
       padding: 10px;
       list-style: none;
-      margin: 0;
+      margin: 10px 20px;
    }
 
-   ul li {
-      text-align: center;
-      width: 140px;
-      padding: 10px;
-      cursor: pointer;
-      background: var(--background-color);
-      border-radius: 10px;
-   }
    .menu {
       display: flex;
       flex-direction: column;
-      align-items: center;
+      list-style: none;
       z-index: 1;
    }
+
    div {
       border-radius: 10px;
       background: var(--background-color);
    }
+
    h4 {
       color: var(--background-color);
       position: relative;
       top: 0.3rem;
       left: 2rem;
       font-size: 2rem;
+   }
+   .paretLi {
+      border-bottom: 1px rgba(110, 103, 103, 0.21) solid;
+      padding: 0.5rem 20px;
+   }
+   .childLi {
+      background: rgba(240, 232, 232, 0.358);
+      height: 1rem;
+      margin-left: 3rem;
+      padding: 2px 10px;
+   }
+   .childLi:hover,
+   .paretLi:hover {
+      cursor: pointer;
+      background: rgba(86, 79, 79, 0.542);
+   }
+
+   @media (max-width: 800px) {
+      .dashboard {
+         display: flex;
+         flex-direction: column;
+         width: 80vw;
+         font-size: 12px;
+      }
    }
 </style>

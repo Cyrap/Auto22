@@ -135,7 +135,6 @@
       z-index: 1;
       width: 90vw;
       height: 90vh;
-      background: blue;
    }
    .hidden {
       display: none;
@@ -146,14 +145,13 @@
    }
    .main-container {
       display: flex;
-      background: var(--background-color);
+      background: var(--primary-color);
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       height: 100vh;
       width: 100vw;
-      background: white;
       display: flex;
       align-items: center;
       justify-content: center;

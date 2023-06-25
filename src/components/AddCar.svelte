@@ -84,7 +84,6 @@
    .register {
       background: var(--primary-color);
       width: 100vw;
-      z-index: 9999;
    }
    h2 {
       color: var(--background-color);

@@ -1,9 +1,7 @@
 <script lang="ts">
-   import MiniSearch from "minisearch";
    import type { CarDto } from "car-api";
    import Car from "./Car.svelte";
    import CarButton from "./CarButton.svelte";
-   import { construct_svelte_component } from "svelte/internal";
    export let posts: CarDto[] = [];
    const perPage = 10;
    let currentPage = 1;
@@ -33,30 +31,8 @@
    const onClose = () => {
       selectedCar = null;
    };
-   let searchQuery = "";
-   let results: any[] = [];
-
-   let miniSearch = new MiniSearch({
-      fields: ["carNumber"],
-      storeFields: ["0"],
-   });
-
-   miniSearch.addAll(posts);
-
-   const handleSearch = () => {
-      results = miniSearch.search(searchQuery);
-      console.log(results, "is here");
-   };
-   console.log(handleSearch());
 </script>
 
-<input type="text" bind:value={searchQuery} on:input={handleSearch} />
-
-<ul>
-   {#each posts as result}
-      <li>{result.carNumber}</li>
-   {/each}
-</ul>
 <div class="container">
    <div class="feed">
       {#each posts.slice((currentPage - 1) * perPage, currentPage * perPage) as post}
@@ -217,5 +193,30 @@
    .pagination button:disabled {
       opacity: 0.5;
       cursor: not-allowed;
+   }
+   @media (max-width: 768px) {
+      .car {
+         grid-template-columns: 1fr;
+         height: auto;
+      }
+
+      .information {
+         grid-template-columns: 1fr;
+      }
+
+      .first {
+         padding-right: 0;
+      }
+
+      .image-wrapper {
+         height: 200px;
+      }
+   }
+   @media (max-width: 400px) {
+      .car {
+         grid-template-columns: 1fr;
+         height: auto;
+         font-size: 12px;
+      }
    }
 </style>

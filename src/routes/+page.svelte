@@ -14,6 +14,9 @@
     import About from "../components/About.svelte";
     import Error from "../components/Error.svelte";
     import Table from "../components/table/Main.svelte";
+    import Search from "../components/search/Search.svelte";
+    import SearchResult from "../components/search/SearchResult.svelte";
+    import Map from "../components/Map.svelte";
     let busy = true;
     let error: any;
     let posts: CarDto[] = [];
@@ -74,7 +77,7 @@
     $: console.log(user);
 </script>
 
-<button on:click={loginFunc}> get Token</button>
+<!-- <button on:click={loginFunc}> get Token</button> -->
 <svelte:head>
     <title>Home</title>
     <meta name="description" content="Svelte demo app" />
@@ -88,10 +91,16 @@
     {:else}
         <Navbar on:showDiv={handleShowDiv} bind:selected />
         {#if selected === "home"}
-            <Dashboard {posts} />
+            <div class="body">
+                <Dashboard {posts} />
+                <Map />
+            </div>
+            <TrendingCars {posts} />
             <TrendingCars {posts} />
             <News {posts} />
             <Footer />
+        {:else if selected === "result"}
+            <SearchResult />
         {:else if selected === "about"}
             <About />
         {:else if selected === "AddCar"}
@@ -105,3 +114,18 @@
         {/if}
     {/if}
 </main>
+
+<style>
+    .body {
+        display: flex;
+        flex-direction: row;
+    }
+    @media (max-width: 800px) {
+        .body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+        }
+    }
+</style>

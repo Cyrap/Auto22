@@ -1,5 +1,6 @@
 <script lang="ts">
-   export var selected;
+   import Search from "./search/Search.svelte";
+   export var selected: any;
    var home = () => {
       selected = "home";
    };
@@ -19,7 +20,14 @@
       <img id="logo-pic" src="../src/img/logo.png" alt="Logo" />
       <h1>Auto22.mn</h1>
    </a>
+   <Search {selected} />
    <div id="nav-form">
+      <input type="checkbox" id="menu-toggle" />
+      <label for="menu-toggle" id="menu-toggle-label">
+         <span />
+         <span />
+         <span />
+      </label>
       <ul>
          <button on:click={home}>Home</button>
          <button on:click={about}>About</button>
@@ -32,17 +40,15 @@
 <style>
    h1 {
       color: var(--background-color);
+      font-size: 1.8rem;
    }
    #nav-container {
       z-index: 99;
       background: linear-gradient(0, var(--background-color), var(--disabled));
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 0 2%;
-   }
-   #nav-container #nav-form {
-      padding-right: 10%;
+      height: 90px;
+      /* justify-content: space-between; */
    }
    #nav-container #nav-form ul {
       display: flex;
@@ -71,5 +77,59 @@
       background-color: var(--disabled);
       transition: 0.3s;
       border-radius: 3px;
+   }
+   #nav-container #nav-form #menu-toggle {
+      display: none;
+   }
+   /* Responsive Design */
+   @media (max-width: 1200px) {
+      #nav-container #nav-form {
+         position: relative;
+      }
+      #nav-container #nav-form ul {
+         position: absolute;
+         top: 90px;
+         left: -250%;
+         z-index: 99;
+         width: 300px;
+         border: 1px solid;
+         background-color: var(--background-color);
+         flex-direction: column;
+         width: 100%;
+         padding: 10px;
+         display: none;
+         width: 30vw;
+      }
+      #nav-container #nav-form ul button {
+         margin: 5px;
+         width: 30vw;
+      }
+      #nav-container #nav-form ul button :hover {
+         background: var(--disabled);
+      }
+      #nav-container #nav-form input[type="checkbox"] {
+         display: none;
+      }
+      #nav-container #nav-form #menu-toggle-label {
+         display: block;
+         cursor: pointer;
+         padding: 10px;
+         position: absolute;
+         top: -20px;
+         background: white;
+         border-radius: 50%;
+         z-index: 100;
+         right: 20px;
+      }
+      #nav-container #nav-form #menu-toggle-label span {
+         display: block;
+         width: 30px;
+         height: 3px;
+         background-color: var(--text-color);
+         margin: 5px 0;
+      }
+      #nav-container #nav-form input[type="checkbox"]:checked ~ ul {
+         display: flex;
+      }
    }
 </style>
