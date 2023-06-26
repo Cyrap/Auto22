@@ -12,6 +12,7 @@
   "devDependencies": {
     "@sveltejs/adapter-auto": "^2.0.0",
     "@sveltejs/kit": "^1.5.0",
+    "@types/jquery": "^3.5.16",
     "@types/uuid": "^9.0.2",
     "@vincjo/datatables": "^1.10.3",
     "svelte": "^3.54.0",
@@ -22,14 +23,20 @@
   },
   "type": "module",
   "dependencies": {
+    "@popperjs/core": "^2.11.8",
     "@types/axios": "^0.14.0",
     "axios": "^1.4.0",
+    "bootstrap": "^5.3.0",
     "car-api": "link:api",
     "data": "link:C:/Program Files/Git/data",
+    "easing": "^1.2.1",
     "extended-table": "^2.1.1",
     "felte": "^1.2.7",
+    "flowbite-svelte": "^0.38.5",
+    "jquery": "^3.7.0",
     "local": "link:C:/Program Files/Git/local",
     "minisearch": "^6.1.0",
+    "slick-carousel": "^1.8.1",
     "svelte-routing": "^1.10.0",
     "swiper": "^9.4.1",
     "uuid": "^9.0.0"

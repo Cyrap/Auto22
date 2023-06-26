@@ -107,8 +107,8 @@
                   {/each}
                   {#each info as i}
                      {#each Object.entries(i) as [key, value]}
-                        <li style="background: rgba(140, 104, 104, 0.215);">
-                           <strong>{key}:</strong>
+                        <li>
+                           <strong>{key}</strong>
                            {value}
                         </li>
                      {/each}
@@ -174,6 +174,7 @@
       width: 50vw;
       display: grid;
       padding: 40px;
+      background: var(--background-color);
    }
    .list {
       width: 35vw;
@@ -183,17 +184,16 @@
       box-shadow: none;
    }
    .list li {
+      display: flex;
+      justify-content: space-between;
       height: 1.2rem;
       width: 200px;
       list-style: none;
       padding: 10px;
    }
    .Divexpanded {
-      position: sticky;
-   }
-   .Divexpanded {
       position: absolute;
-      top: 0%;
+      top: 0;
       left: 0;
       height: 100vh;
       width: 100vw;
@@ -201,17 +201,20 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      z-index: 101;
    }
    .Divexpanded ~ .inc {
       font-size: 5rem;
-      left: 80vw;
-      top: 28vh;
+      left: 85vw;
+      top: 18vh;
       transition: 0s;
+      z-index: 102;
    }
    .Divexpanded ~ .dec {
       font-size: 5rem;
-      top: 28vh;
+      top: 18vh;
       transition: 0s;
+      z-index: 103;
    }
    .close-button {
       position: relative;
@@ -224,39 +227,34 @@
    }
 
    img {
-      width: 40vw;
-      height: 70vh;
+      width: 34vw;
+      height: 60vh;
       object-fit: cover;
       object-position: center;
-      position: relative;
-      top: -10vh;
-      left: -5vw;
    }
    .inc,
    .dec {
       cursor: pointer;
       width: auto;
-      padding: 44px 15px;
-      margin-top: -20%;
       font-weight: bold;
       font-size: 18px;
       transition: 0.6s ease;
       border-radius: 0 3px 3px 0;
       user-select: none;
-      color: rgb(255, 255, 255);
+      background: black;
       font-size: 2rem;
       position: relative;
-      top: -80%;
+      top: -35vh;
       border: none;
       background: none;
    }
 
    .inc {
-      left: 100%;
+      left: 97%;
    }
 
    .dec {
-      left: -28%;
+      left: 0%;
    }
 
    .num {

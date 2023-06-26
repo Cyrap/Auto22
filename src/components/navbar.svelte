@@ -1,17 +1,24 @@
 <script lang="ts">
-   import Search from "./search/Search.svelte";
+   import Search from "./Search.svelte";
    export var selected: any;
+   import type { CarDto } from "car-api";
+   export let posts: CarDto[] = [];
+   export let search: any;
    var home = () => {
       selected = "home";
+      search = "";
    };
    var about = () => {
       selected = "about";
+      search = "";
    };
    var Login = () => {
       selected = "Login";
+      search = "";
    };
    var AddCar = () => {
       selected = "AddCar";
+      search = "";
    };
 </script>
 
@@ -20,7 +27,9 @@
       <img id="logo-pic" src="../src/img/logo.png" alt="Logo" />
       <h1>Auto22.mn</h1>
    </a>
-   <Search {selected} />
+   <div class="search">
+      <Search bind:search {posts} />
+   </div>
    <div id="nav-form">
       <input type="checkbox" id="menu-toggle" />
       <label for="menu-toggle" id="menu-toggle-label">
@@ -130,6 +139,15 @@
       }
       #nav-container #nav-form input[type="checkbox"]:checked ~ ul {
          display: flex;
+      }
+   }
+   @media (max-width: 850px) {
+      h1 {
+         display: none;
+      }
+      .search {
+         position: relative;
+         left: -100px;
       }
    }
 </style>

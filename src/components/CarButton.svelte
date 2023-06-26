@@ -8,7 +8,8 @@
    }
 </script>
 
-<button on:click={handleClick}>{post.model}</button>
+<!-- <button on:click={handleClick}>{post.model}</button> -->
+<button on:click={handleClick}>Дэлгэрэнгүй</button>
 
 <style>
    button {

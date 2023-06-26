@@ -1,27 +1,36 @@
 <script lang="ts">
    import MiniSearch from "minisearch";
-   import type { CarDto } from "car-api";
-   import Car from "../Car.svelte";
-   import CarButton from "../CarButton.svelte";
-   export let posts: CarDto[] = [];
    import SearchResult from "./SearchResult.svelte";
+   import type { CarDto } from "car-api";
+   export let posts: CarDto[] = [];
+   export let search;
    let searchQuery = "";
    let results: any[] = [];
-   export var selected;
+
    let miniSearch = new MiniSearch({
-      fields: ["model"],
-      storeFields: [""],
+      idField: "oid",
+      fields: ["model", "madecompany", "madeYear", "carNumber", "hutlugch", "madeMonth", "power", "roadTraveled", "turul"],
+      storeFields: ["model", "phone"],
+      searchOptions: {
+         boost: { title: 2 },
+         fuzzy: 0.2,
+      },
    });
 
-   miniSearch.addAll(posts);
+   const updateData = (posts: CarDto[]) => {
+      miniSearch.removeAll();
+      miniSearch.addAll(posts);
+   };
+   $: updateData(posts);
 
    const handleSearch = () => {
       results = miniSearch.search(searchQuery);
-      selected = "result";
+      search = "search";
       console.log(results, "is here");
    };
-   console.log(handleSearch());
 </script>
+
+<div style="display: none;" />
 
 <div class="container">
    <form>
@@ -31,7 +40,7 @@
    </form>
 </div>
 <div style="display: none;">
-   <SearchResult {results} />
+   <SearchResult bind:results />
 </div>
 
 <style>
@@ -103,5 +112,10 @@
       height: 1px;
       width: 1px;
       overflow: hidden;
+   }
+   @media (max-width: 600px) {
+      input {
+         width: 200px;
+      }
    }
 </style>

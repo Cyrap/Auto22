@@ -3,7 +3,7 @@
    import Car from "./Car.svelte";
    import CarButton from "./CarButton.svelte";
    export let posts: CarDto[] = [];
-   const perPage = 10;
+   const perPage = 5;
    let currentPage = 1;
    var titles: any = {
       carNumber: "Машины дугаар",
@@ -56,7 +56,6 @@
                </div>
                <div class="main">
                   <CarButton {post} on:carClicked={(event) => (selectedCar = event.detail)} />
-                  <div class="contact">{post.phone}</div>
                </div>
             </div>
          </div>
@@ -70,10 +69,8 @@
       {#if currentPage > 1}
          <button on:click={() => setPage(currentPage - 1)}>Previous</button>
       {/if}
-
-      {#if currentPage > 3}
-         <button on:click={() => setPage(1)}>1</button>
-         <span>...</span>
+      {#if currentPage < 2}
+         <button>Previous</button>
       {/if}
 
       {#if currentPage > 2}
@@ -93,12 +90,12 @@
       {#if (currentPage + 1) * perPage < posts.length}
          <button on:click={() => setPage(currentPage + 2)}>{currentPage + 2}</button>
       {/if}
-
-      {#if currentPage < Math.ceil(posts.length / perPage) - 2}
-         <span>...</span>
-         <button on:click={() => setPage(Math.ceil(posts.length / perPage))}>{Math.ceil(posts.length / perPage)}</button>
+      {#if (currentPage + 1) * perPage < 3}
+         <button on:click={() => setPage(4)}>4</button>
       {/if}
-
+      {#if (currentPage + 1) * perPage < 4}
+         <button on:click={() => setPage(5)}>5</button>
+      {/if}
       {#if currentPage < Math.ceil(posts.length / perPage)}
          <button on:click={() => setPage(currentPage + 1)}>Next</button>
       {/if}
@@ -108,9 +105,7 @@
 <style>
    :root {
       --secondary-color: #6c757d; /* Secondary color (gray) */
-      --accent-color: var(--primary-color); /* Accent color (yellow) */
-      --text-color: #333333; /* Text color (dark gray) */
-      --background-color: #ffffff; /* Background color (white) */
+      --accent-color: var(--primary-color);
    }
    .container {
       display: flex;
@@ -119,7 +114,7 @@
       padding: 2rem;
    }
    .car {
-      background-color: var(--background-color);
+      background: linear-gradient(130deg, #ffffff, #c0d0c6);
       width: 70vw;
       height: 400px;
       display: grid;
@@ -132,6 +127,7 @@
       display: flex;
       align-items: center;
    }
+
    img {
       height: 100%;
       width: 100%;
@@ -148,43 +144,35 @@
    }
    h4 {
       font-size: 2rem;
-      margin-bottom: 1rem;
+      margin: 10px 20px;
    }
    ul {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 0.5rem;
       margin-bottom: 1rem;
+      align-items: center;
+      padding-top: 10px;
    }
    li {
       list-style: none;
       margin-left: 1.5rem;
       display: flex;
+      margin-top: 0.2rem;
       justify-content: space-between;
-   }
-   .main > div {
-      padding: 0.5rem;
-      border-radius: 10px;
-      font-size: 1.4rem;
-      text-align: center;
-      margin: 0.5rem;
-   }
-   .contact {
-      background: var(--primary-color);
-      color: white;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.422);
    }
    .pagination {
       display: flex;
       justify-content: center;
       margin-top: 1rem;
    }
-   .pagination button,
-   .pagination span {
+   .pagination button {
       padding: 0.5rem 1rem;
-      border: none;
       background-color: var(--secondary-color);
       color: white;
       margin-right: 0.5rem;
+      width: 80px;
       cursor: pointer;
    }
    .pagination button.active {
@@ -195,11 +183,14 @@
       cursor: not-allowed;
    }
    @media (max-width: 768px) {
+      .main {
+         display: flex;
+         justify-content: end;
+      }
       .car {
          grid-template-columns: 1fr;
          height: auto;
       }
-
       .information {
          grid-template-columns: 1fr;
       }

@@ -3,9 +3,9 @@
     import { API } from "../logic/api";
     import type { CarDto } from "car-api";
     import type { UserDto } from "car-api";
-    import Footer from "../components/footer.svelte";
+    import Footer from "../components/Footer.svelte";
     import Navbar from "../components/Navbar.svelte";
-    import Dashboard from "../components/dashboard.svelte";
+    import Dashboard from "../components/Dashboard.svelte";
     import TrendingCars from "../components/TrendingCars.svelte";
     import News from "../components/News.svelte";
     import Loading from "../components/Loading.svelte";
@@ -14,25 +14,20 @@
     import About from "../components/About.svelte";
     import Error from "../components/Error.svelte";
     import Table from "../components/table/Main.svelte";
-    import Search from "../components/search/Search.svelte";
-    import SearchResult from "../components/search/SearchResult.svelte";
+    import SearchResult from "../components/SearchResult.svelte";
     import Map from "../components/Map.svelte";
     let busy = true;
     let error: any;
     let posts: CarDto[] = [];
     let user: UserDto | undefined = undefined;
-    let isDivVisible = false;
-    let modelFilter = "";
     let selected: any;
+    let search: any;
     selected = "home";
-    const handleShowDiv = () => {
-        isDivVisible = true;
-    };
     const getPosts = async () => {
         busy = true;
         try {
-            const res = await API.Car.apiCarGet({ modelFilter });
-            console.log(res.data.items);
+            // const res = await API.Car.apiCarGet({ modelFilter });
+            const res = await API.Car.apiCarGet();
             return res.data.items ?? [];
         } catch (e) {
             error = e;
@@ -41,10 +36,12 @@
         }
         return [];
     };
+
     onMount(async () => {
         posts = await getPosts();
     });
 
+    $: console.log(posts);
     const loginFunc = async () => {
         busy = true;
         try {
@@ -74,7 +71,7 @@
     //     }
     // }
 
-    $: console.log(user);
+    $: console.log(user, "user token is here");
 </script>
 
 <!-- <button on:click={loginFunc}> get Token</button> -->
@@ -89,8 +86,12 @@
         <span style="color:red">Error: {error}</span>
         <Error />
     {:else}
-        <Navbar on:showDiv={handleShowDiv} bind:selected />
-        {#if selected === "home"}
+        <Navbar bind:search bind:selected {posts} />
+        {#if search === "search"}
+            <SearchResult />
+        {:else if selected === "about"}
+            <About />
+        {:else if selected === "home"}
             <div class="body">
                 <Dashboard {posts} />
                 <Map />
@@ -99,12 +100,8 @@
             <TrendingCars {posts} />
             <News {posts} />
             <Footer />
-        {:else if selected === "result"}
-            <SearchResult />
-        {:else if selected === "about"}
-            <About />
         {:else if selected === "AddCar"}
-            {#if !posts}
+            {#if posts}
                 <Table {posts} />
             {:else}
                 <Login />

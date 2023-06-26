@@ -9,26 +9,22 @@
    };
    import { register } from "swiper/element/bundle";
    register();
-   const spaceBetween = 200;
+   const spaceBetween = 100;
 </script>
 
 <div class="container">
    <div id="image-track" data-mouse-down-at="0" data-prev-percentage="0" class="scrollable-container">
       <h4>Сүүлд нэмэгдсэн автомашинууд</h4>
       <swiper-container
-         slides-per-view={2}
+         slides-per-view={5}
          space-between={spaceBetween}
          pagination={{
             hideOnClick: true,
          }}
          breakpoints={{
             700: {
-               slidesPerView: 4.5,
+               slidesPerView: 4,
             },
-            650: {
-               slidesPerView: 3,
-            },
-
             400: {
                slidesPerView: 2,
             },
@@ -67,6 +63,7 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      padding: 30px 0px;
    }
    .scrollable-container {
       position: relative;
@@ -86,11 +83,12 @@
       align-items: center;
       position: relative;
       scroll-snap-align: start;
+      padding: 20px;
    }
    .image-wrapper {
-      width: 40vmin;
+      width: 50vmin;
       border-radius: 5px;
-      height: 25vmin;
+      height: 35vmin;
       overflow: hidden;
       position: relative;
    }
