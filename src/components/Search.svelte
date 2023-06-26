@@ -4,8 +4,12 @@
    import type { CarDto } from "car-api";
    export let posts: CarDto[] = [];
    export let search;
+
+   import { createEventDispatcher } from "svelte";
+
    let searchQuery = "";
-   let results: any[] = [];
+
+   let searchResults: any[] = [];
 
    let miniSearch = new MiniSearch({
       idField: "oid",
@@ -24,10 +28,16 @@
    $: updateData(posts);
 
    const handleSearch = () => {
-      results = miniSearch.search(searchQuery);
+      searchResults = miniSearch.search(searchQuery);
       search = "search";
-      console.log(results, "is here");
+      console.log(searchResults, "is here");
    };
+
+   const dispatch = createEventDispatcher();
+
+   function performSearch() {
+      dispatch("search", searchResults);
+   }
 </script>
 
 <div style="display: none;" />
@@ -36,11 +46,11 @@
    <form>
       <label for="search">Хайх машинаа оруулна уу</label>
       <input id="search" type="search" placeholder="Search..." bind:value={searchQuery} />
-      <button type="submit" on:click={handleSearch}>Хайх</button>
+      <button type="submit" on:click={handleSearch} on:click={performSearch}>Хайх</button>
    </form>
 </div>
 <div style="display: none;">
-   <SearchResult bind:results />
+   <SearchResult bind:searchResults />
 </div>
 
 <style>

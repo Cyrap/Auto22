@@ -2,12 +2,12 @@
    import type { CarDto } from "car-api";
    import CarButton from "./CarButton.svelte";
    import Car from "./Car.svelte";
+   import { register } from "swiper/element/bundle";
    export let posts: CarDto[] = [];
    let selectedCar: CarDto | null;
    const onClose = () => {
       selectedCar = null;
    };
-   import { register } from "swiper/element/bundle";
    register();
    const spaceBetween = 100;
 </script>
@@ -84,6 +84,7 @@
       position: relative;
       scroll-snap-align: start;
       padding: 20px;
+      margin-bottom: 20px;
    }
    .image-wrapper {
       width: 50vmin;

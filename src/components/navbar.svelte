@@ -38,10 +38,10 @@
          <span />
       </label>
       <ul>
-         <button on:click={home}>Home</button>
-         <button on:click={about}>About</button>
-         <button on:click={Login}>AddCar</button>
-         <button on:click={AddCar}>Login</button>
+         <button class={selected === "home" ? "active" : ""} on:click={home}>Нүүр</button>
+         <button class={selected === "about" ? "active" : ""} on:click={about}>Бидний тухай</button>
+         <button class={selected === "Login" ? "active" : ""} on:click={Login}>Автомашин бүртгэх</button>
+         <button class={selected === "AddCar" ? "active" : ""} on:click={AddCar}>Нэвтрэх</button>
       </ul>
    </div>
 </div>
@@ -90,7 +90,16 @@
    #nav-container #nav-form #menu-toggle {
       display: none;
    }
-   /* Responsive Design */
+   #nav-container #nav-form ul button.active::after {
+      content: "";
+      display: block;
+      height: 2px;
+      width: 150%;
+      background-color: var(--text-color);
+      position: relative;
+      top: 12px;
+      left: -25%;
+   }
    @media (max-width: 1200px) {
       #nav-container #nav-form {
          position: relative;

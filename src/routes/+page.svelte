@@ -16,6 +16,7 @@
     import Table from "../components/table/Main.svelte";
     import SearchResult from "../components/SearchResult.svelte";
     import Map from "../components/Map.svelte";
+    import Search from "../components/Search.svelte";
     let busy = true;
     let error: any;
     let posts: CarDto[] = [];
@@ -70,7 +71,6 @@
 
     //     }
     // }
-
     $: console.log(user, "user token is here");
 </script>
 

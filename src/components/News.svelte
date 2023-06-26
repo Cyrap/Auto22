@@ -67,10 +67,10 @@
    </div>
    <div class="pagination">
       {#if currentPage > 1}
-         <button on:click={() => setPage(currentPage - 1)}>Previous</button>
+         <button on:click={() => setPage(currentPage - 1)}>Өмнөх</button>
       {/if}
       {#if currentPage < 2}
-         <button>Previous</button>
+         <button>Өмнөх</button>
       {/if}
 
       {#if currentPage > 2}
@@ -97,7 +97,7 @@
          <button on:click={() => setPage(5)}>5</button>
       {/if}
       {#if currentPage < Math.ceil(posts.length / perPage)}
-         <button on:click={() => setPage(currentPage + 1)}>Next</button>
+         <button on:click={() => setPage(currentPage + 1)}>Дараагийнх</button>
       {/if}
    </div>
 </div>
@@ -174,6 +174,8 @@
       margin-right: 0.5rem;
       width: 80px;
       cursor: pointer;
+      display: flex;
+      justify-content: center;
    }
    .pagination button.active {
       background-color: var(--accent-color);

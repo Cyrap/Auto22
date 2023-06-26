@@ -1,14 +1,22 @@
 <script lang="ts">
-   export let results: any[] = [];
-   $: console.log(results, "Search results are here");
+   export let searchResults: any = [];
+   $: console.log(searchResults, "Search searchResults  are here");
 </script>
 
 <div>
    now you can see search result
+   {searchResults}
    <ul>
-      {#each results as result}
-         <div class="result">{result.terms}</div>
-      {/each}
+      {#if searchResults}
+         {#each searchResults as result}
+            <div class="result">{result.madeYear}</div>
+         {/each}
+      {:else}
+         {#each searchResults as result}
+            <div>{result}</div>
+         {/each}
+         <div>Хайлтын үр дүн олдсонгүй...</div>
+      {/if}
    </ul>
 </div>
 
