@@ -16,7 +16,9 @@
     import Table from "../components/table/Main.svelte";
     import SearchResult from "../components/SearchResult.svelte";
     import Map from "../components/Map.svelte";
-    import Search from "../components/Search.svelte";
+    import type { SearchResult as SR } from "minisearch";
+    let searchResults: SR[] | undefined | null;
+
     let busy = true;
     let error: any;
     let posts: CarDto[] = [];
@@ -72,6 +74,11 @@
     //     }
     // }
     $: console.log(user, "user token is here");
+
+    function handleCustomEvent(event: any) {
+        const eventData = event.detail.e; // Access the event data
+        console.log("Received custom event:", eventData);
+    }
 </script>
 
 <!-- <button on:click={loginFunc}> get Token</button> -->
@@ -86,9 +93,10 @@
         <span style="color:red">Error: {error}</span>
         <Error />
     {:else}
-        <Navbar bind:search bind:selected {posts} />
+        <Navbar bind:searchResults bind:selected {posts} on:myevent={handleCustomEvent} />
+        <SearchResult {searchResults} />
         {#if search === "search"}
-            <SearchResult />
+            <SearchResult {searchResults} />
         {:else if selected === "about"}
             <About />
         {:else if selected === "home"}

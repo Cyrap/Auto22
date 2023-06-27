@@ -1,23 +1,20 @@
 <script lang="ts">
    import MiniSearch from "minisearch";
-   import SearchResult from "./SearchResult.svelte";
    import type { CarDto } from "car-api";
-   export let posts: CarDto[] = [];
-   export let search;
-
    import { createEventDispatcher } from "svelte";
+   export let posts: CarDto[] = [];
 
-   let searchQuery = "";
+   export let searchQuery = "";
 
    let searchResults: any[] = [];
 
    let miniSearch = new MiniSearch({
       idField: "oid",
-      fields: ["model", "madecompany", "madeYear", "carNumber", "hutlugch", "madeMonth", "power", "roadTraveled", "turul"],
-      storeFields: ["model", "phone"],
+      fields: ["model"],
+      storeFields: ["oid"],
       searchOptions: {
          boost: { title: 2 },
-         fuzzy: 0.2,
+         fuzzy: 0.8,
       },
    });
 
@@ -25,19 +22,19 @@
       miniSearch.removeAll();
       miniSearch.addAll(posts);
    };
-   $: updateData(posts);
 
-   const handleSearch = () => {
-      searchResults = miniSearch.search(searchQuery);
-      search = "search";
-      console.log(searchResults, "is here");
-   };
+   $: updateData(posts);
 
    const dispatch = createEventDispatcher();
 
-   function performSearch() {
-      dispatch("search", searchResults);
-   }
+   const handleSearch = () => {
+      searchResults = miniSearch.search(searchQuery);
+      console.log(searchResults, "is here");
+      // dispatch("search", searchResults);
+      dispatch("myevent", searchResults);
+   };
+
+   $: handleSearch(), searchQuery;
 </script>
 
 <div style="display: none;" />
@@ -46,11 +43,8 @@
    <form>
       <label for="search">Хайх машинаа оруулна уу</label>
       <input id="search" type="search" placeholder="Search..." bind:value={searchQuery} />
-      <button type="submit" on:click={handleSearch} on:click={performSearch}>Хайх</button>
+      <!-- <button type="submit" on:click={handleSearch} on:click={performSearch}>Хайх</button> -->
    </form>
-</div>
-<div style="display: none;">
-   <SearchResult bind:searchResults />
 </div>
 
 <style>

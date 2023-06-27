@@ -171,9 +171,11 @@
       align-items: start;
    }
    #form-container {
-      width: 50vw;
+      width: 40vw;
+      position: relative;
+      left: 50px;
       display: grid;
-      padding: 40px;
+      padding: 60px;
       background: var(--background-color);
    }
    .list {
@@ -190,6 +192,7 @@
       width: 200px;
       list-style: none;
       padding: 10px;
+      border-bottom: 2px rgba(80, 75, 75, 0.033) solid;
    }
    .Divexpanded {
       position: absolute;
@@ -205,15 +208,14 @@
    }
    .Divexpanded ~ .inc {
       font-size: 5rem;
-      left: 85vw;
-      top: 18vh;
+      left: 83vw;
       transition: 0s;
       z-index: 102;
    }
    .Divexpanded ~ .dec {
       font-size: 5rem;
-      top: 18vh;
       transition: 0s;
+      left: 0vw;
       z-index: 103;
    }
    .close-button {
@@ -222,8 +224,10 @@
       display: none;
    }
    .containerOfImage {
-      width: 500px;
-      height: 400px;
+      width: 30vw;
+      display: flex;
+      align-items: center;
+      height: 40vh;
    }
 
    img {
@@ -241,28 +245,26 @@
       transition: 0.6s ease;
       border-radius: 0 3px 3px 0;
       user-select: none;
-      background: black;
       font-size: 2rem;
       position: relative;
-      top: -35vh;
       border: none;
       background: none;
    }
 
    .inc {
-      left: 97%;
+      left: -5%;
    }
 
    .dec {
-      left: 0%;
+      left: -115%;
    }
 
    .num {
       font-size: 1.4rem;
       position: relative;
-      top: -45%;
+      top: 70%;
+      left: -16%;
       color: rgb(255, 255, 255);
-      left: 96.7%;
       background-color: rgba(0, 0, 0, 0.493);
       width: 3rem;
       text-align: center;

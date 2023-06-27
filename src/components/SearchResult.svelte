@@ -1,38 +1,42 @@
 <script lang="ts">
-   export let searchResults: any = [];
+   import type { SearchResult as SR } from "minisearch";
+   export let searchResults: SR[] | undefined | null = [];
    $: console.log(searchResults, "Search searchResults  are here");
 </script>
 
-<div>
-   now you can see search result
-   {searchResults}
-   <ul>
-      {#if searchResults}
+<div class="container">
+   <div class="parent">
+      {#if searchResults && searchResults.length !== 0}
+         Хайлтын үр дүн{searchResults.length}
          {#each searchResults as result}
-            <div class="result">{result.madeYear}</div>
+            <div class="result">{result.id}</div>
          {/each}
       {:else}
-         {#each searchResults as result}
-            <div>{result}</div>
-         {/each}
-         <div>Хайлтын үр дүн олдсонгүй...</div>
+         <div class="error">Хайлтын үр дүн олдсонгүй...</div>
       {/if}
-   </ul>
+   </div>
 </div>
 
 <style>
-   div {
-      background: blue;
+   .container {
+      height: inherit;
+      min-height: 90vh;
+      width: 100vw;
+      background: var(--disabled);
+      display: flex;
+      justify-content: center;
    }
-   ul {
-      margin-top: 10px;
-      margin-left: 5vw;
-      background: red;
+   .parent {
+      background: rgb(148, 148, 148);
+      height: inherit;
+      width: 85vw;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
    }
    .result {
-      background: var(--disabled);
-      width: 70vw;
-      height: 30px;
-      border: #2f2f2f solid;
+      background: green;
+      height: 25vh;
+      width: 150px;
    }
 </style>

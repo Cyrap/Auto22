@@ -1,9 +1,8 @@
 <script lang="ts">
    import type { CarDto } from "car-api";
+   import Search from "./Search.svelte";
    export let posts: CarDto[] = [];
-   console.log("here is dashboard's :", posts);
    var expandedItem: string | null = null;
-
    function toggleItem(item: string) {
       if (expandedItem === item) {
          expandedItem = null;
@@ -11,8 +10,20 @@
          expandedItem = item;
       }
    }
+   let searchQuery = "";
+   const handleItemClick = (e: string | undefined) => {
+      if (e) {
+         const event = new CustomEvent("myevent", {
+            detail: { data: e },
+         });
+         searchQuery = e;
+         dispatchEvent(event);
+      }
+   };
 </script>
 
+<!-- 
+<Search bind:searchQuery /> -->
 <div class="dashboard">
    <h4>Автомашин хайх</h4>
    <div class="data-list">
@@ -24,7 +35,9 @@
          {#if expandedItem === "mark"}
             <div>
                {#each posts as post}
-                  <li class="childLi">{post.turul}</li>
+                  {#if post.turul}
+                     <li class="childLi" on:click={() => handleItemClick(post.turul?.toString())}>{post.turul}</li>
+                  {/if}
                {/each}
             </div>
          {/if}
@@ -37,7 +50,7 @@
          {#if expandedItem === "company"}
             <div>
                {#each posts as post}
-                  <li class="childLi">{post.madeCompany}</li>
+                  <li class="childLi" on:click={() => handleItemClick(post.madeCompany?.toString())}>{post.madeCompany}</li>
                {/each}
             </div>
          {/if}
@@ -50,7 +63,7 @@
          {#if expandedItem === "model"}
             <div>
                {#each posts as post}
-                  <li class="childLi">{post.model}</li>
+                  <li class="childLi" on:click={() => handleItemClick(post.model?.toString())}>{post.model}</li>
                {/each}
             </div>
          {/if}
@@ -63,7 +76,7 @@
          {#if expandedItem === "age"}
             <div>
                {#each posts as post}
-                  <li class="childLi">{post.madeYear}</li>
+                  <li class="childLi" on:click={() => handleItemClick(post.madeYear?.toString())}>{post.madeYear}</li>
                {/each}
             </div>
          {/if}
@@ -76,7 +89,7 @@
          {#if expandedItem === "condition"}
             <div>
                {#each posts as post}
-                  <li class="childLi">{post.condition}</li>
+                  <li class="childLi" on:click={() => handleItemClick(post.condition?.toString())}>{post.condition}</li>
                {/each}
             </div>
          {/if}
@@ -95,7 +108,7 @@
       position: relative;
       background-color: var(--primary-color);
       width: 30vw;
-      max-width: 90%;
+      max-width: 300px;
       height: auto;
       border-radius: 10px;
       margin: 2% auto;
@@ -125,7 +138,8 @@
       position: relative;
       top: 0.3rem;
       left: 2rem;
-      font-size: 2rem;
+      font-size: 1.3rem;
+      margin: 20px 30px;
    }
    .paretLi {
       border-bottom: 1px rgba(110, 103, 103, 0.21) solid;
@@ -140,7 +154,7 @@
    .childLi:hover,
    .paretLi:hover {
       cursor: pointer;
-      background: rgba(86, 79, 79, 0.542);
+      background: rgba(171, 161, 161, 0.382);
    }
 
    @media (max-width: 800px) {

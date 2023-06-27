@@ -1,24 +1,30 @@
 <script lang="ts">
+   import type { SearchResult } from "minisearch";
    import Search from "./Search.svelte";
-   export var selected: any;
    import type { CarDto } from "car-api";
+
+   export let selected: any;
    export let posts: CarDto[] = [];
-   export let search: any;
-   var home = () => {
+   // export let handleCustomEvent: any;
+   export let searchResults: SearchResult[] | undefined | null;
+
+   const handleSearchResult = (e: CustomEvent) => {
+      searchResults = e.detail;
+   };
+   const handleCustomEvent = (e: CustomEvent) => {
+      searchResults = e.detail;
+   };
+   const home = () => {
       selected = "home";
-      search = "";
    };
-   var about = () => {
+   const about = () => {
       selected = "about";
-      search = "";
    };
-   var Login = () => {
+   const Login = () => {
       selected = "Login";
-      search = "";
    };
-   var AddCar = () => {
+   const AddCar = () => {
       selected = "AddCar";
-      search = "";
    };
 </script>
 
@@ -28,7 +34,7 @@
       <h1>Auto22.mn</h1>
    </a>
    <div class="search">
-      <Search bind:search {posts} />
+      <Search {posts} on:search={handleSearchResult} on:myevent={handleCustomEvent} />
    </div>
    <div id="nav-form">
       <input type="checkbox" id="menu-toggle" />

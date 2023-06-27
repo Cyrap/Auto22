@@ -205,10 +205,11 @@
          height: 200px;
       }
    }
-   @media (max-width: 400px) {
+   @media (max-width: 500px) {
       .car {
          grid-template-columns: 1fr;
          height: auto;
+         width: 90vw;
          font-size: 12px;
       }
    }
