@@ -94,7 +94,7 @@
         <Error />
     {:else}
         <Navbar bind:searchResults bind:selected {posts} on:myevent={handleCustomEvent} />
-        <SearchResult {searchResults} />
+        <SearchResult {searchResults} {posts} />
         {#if search === "search"}
             <SearchResult {searchResults} />
         {:else if selected === "about"}

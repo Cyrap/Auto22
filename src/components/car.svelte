@@ -171,7 +171,7 @@
       align-items: start;
    }
    #form-container {
-      width: 40vw;
+      width: 48vw;
       position: relative;
       left: 50px;
       display: grid;

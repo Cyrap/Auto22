@@ -22,8 +22,7 @@
    };
 </script>
 
-<!-- 
-<Search bind:searchQuery /> -->
+<!-- <Search bind:searchQuery /> -->
 <div class="dashboard">
    <h4>Автомашин хайх</h4>
    <div class="data-list">
