@@ -120,7 +120,7 @@
       display: grid;
       grid-template-columns: 1fr 2.5fr;
       border: #333333 1px solid;
-      margin-bottom: 10px;
+      margin-top: 20px;
    }
    .image-wrapper {
       height: 100%;

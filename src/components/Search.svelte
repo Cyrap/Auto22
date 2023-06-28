@@ -3,11 +3,8 @@
    import type { CarDto } from "car-api";
    import { createEventDispatcher } from "svelte";
    export let posts: CarDto[] = [];
-
    export let searchQuery = "";
-
    let searchResults: any[] = [];
-
    let miniSearch = new MiniSearch({
       idField: "oid",
       fields: ["model"],
@@ -17,7 +14,6 @@
          fuzzy: 0.8,
       },
    });
-
    const updateData = (posts: CarDto[]) => {
       miniSearch.removeAll();
       miniSearch.addAll(posts);

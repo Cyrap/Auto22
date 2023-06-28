@@ -43,7 +43,7 @@
 
 <section class="register" style="position:absolute">
    <div class="register-container">
-      <h2>Машын бүртгэлийн хэсэг</h2>
+      <h2>Автомашин бүртгэлийн хэсэг</h2>
       <form>
          <div class="form-group">
             <div>
