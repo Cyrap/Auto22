@@ -16,9 +16,9 @@
     import Table from "../components/table/Main.svelte";
     import SearchResult from "../components/SearchResult.svelte";
     import Map from "../components/Map.svelte";
+    import BackButton from "../components/BackButton.svelte";
     import type { SearchResult as SR } from "minisearch";
     let searchResults: SR[] | undefined | null;
-
     let busy = true;
     let error: any;
     let posts: CarDto[] = [];
@@ -93,10 +93,10 @@
         <span style="color:red">Error: {error}</span>
         <Error />
     {:else}
-        <Navbar bind:searchResults bind:selected {posts} on:myevent={handleCustomEvent} />
-        <SearchResult {searchResults} {posts} />
+        <Navbar bind:search bind:searchResults bind:selected {posts} />
         {#if search === "search"}
-            <SearchResult {searchResults} />
+            <SearchResult {searchResults} {posts} />
+            <Footer />
         {:else if selected === "about"}
             <About />
         {:else if selected === "home"}
@@ -107,6 +107,7 @@
             <TrendingCars {posts} />
             <TrendingCars {posts} />
             <News {posts} />
+            <BackButton />
             <Footer />
         {:else if selected === "AddCar"}
             {#if posts}

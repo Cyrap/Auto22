@@ -4,6 +4,10 @@
    import { createEventDispatcher } from "svelte";
    export let posts: CarDto[] = [];
    export let searchQuery = "";
+   export let search;
+   export const handleCustomEvent = (e: CustomEvent) => {
+      searchResults = e.detail;
+   };
    let searchResults: any[] = [];
    let miniSearch = new MiniSearch({
       idField: "oid",
@@ -18,19 +22,17 @@
       miniSearch.removeAll();
       miniSearch.addAll(posts);
    };
-
    $: updateData(posts);
-
    const dispatch = createEventDispatcher();
-
    const handleSearch = () => {
       searchResults = miniSearch.search(searchQuery);
       console.log(searchResults, "is here");
+      search = "search";
       // dispatch("search", searchResults);
       dispatch("myevent", searchResults);
    };
 
-   $: handleSearch(), searchQuery;
+   $: searchQuery;
 </script>
 
 <div style="display: none;" />
@@ -39,7 +41,7 @@
    <form>
       <label for="search">Хайх машинаа оруулна уу</label>
       <input id="search" type="search" placeholder="Search..." bind:value={searchQuery} />
-      <!-- <button type="submit" on:click={handleSearch} on:click={performSearch}>Хайх</button> -->
+      <button type="submit" on:click={handleSearch}>Хайх</button>
    </form>
 </div>
 
@@ -61,7 +63,7 @@
       --color-light: var(--background-color);
       --color-brand: var(--primary-color);
       --font-fam: "Lato", sans-serif;
-      --height: 3rem;
+      --height: 2rem;
       --btn-width: 12rem;
       --bez: cubic-bezier(0, 0, 0.43, 1.49);
    }
@@ -70,7 +72,7 @@
       position: relative;
       background: var(--color-brand);
       border-radius: var(--rad);
-      width: 100%;
+      width: 110%;
       display: flex;
       align-items: center;
    }
@@ -103,6 +105,7 @@
       background: var(--color-brand);
       border-radius: 0 var(--rad) var(--rad) 0;
       cursor: pointer;
+      color: var(--background-color);
    }
    label {
       position: absolute;

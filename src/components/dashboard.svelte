@@ -1,8 +1,12 @@
 <script lang="ts">
+   import { onMount } from "svelte";
    import type { CarDto } from "car-api";
-   import Search from "./Search.svelte";
    export let posts: CarDto[] = [];
-   var expandedItem: string | null = null;
+   import { createEventDispatcher } from "svelte/internal";
+   import Search from "./Search.svelte";
+   let expandedItem: string | null = null;
+   let isMinimized = false;
+   const dispatch = createEventDispatcher();
    function toggleItem(item: string) {
       if (expandedItem === item) {
          expandedItem = null;
@@ -10,6 +14,11 @@
          expandedItem = item;
       }
    }
+
+   function toggleMinimize() {
+      isMinimized = !isMinimized;
+   }
+
    let searchQuery = "";
    const handleItemClick = (e: string | undefined) => {
       if (e) {
@@ -17,83 +26,105 @@
             detail: { data: e },
          });
          searchQuery = e;
-         dispatchEvent(event);
+         dispatch("myevent", event.detail);
       }
    };
+
+   onMount(() => {
+      function handleOutsideClick(event: MouseEvent) {
+         const dashboard = document.querySelector(".dashboard");
+         if (dashboard && !dashboard.contains(event.target as Node)) {
+            isMinimized = false;
+         }
+      }
+      document.addEventListener("click", handleOutsideClick);
+      return () => {
+         document.removeEventListener("click", handleOutsideClick);
+      };
+   });
 </script>
 
-<!-- <Search bind:searchQuery /> -->
-<div class="dashboard">
-   <h4>Автомашин хайх</h4>
-   <div class="data-list">
-      <ul class="menu">
-         <li class="paretLi" on:click={() => toggleItem("mark")}>
-            Төрөл
-            <span>{expandedItem === "mark" ? "▲" : "▼"}</span>
-         </li>
-         {#if expandedItem === "mark"}
-            <div>
-               {#each posts as post}
-                  {#if post.turul}
-                     <li class="childLi" on:click={() => handleItemClick(post.turul?.toString())}>{post.turul}</li>
-                  {/if}
-               {/each}
-            </div>
-         {/if}
-      </ul>
-      <ul class="menu">
-         <li class="paretLi" on:click={() => toggleItem("company")}>
-            Үйлдвэрлэгч
-            <span>{expandedItem === "company" ? "▲" : "▼"}</span>
-         </li>
-         {#if expandedItem === "company"}
-            <div>
-               {#each posts as post}
-                  <li class="childLi" on:click={() => handleItemClick(post.madeCompany?.toString())}>{post.madeCompany}</li>
-               {/each}
-            </div>
-         {/if}
-      </ul>
-      <ul class="menu">
-         <li class="paretLi" on:click={() => toggleItem("model")}>
-            Загвар
-            <span>{expandedItem === "model" ? "▲" : "▼"}</span>
-         </li>
-         {#if expandedItem === "model"}
-            <div>
-               {#each posts as post}
-                  <li class="childLi" on:click={() => handleItemClick(post.model?.toString())}>{post.model}</li>
-               {/each}
-            </div>
-         {/if}
-      </ul>
-      <ul class="menu">
-         <li class="paretLi" on:click={() => toggleItem("age")}>
-            Он
-            <span>{expandedItem === "age" ? "▲" : "▼"}</span>
-         </li>
-         {#if expandedItem === "age"}
-            <div>
-               {#each posts as post}
-                  <li class="childLi" on:click={() => handleItemClick(post.madeYear?.toString())}>{post.madeYear}</li>
-               {/each}
-            </div>
-         {/if}
-      </ul>
-      <ul class="menu">
-         <li class="paretLi" on:click={() => toggleItem("condition")}>
-            Нөхцөл
-            <span>{expandedItem === "condition" ? "▲" : "▼"}</span>
-         </li>
-         {#if expandedItem === "condition"}
-            <div>
-               {#each posts as post}
-                  <li class="childLi" on:click={() => handleItemClick(post.condition?.toString())}>{post.condition}</li>
-               {/each}
-            </div>
-         {/if}
-      </ul>
-   </div>
+<div class="dashboard" class:isMinimized on:click={toggleMinimize} tabindex="0">
+   {#if !isMinimized}
+      <h4>Автомашин хайх</h4>
+      <div class="data-list">
+         <ul class="menu">
+            <li class="paretLi" on:click={() => toggleItem("mark")}>
+               Төрөл
+               <span>{expandedItem === "mark" ? "▲" : "▼"}</span>
+            </li>
+            {#if expandedItem === "mark"}
+               <div>
+                  {#each posts as post}
+                     <li class="childLi" on:click={() => handleItemClick(post.turul?.toString())}>
+                        {post.turul}
+                     </li>
+                  {/each}
+               </div>
+            {/if}
+         </ul>
+         <ul class="menu">
+            <li class="paretLi" on:click={() => toggleItem("company")}>
+               Үйлдвэрлэгч
+               <span>{expandedItem === "company" ? "▲" : "▼"}</span>
+            </li>
+            {#if expandedItem === "company"}
+               <div>
+                  {#each posts as post}
+                     <li class="childLi" on:click={() => handleItemClick(post.madeCompany?.toString())}>
+                        {post.madeCompany}
+                     </li>
+                  {/each}
+               </div>
+            {/if}
+         </ul>
+         <ul class="menu">
+            <li class="paretLi" on:click={() => toggleItem("model")}>
+               Загвар
+               <span>{expandedItem === "model" ? "▲" : "▼"}</span>
+            </li>
+            {#if expandedItem === "model"}
+               <div>
+                  {#each posts as post}
+                     <li class="childLi" on:click={() => handleItemClick(post.model?.toString())}>
+                        {post.model}
+                     </li>
+                  {/each}
+               </div>
+            {/if}
+         </ul>
+         <ul class="menu">
+            <li class="paretLi" on:click={() => toggleItem("age")}>
+               Он
+               <span>{expandedItem === "age" ? "▲" : "▼"}</span>
+            </li>
+            {#if expandedItem === "age"}
+               <div>
+                  {#each posts as post}
+                     <li class="childLi" on:click={() => handleItemClick(post.madeYear?.toString())}>
+                        {post.madeYear}
+                     </li>
+                  {/each}
+               </div>
+            {/if}
+         </ul>
+         <ul class="menu">
+            <li class="paretLi" on:click={() => toggleItem("condition")} on:keydown={() => toggleItem("condition")}>
+               Нөхцөл
+               <span>{expandedItem === "condition" ? "▲" : "▼"}</span>
+            </li>
+            {#if expandedItem === "condition"}
+               <div>
+                  {#each posts as post}
+                     <li class="childLi" on:click={() => handleItemClick(post.condition?.toString())}>
+                        {post.condition}
+                     </li>
+                  {/each}
+               </div>
+            {/if}
+         </ul>
+      </div>
+   {/if}
 </div>
 
 <style>
@@ -107,12 +138,16 @@
       position: relative;
       background-color: var(--primary-color);
       width: 30vw;
-      max-width: 300px;
+      max-width: 280px;
       height: auto;
-      border-radius: 10px;
-      margin: 2% auto;
+      border-top-left-radius: 0px;
+      border-bottom-left-radius: 0px;
+      transition: width 0.2s ease-in-out;
    }
 
+   .dashboard.isMinimized {
+      width: 50px;
+   }
    .data-list {
       grid-gap: 10px;
       padding: 10px;
@@ -162,6 +197,16 @@
          flex-direction: column;
          width: 80vw;
          font-size: 12px;
+      }
+      .dashboard.isMinimized {
+         width: 100%;
+      }
+      .dashboard {
+         position: absolute;
+         border-radius: 10px;
+      }
+      h4 {
+         margin-top: 10px;
       }
    }
 </style>

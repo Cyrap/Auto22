@@ -2,10 +2,10 @@
    import type { SearchResult } from "minisearch";
    import Search from "./Search.svelte";
    import type { CarDto } from "car-api";
-
    export let selected: any;
    export let posts: CarDto[] = [];
-   // export let handleCustomEvent: any;
+   export let search: any;
+   // export let handleCustomEvent: Event;
    export let searchResults: SearchResult[] | undefined | null;
 
    const handleSearchResult = (e: CustomEvent) => {
@@ -16,15 +16,19 @@
    };
    const home = () => {
       selected = "home";
+      search = "";
    };
    const about = () => {
       selected = "about";
+      search = "";
    };
    const Login = () => {
       selected = "Login";
+      search = "";
    };
    const AddCar = () => {
       selected = "AddCar";
+      search = "";
    };
 </script>
 
@@ -34,7 +38,7 @@
       <h1>Auto22.mn</h1>
    </a>
    <div class="search">
-      <Search {posts} on:search={handleSearchResult} on:myevent={handleCustomEvent} />
+      <Search bind:search {posts} on:search={handleSearchResult} on:myevent={handleCustomEvent} on:myevent={handleCustomEvent} />
    </div>
    <div id="nav-form">
       <input type="checkbox" id="menu-toggle" />
@@ -62,8 +66,7 @@
       background: linear-gradient(0, var(--background-color), var(--disabled));
       display: flex;
       align-items: center;
-      height: 90px;
-      /* justify-content: space-between; */
+      height: 70px;
    }
    #nav-container #nav-form ul {
       display: flex;
@@ -75,7 +78,7 @@
    #nav-container #nav-form ul button {
       background-color: rgba(255, 0, 0, 0);
       padding: 10px 20px;
-      margin: 0px 20px;
+      margin: 0px 5px;
       border: none;
    }
    #nav-container #logo {
@@ -84,6 +87,7 @@
       color: var(--text-color);
       cursor: pointer;
       text-decoration: none;
+      padding-left: 2%;
    }
    #nav-container #logo #logo-pic {
       height: 60px;
@@ -112,7 +116,7 @@
       }
       #nav-container #nav-form ul {
          position: absolute;
-         top: 90px;
+         top: 38px;
          left: -250%;
          z-index: 99;
          width: 300px;
@@ -139,11 +143,11 @@
          cursor: pointer;
          padding: 10px;
          position: absolute;
-         top: -20px;
+         top: -25px;
          background: white;
          border-radius: 50%;
          z-index: 100;
-         right: 20px;
+         right: 10px;
       }
       #nav-container #nav-form #menu-toggle-label span {
          display: block;

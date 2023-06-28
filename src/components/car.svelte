@@ -279,4 +279,18 @@
          opacity: 1;
       }
    }
+   @media (max-width: 500px) {
+      .main-container {
+         flex-direction: column;
+      }
+   }
+   @media (max-width: 1000px) {
+      #form-container {
+         width: 35vw;
+      }
+      .list {
+         display: flex;
+         flex-direction: column;
+      }
+   }
 </style>

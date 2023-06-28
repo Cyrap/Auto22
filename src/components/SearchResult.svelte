@@ -151,6 +151,8 @@
 
    .modal-body {
       margin-top: 10px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
    }
 
    .modal-info {
