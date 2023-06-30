@@ -63,7 +63,6 @@
          <div class="error">Хайлтын үр дүн олдсонгүй...</div>
       {/if}
    </div>
-
    {#if selectedCar}
       <div class="modal" on:click={closeModal}>
          <div class="modal-content" on:click={(e) => e.stopPropagation()}>
@@ -92,7 +91,7 @@
       height: inherit;
       min-height: 90vh;
       width: 100vw;
-      background: var(--disabled);
+      background: var(--background-color);
       display: flex;
       justify-content: center;
       padding-bottom: 50px;
@@ -102,11 +101,11 @@
       height: inherit;
       width: 85vw;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
    }
    .result {
-      background: var(--background-color);
+      background: var(--primary-color);
       padding: 10px;
       border-radius: 4px;
       height: 25vh;

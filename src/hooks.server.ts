@@ -1,24 +1,10 @@
-import { authenticateUser } from "./logic/auth"
-import { redirect, type Handle } from "@sveltejs/kit"
+// /** @type {import('@sveltejs/kit').Handle} */
+// import { API } from './logic/api';
+// export async function handle({ event, resolve }) {
+//    event = await API.Car.apiCarGet(event.cookies.get(''));
 
-export const handle: Handle = async ({ event, resolve }) => {
-   // Stage 1
-   event.locals.user = authenticateUser(event)
+//    const response = await resolve(event);
+//    response.headers.set('x-custom-header', 'potato');
 
-   if (event.url.pathname.startsWith("/protected")) {
-      if (!event.locals.user) {
-         throw redirect(303, "/")
-      }
-      if (event.url.pathname.startsWith("/protected/admin")) {
-         if (event.locals.user.password !== "ADMIN") {
-            throw redirect(303, "/protected")
-         }
-      }
-   }
-
-   const response = await resolve(event) // Stage 2
-
-   // Stage 3
-
-   return response
-}
+//    return response;
+// }

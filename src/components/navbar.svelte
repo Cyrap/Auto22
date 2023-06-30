@@ -32,7 +32,7 @@
    };
 </script>
 
-<div id="nav-container">
+<div id="nav-container" data-theme="dark">
    <a href="/" id="logo" on:click={home}>
       <img id="logo-pic" src="../src/img/logo.png" alt="Logo" />
       <h1>Auto22.mn</h1>

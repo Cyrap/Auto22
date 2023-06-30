@@ -23,6 +23,7 @@
       power: "Хүч",
       roadTraveled: "Туулсан зам",
       turul: "Төрөл",
+      price: "үнэ",
    };
    function setPage(page: number) {
       currentPage = page;
@@ -42,16 +43,16 @@
             </div>
             <div class="information">
                <div class="first">
-                  <h4>{post.model}</h4>
+                  <h4>{post.model}, {post.madeYear}</h4>
                   <ul>
-                     {#each Object.entries(post) as [key, value]}
-                        {#if key in titles}
-                           <li>
-                              <strong>{titles[key]}:</strong>
-                              {value}
-                           </li>
-                        {/if}
-                     {/each}
+                     <li>
+                        <strong>{titles.madeYear}:</strong>
+                        {post.madeYear}
+                     </li>
+                     <li>
+                        <strong>{titles.price}:</strong>
+                        {post.price}
+                     </li>
                   </ul>
                </div>
                <div class="main">
@@ -116,7 +117,6 @@
    .car {
       background: linear-gradient(130deg, #ffffff, #c0d0c6);
       width: 70vw;
-      height: 400px;
       display: grid;
       grid-template-columns: 1fr 2.5fr;
       border: #333333 1px solid;
@@ -147,11 +147,10 @@
       margin: 10px 20px;
    }
    ul {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      display: flex;
+      flex-direction: column;
       gap: 0.5rem;
       margin-bottom: 1rem;
-      align-items: center;
       padding-top: 10px;
    }
    li {

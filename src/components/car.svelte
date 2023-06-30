@@ -100,8 +100,8 @@
                   {#each Object.entries(post) as [key, value]}
                      {#if key in titles}
                         <li>
-                           <strong>{titles[key]}:</strong>
-                           {value}
+                           {titles[key]}:
+                           <strong> {value}</strong>
                         </li>
                      {/if}
                   {/each}
@@ -184,6 +184,8 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       box-shadow: none;
+      gap: 5px;
+      font-size: 0.89em;
    }
    .list li {
       display: flex;
@@ -192,7 +194,7 @@
       width: 200px;
       list-style: none;
       padding: 10px;
-      border-bottom: 2px rgba(80, 75, 75, 0.033) solid;
+      border-bottom: 2px rgba(80, 75, 75, 0.363) solid;
    }
    .Divexpanded {
       position: absolute;

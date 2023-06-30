@@ -33,7 +33,7 @@
       dispatch("myevent", searchResults);
    };
 
-   $: handleSearch(), searchQuery;
+   // $: handleSearch(), searchQuery;
 </script>
 
 <div class="container">

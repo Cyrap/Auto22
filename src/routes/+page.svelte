@@ -82,41 +82,43 @@
     <title>Home</title>
     <meta name="description" content="Svelte demo app" />
 </svelte:head>
-<main>
-    {#if busy}
-        <Loading />
-    {:else if error}
-        <span style="color:red">Error: {error}</span>
-        <Error />
-    {:else}
-        <Navbar bind:search bind:searchResults bind:selected {posts} bind:searchQuery />
-        {#if search === "search"}
-            <SearchResult {searchResults} {posts} />
-            <BackButton />
-            <Footer />
-        {:else if selected === "about"}
-            <About />
-        {:else if selected === "home"}
-            <div class="body">
-                <Dashboard {posts} bind:searchQuery />
-                <Map />
-            </div>
-            <TrendingCars {posts} />
-            <TrendingCars {posts} />
-            <News {posts} />
-            <BackButton />
-            <Footer />
-        {:else if selected === "AddCar"}
-            {#if posts}
-                <Table {posts} />
-            {:else}
-                <Login />
+<html data-theme="dark">
+    <main>
+        {#if busy}
+            <Loading />
+        {:else if error}
+            <span style="color:red">Error: {error}</span>
+            <Error />
+        {:else}
+            <Navbar bind:search bind:searchResults bind:selected {posts} bind:searchQuery />
+            {#if search === "search"}
+                <SearchResult {searchResults} {posts} />
+                <BackButton />
+                <Footer />
+            {:else if selected === "about"}
+                <About />
+            {:else if selected === "home"}
+                <div class="body">
+                    <Dashboard {posts} bind:searchQuery />
+                    <Map />
+                </div>
+                <TrendingCars {posts} />
+                <TrendingCars {posts} />
+                <News {posts} />
+                <BackButton />
+                <Footer />
+            {:else if selected === "AddCar"}
+                {#if posts}
+                    <Table {posts} />
+                {:else}
+                    <Login />
+                {/if}
+            {:else if selected === "Login"}
+                <AddCar />
             {/if}
-        {:else if selected === "Login"}
-            <AddCar />
         {/if}
-    {/if}
-</main>
+    </main>
+</html>
 
 <style>
     .body {
