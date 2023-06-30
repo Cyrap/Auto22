@@ -1,5 +1,5 @@
 <div class="logo">
-   <img src="./src/img/logo.png" alt="" />
+   <img src="./src/img/autoLogo.png" alt="" />
 </div>
 <div class="center">
    <div class="wave" />

@@ -61,10 +61,6 @@
 {/if}
 
 <style>
-   strong {
-      color: var(--primary-color);
-      font-size: 1.5rem;
-   }
    .container {
       display: flex;
       width: 100vw;
