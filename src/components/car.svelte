@@ -155,7 +155,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 10;
+      z-index: 1007;
    }
    .second {
       width: 30%;

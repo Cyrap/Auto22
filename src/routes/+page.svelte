@@ -101,6 +101,7 @@
         {:else if selected === "about"}
             <About />
         {:else if selected === "home"}
+            <Auto22 />
             <div class="body">
                 <Dashboard {posts} bind:searchQuery />
                 <Map />
@@ -108,7 +109,7 @@
             <TrendingCars {posts} />
             <TrendingCars {posts} />
             <News {posts} />
-            <Auto22 />
+
             <BackButton />
             <Footer />
         {:else if selected === "AddCar"}

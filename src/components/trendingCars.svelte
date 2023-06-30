@@ -17,6 +17,7 @@
       <h4>Сүүлд нэмэгдсэн автомашинууд</h4>
       <swiper-container
          slides-per-view={5}
+         swiper.animating
          space-between={spaceBetween}
          pagination={{
             hideOnClick: true,
@@ -38,7 +39,10 @@
                <div class="image-container">
                   <div class="image-wrapper">
                      <img src="./src/img/hyundai-motor-group-a3vDd8hzuYs-unsplash.jpg" class="image" alt="img" />
-                     <div class="image-description">{post.model}</div>
+                     <div class="image-description">
+                        {post.model}
+                     </div>
+
                      <div class="more-button">
                         <CarButton {post} on:carClicked={(event) => (selectedCar = event.detail)}>
                            <span>Дэлгэрэнгүй</span>
@@ -57,6 +61,10 @@
 {/if}
 
 <style>
+   strong {
+      color: var(--primary-color);
+      font-size: 1.5rem;
+   }
    .container {
       display: flex;
       width: 100vw;

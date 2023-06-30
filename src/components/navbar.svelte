@@ -65,6 +65,8 @@
       z-index: 99;
       background: linear-gradient(0, var(--background-color), var(--disabled));
       display: flex;
+      position: sticky;
+      top: 0;
       align-items: center;
       height: 70px;
    }

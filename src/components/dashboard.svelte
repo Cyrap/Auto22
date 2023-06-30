@@ -44,7 +44,7 @@
 
 <div class="dashboard" class:isMinimized on:click={toggleMinimize} tabindex="0">
    {#if !isMinimized}
-      <h4>Автомашин хайх</h4>
+      <h4>Бүх ангилал</h4>
       <div class="data-list">
          <ul class="menu">
             <li class="paretLi" on:click={() => toggleItem("mark")}>
@@ -140,11 +140,15 @@
       height: auto;
       border-top-left-radius: 0px;
       border-bottom-left-radius: 0px;
+      position: sticky !important;
+      top: 0%;
       transition: width 0.2s ease-in-out;
    }
 
    .dashboard.isMinimized {
       width: 50px;
+      height: 50px;
+      border-radius: 50%;
    }
    .data-list {
       grid-gap: 10px;

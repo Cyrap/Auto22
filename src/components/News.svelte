@@ -1,9 +1,10 @@
 <script lang="ts">
    import type { CarDto } from "car-api";
+   import { createEventDispatcher } from "svelte";
    import Car from "./Car.svelte";
    import CarButton from "./CarButton.svelte";
    export let posts: CarDto[] = [];
-   const perPage = 5;
+   const perPage = 20;
    let currentPage = 1;
    var titles: any = {
       carNumber: "Машины дугаар",
@@ -36,31 +37,37 @@
    const onClose = () => {
       selectedCar = null;
    };
+   const dispatcher = createEventDispatcher();
+
+   const openModal = (car: CarDto) => {
+      selectedCar = car;
+      dispatcher("modalOpen");
+   };
+
+   const closeModal = () => {
+      selectedCar = null;
+      dispatcher("modalClose");
+   };
 </script>
 
 <div class="container">
    <div class="feed">
       {#each posts.slice((currentPage - 1) * perPage, currentPage * perPage) as post}
          <div class="car">
-            <div class="image-wrapper">
+            <div class="image-wrapper" on:click={() => openModal(post)}>
                <img src="./src/img/hyundai-motor-group-a3vDd8hzuYs-unsplash.jpg" alt="car" />
             </div>
             <div class="information">
                <div class="first">
-                  <h4>{post.model}, {post.madeYear}</h4>
+                  <h4>{post.model}</h4>
                   <ul>
                      <li>
-                        <strong>{titles.madeYear}:</strong>
-                        {post.madeYear}
-                     </li>
-                     <li>
-                        <strong>{titles.price}:</strong>
                         {post.price}
                      </li>
                   </ul>
-               </div>
-               <div class="main">
-                  <CarButton {post} on:carClicked={(event) => (selectedCar = event.detail)} />
+                  <div class="MoreButton">
+                     <CarButton {post} on:carClicked={(event) => (selectedCar = event.detail)} />
+                  </div>
                </div>
             </div>
          </div>
@@ -75,7 +82,7 @@
          <button on:click={() => setPage(currentPage - 1)}>Өмнөх</button>
       {/if}
       {#if currentPage < 2}
-         <button>Өмнөх</button>
+         <button disabled>Өмнөх</button>
       {/if}
 
       {#if currentPage > 2}
@@ -108,6 +115,12 @@
 </div>
 
 <style>
+   .MoreButton {
+      position: relative;
+      top: -80%;
+      left: 90%;
+   }
+
    :root {
       --secondary-color: #6c757d; /* Secondary color (gray) */
       --accent-color: var(--primary-color);
@@ -118,11 +131,16 @@
       align-items: center;
       padding: 2rem;
    }
+   .feed {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+   }
    .car {
       background: linear-gradient(130deg, #ffffff, rgba(244, 244, 255, 0.644));
-      width: 70vw;
+      width: 20vw;
       display: grid;
-      grid-template-columns: 1fr 2.5fr;
+      /* grid-template-columns: 1fr 2.5fr; */
       border: #333333 1px solid;
       margin-top: 20px;
    }
@@ -130,6 +148,7 @@
       height: 100%;
       display: flex;
       align-items: center;
+      position: relative;
    }
 
    img {
@@ -138,6 +157,7 @@
       object-fit: cover;
       object-position: center;
    }
+
    .information {
       display: grid;
       grid-template-columns: 3fr 1fr;
@@ -147,8 +167,8 @@
       padding-right: 1rem;
    }
    h4 {
-      font-size: 2rem;
-      margin: 10px 20px;
+      font-size: 1.5rem;
+      margin: 10px 30px;
    }
    ul {
       display: flex;
@@ -158,13 +178,14 @@
       padding-top: 10px;
    }
    li {
+      font-size: 1.5rem;
+      font-weight: bold;
       list-style: none;
-      margin-left: 1.5rem;
-      display: flex;
-      margin-top: 0.2rem;
-      justify-content: space-between;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.422);
+      color: var(--primary-color);
+      position: relative;
+      right: -15%;
    }
+
    .pagination button {
       appearance: none;
       background-color: #fafbfc;
@@ -222,10 +243,6 @@
       display: none;
    }
    @media (max-width: 768px) {
-      .main {
-         display: flex;
-         justify-content: end;
-      }
       .car {
          grid-template-columns: 1fr;
          height: auto;
