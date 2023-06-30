@@ -92,20 +92,16 @@
     {:else}
         <Navbar bind:search bind:searchResults bind:selected {posts} bind:searchQuery />
         {#if search === "search"}
-            <div class="body">
-                <Dashboard {posts} bind:searchQuery />
-                <SearchResult {searchResults} {posts} />
-            </div>
+            <Dashboard {posts} bind:searchQuery />
+            <SearchResult {searchResults} {posts} />
             <BackButton />
             <Footer />
         {:else if selected === "about"}
             <About />
         {:else if selected === "home"}
+            <Dashboard {posts} bind:searchQuery />
             <Auto22 />
-            <div class="body">
-                <Dashboard {posts} bind:searchQuery />
-                <Map />
-            </div>
+            <Map />
             <TrendingCars {posts} />
             <TrendingCars {posts} />
             <News {posts} />
@@ -125,10 +121,6 @@
 </main>
 
 <style>
-    .body {
-        display: flex;
-        flex-direction: row;
-    }
     @media (max-width: 800px) {
         .body {
             display: flex;
