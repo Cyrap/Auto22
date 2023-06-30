@@ -1,41 +1,40 @@
 <script lang="ts">
    import MiniSearch from "minisearch";
    import type { CarDto } from "car-api";
+   import type { SearchResult as SR } from "minisearch";
    import { createEventDispatcher } from "svelte";
    export let posts: CarDto[] = [];
    export let searchQuery = "";
-   export let search;
-   export const handleCustomEvent = (e: CustomEvent) => {
-      searchResults = e.detail;
-   };
-   let searchResults: any[] = [];
+   export let search = ""; // Initialize with a default value
+   export let searchResults: SR[] | undefined | null = [];
    let miniSearch = new MiniSearch({
       idField: "oid",
-      fields: ["model"],
+      fields: ["model", "turul", "madeCompany", "madeYear", "condition"],
       storeFields: ["oid"],
       searchOptions: {
          boost: { title: 2 },
          fuzzy: 0.8,
       },
    });
+
    const updateData = (posts: CarDto[]) => {
       miniSearch.removeAll();
       miniSearch.addAll(posts);
    };
+
    $: updateData(posts);
+
    const dispatch = createEventDispatcher();
+
    const handleSearch = () => {
       searchResults = miniSearch.search(searchQuery);
       console.log(searchResults, "is here");
       search = "search";
-      // dispatch("search", searchResults);
       dispatch("myevent", searchResults);
    };
 
-   $: searchQuery;
+   $: handleSearch(), searchQuery;
 </script>
-
-<div style="display: none;" />
 
 <div class="container">
    <form>
@@ -105,7 +104,6 @@
       background: var(--color-brand);
       border-radius: 0 var(--rad) var(--rad) 0;
       cursor: pointer;
-      color: var(--background-color);
    }
    label {
       position: absolute;

@@ -3,7 +3,7 @@
    import type { CarDto } from "car-api";
    export let posts: CarDto[] = [];
    import { createEventDispatcher } from "svelte/internal";
-   import Search from "./Search.svelte";
+   export let searchQuery = "";
    let expandedItem: string | null = null;
    let isMinimized = false;
    const dispatch = createEventDispatcher();
@@ -14,12 +14,10 @@
          expandedItem = item;
       }
    }
-
    function toggleMinimize() {
       isMinimized = !isMinimized;
    }
 
-   let searchQuery = "";
    const handleItemClick = (e: string | undefined) => {
       if (e) {
          const event = new CustomEvent("myevent", {

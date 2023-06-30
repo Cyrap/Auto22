@@ -4,28 +4,28 @@
    import type { CarDto } from "car-api";
    export let selected: any;
    export let posts: CarDto[] = [];
-   export let search: any;
-   // export let handleCustomEvent: Event;
+   export let search: string = "";
    export let searchResults: SearchResult[] | undefined | null;
-
-   const handleSearchResult = (e: CustomEvent) => {
-      searchResults = e.detail;
-   };
+   export let searchQuery: any;
    const handleCustomEvent = (e: CustomEvent) => {
       searchResults = e.detail;
    };
+
    const home = () => {
       selected = "home";
       search = "";
    };
+
    const about = () => {
       selected = "about";
       search = "";
    };
+
    const Login = () => {
       selected = "Login";
       search = "";
    };
+
    const AddCar = () => {
       selected = "AddCar";
       search = "";
@@ -38,7 +38,7 @@
       <h1>Auto22.mn</h1>
    </a>
    <div class="search">
-      <Search bind:search {posts} on:search={handleSearchResult} on:myevent={handleCustomEvent} on:myevent={handleCustomEvent} />
+      <Search bind:search {posts} bind:searchResults on:myevent on:message bind:searchQuery />
    </div>
    <div id="nav-form">
       <input type="checkbox" id="menu-toggle" />

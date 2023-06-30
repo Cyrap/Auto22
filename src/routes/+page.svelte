@@ -26,6 +26,7 @@
     let selected: any;
     let search: any;
     selected = "home";
+    let searchQuery: any = "";
     const getPosts = async () => {
         busy = true;
         try {
@@ -74,11 +75,6 @@
     //     }
     // }
     $: console.log(user, "user token is here");
-
-    function handleCustomEvent(event: any) {
-        const eventData = event.detail.e; // Access the event data
-        console.log("Received custom event:", eventData);
-    }
 </script>
 
 <!-- <button on:click={loginFunc}> get Token</button> -->
@@ -93,15 +89,16 @@
         <span style="color:red">Error: {error}</span>
         <Error />
     {:else}
-        <Navbar bind:search bind:searchResults bind:selected {posts} />
+        <Navbar bind:search bind:searchResults bind:selected {posts} bind:searchQuery />
         {#if search === "search"}
             <SearchResult {searchResults} {posts} />
+            <BackButton />
             <Footer />
         {:else if selected === "about"}
             <About />
         {:else if selected === "home"}
             <div class="body">
-                <Dashboard {posts} />
+                <Dashboard {posts} bind:searchQuery />
                 <Map />
             </div>
             <TrendingCars {posts} />
