@@ -26,6 +26,10 @@
       price: "үнэ",
    };
    function setPage(page: number) {
+      const container = document.querySelector(".container");
+      if (container) {
+         container.scrollTo({ top: 0, behavior: "smooth" });
+      }
       currentPage = page;
    }
    let selectedCar: CarDto | null;
@@ -115,7 +119,7 @@
       padding: 2rem;
    }
    .car {
-      background: linear-gradient(130deg, #ffffff, #c0d0c6);
+      background: linear-gradient(130deg, #ffffff, rgba(244, 244, 255, 0.644));
       width: 70vw;
       display: grid;
       grid-template-columns: 1fr 2.5fr;
@@ -161,27 +165,61 @@
       justify-content: space-between;
       border-bottom: 1px solid rgba(0, 0, 0, 0.422);
    }
-   .pagination {
-      display: flex;
-      justify-content: center;
-      margin-top: 1rem;
-   }
    .pagination button {
-      padding: 0.5rem 1rem;
-      background-color: var(--secondary-color);
-      color: white;
-      margin-right: 0.5rem;
-      width: 80px;
+      appearance: none;
+      background-color: #fafbfc;
+      border: 1px solid rgba(27, 31, 35, 0.15);
+      border-radius: 6px;
+      box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+      box-sizing: border-box;
+      color: #24292e;
       cursor: pointer;
-      display: flex;
-      justify-content: center;
+      display: inline-block;
+      font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+      list-style: none;
+      padding: 6px 16px;
+      position: relative;
+      transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      vertical-align: middle;
+      white-space: nowrap;
+      word-wrap: break-word;
    }
-   .pagination button.active {
-      background-color: var(--accent-color);
+
+   .pagination button:hover {
+      background-color: #f3f4f6;
+      text-decoration: none;
+      transition-duration: 0.1s;
    }
+
    .pagination button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
+      background-color: #fafbfc;
+      border-color: rgba(27, 31, 35, 0.15);
+      color: #959da5;
+      cursor: default;
+   }
+
+   .pagination button:active {
+      background-color: #edeff2;
+      box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+      transition: none 0s;
+   }
+
+   .pagination button:focus {
+      outline: 1px transparent;
+   }
+
+   .pagination button:before {
+      display: none;
+   }
+
+   .pagination button:-webkit-details-marker {
+      display: none;
    }
    @media (max-width: 768px) {
       .main {

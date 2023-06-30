@@ -134,7 +134,7 @@
    .dashboard {
       user-select: none; /* Standard syntax */
       position: relative;
-      background-color: var(--primary-color);
+      /* background-color: var(--disabled); */
       width: 30vw;
       max-width: 280px;
       height: auto;
@@ -160,13 +160,7 @@
       z-index: 1;
    }
 
-   div {
-      border-radius: 10px;
-      background: var(--background-color);
-   }
-
    h4 {
-      color: var(--background-color);
       position: relative;
       top: 0.3rem;
       left: 2rem;
@@ -174,14 +168,15 @@
       margin: 20px 30px;
    }
    .paretLi {
-      border-bottom: 1px rgba(110, 103, 103, 0.21) solid;
+      border-bottom: 2px rgba(110, 103, 103, 0.21) solid;
       padding: 0.5rem 20px;
    }
    .childLi {
-      background: rgba(240, 232, 232, 0.358);
+      border-bottom: 2px rgba(110, 103, 103, 0.21) solid;
       height: 1rem;
-      margin-left: 3rem;
-      padding: 2px 10px;
+      padding-top: 2px;
+      margin-left: 1rem;
+      padding: 5px 10px;
    }
    .childLi:hover,
    .paretLi:hover {

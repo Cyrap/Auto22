@@ -18,6 +18,7 @@
     import Map from "../components/Map.svelte";
     import BackButton from "../components/BackButton.svelte";
     import type { SearchResult as SR } from "minisearch";
+    import Auto22 from "../components/Auto22.svelte";
     let searchResults: SR[] | undefined | null;
     let busy = true;
     let error: any;
@@ -82,43 +83,45 @@
     <title>Home</title>
     <meta name="description" content="Svelte demo app" />
 </svelte:head>
-<html data-theme="dark">
-    <main>
-        {#if busy}
-            <Loading />
-        {:else if error}
-            <span style="color:red">Error: {error}</span>
-            <Error />
-        {:else}
-            <Navbar bind:search bind:searchResults bind:selected {posts} bind:searchQuery />
-            {#if search === "search"}
+<main>
+    {#if busy}
+        <Loading />
+    {:else if error}
+        <span style="color:red">Error: {error}</span>
+        <Error />
+    {:else}
+        <Navbar bind:search bind:searchResults bind:selected {posts} bind:searchQuery />
+        {#if search === "search"}
+            <div class="body">
+                <Dashboard {posts} bind:searchQuery />
                 <SearchResult {searchResults} {posts} />
-                <BackButton />
-                <Footer />
-            {:else if selected === "about"}
-                <About />
-            {:else if selected === "home"}
-                <div class="body">
-                    <Dashboard {posts} bind:searchQuery />
-                    <Map />
-                </div>
-                <TrendingCars {posts} />
-                <TrendingCars {posts} />
-                <News {posts} />
-                <BackButton />
-                <Footer />
-            {:else if selected === "AddCar"}
-                {#if posts}
-                    <Table {posts} />
-                {:else}
-                    <Login />
-                {/if}
-            {:else if selected === "Login"}
-                <AddCar />
+            </div>
+            <BackButton />
+            <Footer />
+        {:else if selected === "about"}
+            <About />
+        {:else if selected === "home"}
+            <div class="body">
+                <Dashboard {posts} bind:searchQuery />
+                <Map />
+            </div>
+            <TrendingCars {posts} />
+            <TrendingCars {posts} />
+            <News {posts} />
+            <Auto22 />
+            <BackButton />
+            <Footer />
+        {:else if selected === "AddCar"}
+            {#if posts}
+                <Table {posts} />
+            {:else}
+                <Login />
             {/if}
+        {:else if selected === "Login"}
+            <AddCar />
         {/if}
-    </main>
-</html>
+    {/if}
+</main>
 
 <style>
     .body {

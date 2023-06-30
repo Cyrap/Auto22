@@ -101,7 +101,7 @@
       width: var(--btn-width);
       font-weight: bold;
       padding: 0px 10px;
-      background: var(--color-brand);
+      border: 1px solid;
       border-radius: 0 var(--rad) var(--rad) 0;
       cursor: pointer;
    }

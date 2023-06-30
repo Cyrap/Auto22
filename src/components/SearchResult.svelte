@@ -90,7 +90,7 @@
    .container {
       height: inherit;
       min-height: 90vh;
-      width: 100vw;
+      width: 80vw;
       background: var(--background-color);
       display: flex;
       justify-content: center;
@@ -99,7 +99,7 @@
    .parent {
       margin-top: 50px;
       height: inherit;
-      width: 85vw;
+      width: 90vw;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 10px;
@@ -107,6 +107,7 @@
    .result {
       background: var(--primary-color);
       padding: 10px;
+      margin-top: 50px;
       border-radius: 4px;
       height: 25vh;
    }
@@ -115,7 +116,7 @@
    }
    .search-info {
       font-weight: bold;
-      margin-bottom: 16px;
+      color: #888;
    }
    .error {
       font-style: italic;

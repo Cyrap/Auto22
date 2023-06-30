@@ -153,7 +153,7 @@
    .form-group {
       margin-bottom: 1rem;
       display: grid;
-      background: var(--disabled);
+      background: var(--background-color);
       padding: 10px;
       border-radius: 10px;
       grid-template-columns: repeat(2, 1fr);
