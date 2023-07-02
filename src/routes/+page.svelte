@@ -5,13 +5,12 @@
     import type { UserDto } from "car-api";
     import Footer from "../components/Footer.svelte";
     import Navbar from "../components/Navbar.svelte";
-    import Dashboard from "../components/Dashboard.svelte";
     import TrendingCars from "../components/TrendingCars.svelte";
     import News from "../components/News.svelte";
+    import SearchSection from "../components/SearchSection.svelte";
     import Loading from "../components/Loading.svelte";
     import Login from "../components/Login.svelte";
     import AddCar from "../components/AddCar.svelte";
-    import About from "../components/About.svelte";
     import Error from "../components/Error.svelte";
     import Table from "../components/table/Main.svelte";
     import SearchResult from "../components/SearchResult.svelte";
@@ -90,16 +89,15 @@
         <span style="color:red">Error: {error}</span>
         <Error />
     {:else}
-        <Navbar bind:search bind:searchResults bind:selected {posts} bind:searchQuery />
+        <Navbar bind:search bind:selected />
+        <SearchSection bind:search bind:searchResults bind:selected {posts} bind:searchQuery />
         {#if search === "search"}
-            <Dashboard {posts} bind:searchQuery />
+            <!-- <Dashboard {posts} bind:searchQuery /> -->
             <SearchResult {searchResults} {posts} />
             <BackButton />
             <Footer />
-        {:else if selected === "about"}
-            <About />
         {:else if selected === "home"}
-            <Dashboard {posts} bind:searchQuery />
+            <!-- <Dashboard {posts} bind:searchQuery /> -->
             <Auto22 />
             <Map />
             <TrendingCars {posts} />

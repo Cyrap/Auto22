@@ -90,7 +90,7 @@
    .container {
       height: inherit;
       min-height: 100vh;
-      width: 80vw;
+      width: 100vw;
       background: var(--background-color);
       display: flex;
       justify-content: center;

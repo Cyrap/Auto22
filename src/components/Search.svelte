@@ -38,9 +38,7 @@
 
 <div class="container">
    <form>
-      <label for="search">Хайх машинаа оруулна уу</label>
-      <input id="search" type="search" placeholder="Search..." bind:value={searchQuery} />
-      <button type="submit" on:click={handleSearch}>Хайх</button>
+      <input id="search" type="search" placeholder="Автомашин хайх..." bind:value={searchQuery} />
    </form>
 </div>
 
@@ -62,7 +60,7 @@
       --color-light: var(--background-color);
       --color-brand: var(--primary-color);
       --font-fam: "Lato", sans-serif;
-      --height: 2rem;
+      --height: 2.5rem;
       --btn-width: 12rem;
       --bez: cubic-bezier(0, 0, 0.43, 1.49);
    }
@@ -75,44 +73,23 @@
       display: flex;
       align-items: center;
    }
-   input,
-   button {
+   input {
       height: var(--height);
       font-family: var(--font-fam);
-      border: 0;
+      border-radius: var(--rad);
       color: var(--color-dark);
-      font-size: 1.2rem;
+      font-size: 1rem;
    }
    input[type="search"] {
       outline: 0;
       flex: 1;
       background: var(--color-light);
       padding: 0 1.6rem;
-      border-top-left-radius: var(--rad);
-      border-bottom-left-radius: var(--rad);
       appearance: none;
       transition: all var(--dur) var(--bez);
       z-index: 1;
       position: relative;
-      border: 1px rgba(47, 47, 47, 0.466) solid;
-   }
-   button {
-      display: block;
-      width: var(--btn-width);
-      font-weight: bold;
-      padding: 0px 10px;
-      border: 1px solid;
-      border-radius: 0 var(--rad) var(--rad) 0;
-      cursor: pointer;
-   }
-   label {
-      position: absolute;
-      clip: rect(1px, 1px, 1px, 1px);
-      padding: 0;
-      border: 0;
-      height: 1px;
-      width: 1px;
-      overflow: hidden;
+      border: 1px var(--primary-color) solid;
    }
    @media (max-width: 600px) {
       input {

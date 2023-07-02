@@ -6,26 +6,6 @@
    export let posts: CarDto[] = [];
    const perPage = 20;
    let currentPage = 1;
-   var titles: any = {
-      carNumber: "Машины дугаар",
-      color: "Өнгө",
-      condition: "Нөхцөл",
-      engine: "Хөдөлгүүр",
-      engineCapacity: "Хөдөлгүүрийн багтаамж",
-      hrop: "Хорооп",
-      hutlugch: "Хөтлөгч",
-      hvrd: "Хүрд",
-      madeCompany: "Үйлдвэрлэсэн газар",
-      madeMonth: "Үйлдвэрлэсэн сар",
-      madeYear: "Үйлдвэрлэсэн жил",
-      model: "Загвар",
-      oid: "OID",
-      phone: "Утас",
-      power: "Хүч",
-      roadTraveled: "Туулсан зам",
-      turul: "Төрөл",
-      price: "үнэ",
-   };
    function setPage(page: number) {
       const container = document.querySelector(".container");
       if (container) {
@@ -42,11 +22,6 @@
    const openModal = (car: CarDto) => {
       selectedCar = car;
       dispatcher("modalOpen");
-   };
-
-   const closeModal = () => {
-      selectedCar = null;
-      dispatcher("modalClose");
    };
 </script>
 
@@ -116,9 +91,8 @@
 
 <style>
    .MoreButton {
-      position: relative;
-      top: -80%;
-      left: 90%;
+      margin-left: 15%;
+      margin-bottom: 10%;
    }
 
    :root {
@@ -161,13 +135,13 @@
    .information {
       display: grid;
       grid-template-columns: 3fr 1fr;
-      padding: 1rem;
    }
    .first {
       padding-right: 1rem;
    }
    h4 {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
+      width: 100%;
       margin: 10px 30px;
    }
    ul {

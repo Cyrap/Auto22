@@ -1,22 +1,10 @@
 <script lang="ts">
-   import { onMount } from "svelte";
    import type { CarDto } from "car-api";
    export let posts: CarDto[] = [];
    import { createEventDispatcher } from "svelte/internal";
    export let searchQuery = "";
-   let expandedItem: string | null = null;
-   let isMinimized = false;
+
    const dispatch = createEventDispatcher();
-   function toggleItem(item: string) {
-      if (expandedItem === item) {
-         expandedItem = null;
-      } else {
-         expandedItem = item;
-      }
-   }
-   function toggleMinimize() {
-      isMinimized = !isMinimized;
-   }
 
    const handleItemClick = (e: string | undefined) => {
       if (e) {
@@ -27,183 +15,98 @@
          dispatch("myevent", event.detail);
       }
    };
-
-   onMount(() => {
-      function handleOutsideClick(event: MouseEvent) {
-         const dashboard = document.querySelector(".dashboard");
-         if (dashboard && !dashboard.contains(event.target as Node)) {
-            isMinimized = false;
-         }
-      }
-      document.addEventListener("click", handleOutsideClick);
-      return () => {
-         document.removeEventListener("click", handleOutsideClick);
-      };
-   });
 </script>
 
-<div class="dashboard" class:isMinimized on:click={toggleMinimize} tabindex="0">
-   {#if !isMinimized}
-      <h4>Бүх ангилал</h4>
-      <div class="data-list">
-         <ul class="menu">
-            <li class="paretLi" on:click={() => toggleItem("mark")}>
-               Төрөл
-               <span>{expandedItem === "mark" ? "▲" : "▼"}</span>
-            </li>
-            {#if expandedItem === "mark"}
-               <div>
-                  {#each posts as post}
-                     <li class="childLi" on:click={() => handleItemClick(post.turul?.toString())}>
-                        {post.turul}
-                     </li>
-                  {/each}
-               </div>
-            {/if}
-         </ul>
-         <ul class="menu">
-            <li class="paretLi" on:click={() => toggleItem("company")}>
-               Үйлдвэрлэгч
-               <span>{expandedItem === "company" ? "▲" : "▼"}</span>
-            </li>
-            {#if expandedItem === "company"}
-               <div>
-                  {#each posts as post}
-                     <li class="childLi" on:click={() => handleItemClick(post.madeCompany?.toString())}>
-                        {post.madeCompany}
-                     </li>
-                  {/each}
-               </div>
-            {/if}
-         </ul>
-         <ul class="menu">
-            <li class="paretLi" on:click={() => toggleItem("model")}>
-               Загвар
-               <span>{expandedItem === "model" ? "▲" : "▼"}</span>
-            </li>
-            {#if expandedItem === "model"}
-               <div>
-                  {#each posts as post}
-                     <li class="childLi" on:click={() => handleItemClick(post.model?.toString())}>
-                        {post.model}
-                     </li>
-                  {/each}
-               </div>
-            {/if}
-         </ul>
-         <ul class="menu">
-            <li class="paretLi" on:click={() => toggleItem("age")}>
-               Он
-               <span>{expandedItem === "age" ? "▲" : "▼"}</span>
-            </li>
-            {#if expandedItem === "age"}
-               <div>
-                  {#each posts as post}
-                     <li class="childLi" on:click={() => handleItemClick(post.madeYear?.toString())}>
-                        {post.madeYear}
-                     </li>
-                  {/each}
-               </div>
-            {/if}
-         </ul>
-         <ul class="menu">
-            <li class="paretLi" on:click={() => toggleItem("condition")} on:keydown={() => toggleItem("condition")}>
-               Нөхцөл
-               <span>{expandedItem === "condition" ? "▲" : "▼"}</span>
-            </li>
-            {#if expandedItem === "condition"}
-               <div>
-                  {#each posts as post}
-                     <li class="childLi" on:click={() => handleItemClick(post.condition?.toString())}>
-                        {post.condition}
-                     </li>
-                  {/each}
-               </div>
-            {/if}
-         </ul>
+<div class="sec-center">
+   <input class="dropdown" type="checkbox" id="dropdown" name="dropdown" />
+   <label class="for-dropdown" for="dropdown">Бүх ангилал </label>
+
+   <div class="section-dropdown">
+      <div class="option-container">
+         {#each posts as post}
+            <div class="childLi" on:click={() => handleItemClick(post.model?.toString())}>
+               {post.model}
+            </div>
+         {/each}
       </div>
-   {/if}
+   </div>
 </div>
 
 <style>
-   span {
+   .option-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+   }
+   .sec-center {
+      position: relative;
+      z-index: 100;
+   }
+   [type="checkbox"]:checked,
+   [type="checkbox"]:not(:checked) {
       position: absolute;
-      left: 85%;
+      left: -9999px;
+      opacity: 0;
+      pointer-events: none;
    }
-
-   .dashboard {
-      user-select: none; /* Standard syntax */
+   .dropdown:checked + label,
+   .dropdown:not(:checked) + label {
       position: relative;
-      /* background-color: var(--disabled); */
-      width: 30vw;
-      max-width: 280px;
-      height: auto;
-      border-top-left-radius: 0px;
-      border-bottom-left-radius: 0px;
-      position: sticky !important;
-      top: 0%;
-      transition: width 0.2s ease-in-out;
+      font-weight: 500;
+      height: 2.5rem;
+      transition: all 200ms linear;
+      border-radius: 4px;
+      width: 220px;
+      letter-spacing: 1px;
+      display: -webkit-inline-flex;
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+      -webkit-align-items: center;
+      -moz-align-items: center;
+      -ms-align-items: center;
+      align-items: center;
+      -webkit-justify-content: center;
+      -moz-justify-content: center;
+      -ms-justify-content: center;
+      justify-content: center;
+      -ms-flex-pack: center;
+      text-align: center;
+      border: none;
+      background-color: var(--primary-color);
+      cursor: pointer;
+      color: var(--background-color);
+   }
+   .section-dropdown {
+      position: absolute;
+      padding: 5px;
+      background: white;
+      top: 70px;
+      left: -200px;
+      width: inherit;
+      border-radius: 4px;
+      display: block;
+      z-index: 2;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(20px);
+      transition: all 200ms linear;
    }
 
-   .dashboard.isMinimized {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-   }
-   .data-list {
-      grid-gap: 10px;
-      padding: 10px;
-      list-style: none;
-      margin: 10px 20px;
-   }
-
-   .menu {
-      display: flex;
-      flex-direction: column;
-      list-style: none;
-      z-index: 1;
-   }
-
-   h4 {
-      position: relative;
-      top: 0.3rem;
-      left: 2rem;
-      font-size: 1.3rem;
-      margin: 20px 30px;
-   }
-   .paretLi {
-      border-bottom: 2px rgba(110, 103, 103, 0.21) solid;
-      padding: 0.5rem 20px;
+   .dropdown:checked ~ .section-dropdown {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
    }
    .childLi {
-      border-bottom: 2px rgba(110, 103, 103, 0.21) solid;
-      height: 1rem;
-      padding-top: 2px;
-      margin-left: 1rem;
-      padding: 5px 10px;
-   }
-   .childLi:hover,
-   .paretLi:hover {
+      background: rgb(255, 255, 255);
+      border-bottom: 1px solid black;
+      height: 3rem;
+      text-align: center;
       cursor: pointer;
-      background: rgba(171, 161, 161, 0.382);
+      width: 210px;
    }
-
-   @media (max-width: 800px) {
-      .dashboard {
-         display: flex;
-         flex-direction: column;
-         width: 80vw;
-         font-size: 12px;
-      }
-      .dashboard.isMinimized {
-         width: 100%;
-      }
-      .dashboard {
-         position: absolute;
-         border-radius: 10px;
-      }
-      h4 {
-         margin-top: 10px;
-      }
+   .childLi:hover {
+      background: rgb(211, 211, 222);
+   }
+   @media screen and (max-width: 991px) {
    }
 </style>
