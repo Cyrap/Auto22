@@ -107,24 +107,9 @@
             <BackButton />
             <Footer />
         {:else if selected === "AddCar"}
-            {#if posts}
-                <Table {posts} />
-            {:else}
-                <Login />
-            {/if}
+            <Login />
         {:else if selected === "Login"}
             <AddCar />
         {/if}
     {/if}
 </main>
-
-<style>
-    @media (max-width: 800px) {
-        .body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 12px;
-        }
-    }
-</style>

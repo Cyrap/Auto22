@@ -33,7 +33,8 @@
 </svelte:head>
 <div class="main">
    <div class="form">
-      <label for="phoneNumber">User name</label>
+      <h4>Нэвтрэх</h4>
+      <label for="phoneNumber">Утасны дугаар</label>
       <input type="tel" id="phoneNumber" value={newUser.username} on:input={handlePhoneInput} required pattern="[0-9]{8}" />
       <label for="password">Нууц үг</label>
       <div class="password-input">
@@ -47,20 +48,20 @@
          />
          <button class="show-password-btn" on:click={togglePasswordVisibility}>
             {#if show_password}
-               <span class="hide-icon">Hide</span>
+               <span class="hide-icon"><i class="fa-solid fa-eye-slash" /></span>
             {:else}
-               <span class="show-icon">Show</span>
+               <span class="show-icon"><i class="fa-light fa-eye" /></span>
             {/if}
          </button>
       </div>
+      <button on:click={Login} class="login">Нэвтрэх</button>
       <a class="forgot" href="/">Нууц үгээ мартсан</a>
-      <button on:click={Login} class="login">Login</button>
    </div>
 </div>
 
 <style>
    .main {
-      background: rgba(61, 119, 146, 0.19);
+      background: var(--disabled);
       width: 100vw;
       height: 100vh;
       display: flex;
@@ -68,8 +69,11 @@
       justify-content: center;
       border-radius: 10px;
    }
+   h4 {
+      align-self: center;
+   }
    .form {
-      background-color: rgb(179, 187, 194);
+      background-color: var(--background-color);
       height: 50vh;
       display: flex;
       justify-content: center;
@@ -77,16 +81,14 @@
       border-radius: 10px;
       position: absolute;
       top: 25vh;
-      padding: 50px;
+      padding: 20px;
    }
    .forgot {
       background: none;
       color: var(--primary-color);
-      margin: -10px;
+      font-size: 0.8rem;
       padding: 0;
       position: relative;
-      top: 5vh;
-      left: 23vw;
    }
    .forgot:hover {
       color: rgb(52, 163, 147);
@@ -98,24 +100,22 @@
       padding: 10px 0px;
       text-align: center;
       border-radius: 10px;
-      width: 10vw;
-      margin: 20px;
+      margin: 20px 0px;
       position: relative;
-      top: 10vh;
-      left: 21vw;
    }
    label {
-      font-size: 1.3rem;
+      font-size: 0.9rem;
       margin: 10px;
    }
    input {
       padding: 0.3rem 1rem;
       height: 2rem;
       background: rgba(255, 255, 255, 0.711);
-      border: none;
-      border-bottom: 3px rgba(0, 0, 0, 0.439) solid;
+      border: 1px solid black;
+      border-radius: 3px;
       font-size: 1.2rem;
-      width: 30vw;
+      width: 25vw;
+      min-width: 350px;
    }
    input::-webkit-outer-spin-button,
    input::-webkit-inner-spin-button {
@@ -136,17 +136,12 @@
    }
    .show-icon,
    .hide-icon {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      color: var(--primary-color);
-      background-color: transparent;
-      border: none;
       outline: none;
       cursor: pointer;
-      padding: 0;
-      margin: 0;
-      transition: color 0.3s;
+      width: 10px;
+      height: 10px;
    }
+
    .hide-icon {
       display: none;
    }

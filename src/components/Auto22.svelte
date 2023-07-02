@@ -62,7 +62,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: green;
+
       overflow: hidden;
       z-index: -1;
       filter: blur(1px); /* Apply blur effect */
@@ -87,14 +87,13 @@
       font-size: 2.5rem;
    }
    .about > div {
-      background: rgba(244, 244, 255, 0.644);
       width: 60%;
       padding: 50px;
       border-radius: 10px;
    }
    .overlay {
       position: absolute;
-      background: #3134367d;
+      background: rgba(152, 151, 73, 0.488);
       width: inherit;
       height: inherit;
    }

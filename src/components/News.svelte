@@ -114,9 +114,13 @@
       background: linear-gradient(130deg, #ffffff, rgba(244, 244, 255, 0.644));
       width: 20vw;
       display: grid;
-      /* grid-template-columns: 1fr 2.5fr; */
       border: #333333 1px solid;
+      border-radius: 10px;
       margin-top: 20px;
+   }
+   .car:hover {
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+      transition: 0.1s;
    }
    .image-wrapper {
       height: 100%;
@@ -159,7 +163,9 @@
       position: relative;
       right: -15%;
    }
-
+   .pagination {
+      margin-top: 30px;
+   }
    .pagination button {
       appearance: none;
       background-color: #fafbfc;

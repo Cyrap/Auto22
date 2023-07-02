@@ -58,4 +58,7 @@
       visibility: hidden;
       transform: translateY(20px);
    }
+   .back-to-top:hover {
+      opacity: 1;
+   }
 </style>
