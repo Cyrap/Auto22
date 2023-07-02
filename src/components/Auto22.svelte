@@ -81,6 +81,7 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
+
       font-size: 1.2rem;
    }
    h4 {
@@ -90,10 +91,11 @@
       width: 60%;
       padding: 50px;
       border-radius: 10px;
+      background: rgba(221, 203, 203, 0.527);
    }
    .overlay {
       position: absolute;
-      background: rgba(152, 151, 73, 0.488);
+      background: #07848083;
       width: inherit;
       height: inherit;
    }
