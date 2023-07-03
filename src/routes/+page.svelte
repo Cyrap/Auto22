@@ -17,6 +17,8 @@
     import type { SearchResult as SR } from "minisearch";
     import Auto22 from "../components/Auto22.svelte";
     import Table from "../components/table/Main.svelte";
+    import DeleteCar from "../components/DeleteCar.svelte";
+    import EditCar from "../components/EditCar.svelte";
     let searchResults: SR[] | undefined | null;
     let busy = true;
     let error: any;
@@ -56,7 +58,9 @@
         <span style="color:red">Error: {error}</span>
         <Error />
     {:else}
-        <Table {posts} />
+        <!-- <EditCar />
+        <DeleteCar /> -->
+        <!-- <Table {posts} /> -->
         <Navbar bind:search bind:selected />
         <SearchSection bind:search bind:searchResults bind:selected {posts} bind:searchQuery />
         {#if search === "search"}
