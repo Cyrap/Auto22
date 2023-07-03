@@ -1,6 +1,6 @@
 {
   "name": "cuko_api_swagger",
-  "version": "0.0.28",
+  "version": "0.0.29",
   "description": "OpenAPI client for cuko_api_swagger",
   "author": "OpenAPI-Generator Contributors",
   "repository": {
@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@types/node": "^12.11.5",
-    "tsup": "^7.0.0",
+    "tsup": "^7.1.0",
     "typescript": "^4.0"
   },
   "publishConfig": {

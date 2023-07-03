@@ -31,7 +31,7 @@
       <ul>
          <button class={selected === "home" ? "active" : ""} on:click={home}>Нүүр</button>
          <button class={selected === "Login" ? "active" : ""} on:click={addCar}>Автомашин бүртгэх</button>
-         <button class={selected === "AddCar" ? "active" : ""} on:click={Login}>Нэвтрэх</button>
+         <button class={selected === "AddCar" ? "active" : ""} on:click={Login}><i class="fa-regular fa-user fa" style="color: #ffffff;" /></button>
       </ul>
    </div>
 </div>

@@ -2,7 +2,6 @@
     import { onMount } from "svelte";
     import { API } from "../logic/api";
     import type { CarDto } from "car-api";
-    import type { UserDto } from "car-api";
     import Footer from "../components/Footer.svelte";
     import Navbar from "../components/Navbar.svelte";
     import TrendingCars from "../components/TrendingCars.svelte";
@@ -17,12 +16,12 @@
     import BackButton from "../components/BackButton.svelte";
     import type { SearchResult as SR } from "minisearch";
     import Auto22 from "../components/Auto22.svelte";
-
+    import Table from "../components/table/Main.svelte";
     let searchResults: SR[] | undefined | null;
     let busy = true;
     let error: any;
     let posts: CarDto[] = [];
-    let user: UserDto | undefined = undefined;
+
     let selected: any;
     let search: any;
     selected = "home";
@@ -44,39 +43,8 @@
     onMount(async () => {
         posts = await getPosts();
     });
-
-    const loginFunc = async () => {
-        busy = true;
-        try {
-            const res = await API.User.usersAuthenticatePost();
-
-            // if (res.status == 200 || res.status == 201) {
-            //     getUser();
-            // }
-
-            console.log(res.data);
-            return res.data;
-        } catch (e) {
-            error = e;
-        } finally {
-            busy = false;
-        }
-        return [];
-    };
-
-    // const getUser = () async => {
-    //     try {
-    //         const res = await API.User.usersUsersIdGet("adsadbsuaibdsuiavdyuadyusvadyud");
-
-    //         user = res.data;
-    //     } catch (error) {
-
-    //     }
-    // }
-    $: console.log(user, "user token is here");
 </script>
 
-<!-- <button on:click={loginFunc}> get Token</button> -->
 <svelte:head>
     <title>Home</title>
     <meta name="description" content="Svelte demo app" />
@@ -88,6 +56,7 @@
         <span style="color:red">Error: {error}</span>
         <Error />
     {:else}
+        <Table {posts} />
         <Navbar bind:search bind:selected />
         <SearchSection bind:search bind:searchResults bind:selected {posts} bind:searchQuery />
         {#if search === "search"}

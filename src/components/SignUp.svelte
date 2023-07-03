@@ -28,32 +28,18 @@
       lastName: "",
       email: "",
    };
-   let passwordA = "";
-   let passwordB = "";
 
-   function handlePhoneInput(event: Event) {
-      newUser.username = (event.target as HTMLInputElement).value;
-   }
-   function handleFirstNameInput(event: Event) {
-      newUser.firstName = (event.target as HTMLInputElement).value;
-   }
-   function handleLastNameInput(event: Event) {
-      newUser.lastName = (event.target as HTMLInputElement).value;
-   }
-   function handleEmailInput(event: Event) {
-      newUser.email = (event.target as HTMLInputElement).value;
-   }
+   //    {
+   //   "username": "sugar",
+   //   "password": "qwerty123",
+   //   "firstName": "sugar",
+   //   "lastName": "nymdawaa",
+   //   "email": "cyrap2001@gmail.com"
+   // }
+   let passwordRepeat = "";
 
-   const handlePasswordAInput = (event: Event) => {
-      passwordA = (event.target as HTMLInputElement).value;
-   };
-
-   const handlePasswordBInput = (event: Event) => {
-      passwordB = (event.target as HTMLInputElement).value;
-   };
-
-   async function Register() {
-      if (passwordA === passwordB) {
+   async function register() {
+      if (newUser.password === passwordRepeat) {
          try {
             const response = await API.User.usersRegisterPost({
                registerRequest: newUser,
@@ -73,32 +59,32 @@
       <form use:form>
          <h4>Хэрэглэгчийн бүртгэл үүсгэх</h4>
          <label for="text">Хэрэглэгчийн нэр</label>
-         <input type="text" name="text" value={newUser.username} on:input={handlePhoneInput} use:validators={[required, minLength(3)]} />
+         <input type="text" name="text" bind:value={newUser.username} use:validators={[required, minLength(3)]} />
          <HintGroup for="text">
             <Hint on="required">{requiredMessage}</Hint>
          </HintGroup>
 
          <label for="text">Овог</label>
-         <input type="text" name="text" value={newUser.lastName} on:input={handleLastNameInput} use:validators={[required, minLength(3)]} />
+         <input type="text" name="text" bind:value={newUser.lastName} use:validators={[required, minLength(3)]} />
          <HintGroup for="text">
             <Hint on="required">{requiredMessage}</Hint>
          </HintGroup>
 
          <label for="text">Нэр</label>
-         <input type="text" name="text" value={newUser.firstName} on:input={handleFirstNameInput} use:validators={[required, minLength(3)]} />
+         <input type="text" name="text" bind:value={newUser.firstName} use:validators={[required, minLength(3)]} />
          <HintGroup for="text">
             <Hint on="required">{requiredMessage}</Hint>
          </HintGroup>
 
          <label for="email">E mail хаяг</label>
-         <input type="email" name="email" value={newUser.email} on:input={handleEmailInput} use:validators={[required, minLength(3)]} />
+         <input type="email" name="email" bind:value={newUser.email} use:validators={[required, minLength(3)]} />
          <HintGroup for="email">
             <Hint on="required">{requiredMessage}</Hint>
             <Hint on="email" hideWhenRequired>This must be a valid email</Hint>
          </HintGroup>
 
          <label for="password">Нууц үг</label>
-         <input type="password" name="password" on:input={handlePasswordAInput} use:validators={[required, minLength(8), containNumbers(2)]} />
+         <input type="password" name="password" bind:value={newUser.password} use:validators={[required, minLength(8), containNumbers(2)]} />
          <HintGroup for="password">
             <Hint on="required">{requiredMessage}</Hint>
             <Hint on="minLength" hideWhenRequired let:value>This field must have at least {value} characters.</Hint>
@@ -108,13 +94,13 @@
          </HintGroup>
 
          <label for="passwordConfirmation">Нууц үг дахин оруулна уу.</label>
-         <input type="password" name="passwordConfirmation" on:input={handlePasswordBInput} use:validators={[required, passwordMatch]} />
+         <input type="password" name="passwordConfirmation" bind:value={passwordRepeat} use:validators={[required, passwordMatch]} />
          <HintGroup for="passwordConfirmation">
             <Hint on="required">{requiredMessage}</Hint>
             <Hint on="passwordMatch" hideWhenRequired>Passwords do not match</Hint>
          </HintGroup><br />
 
-         <button disabled={!$form.valid} on:click={Register}> Submit </button>
+         <button disabled={!$form.valid} on:click={register}> Submit </button>
       </form>
    </div>
 </main>

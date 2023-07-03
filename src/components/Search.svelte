@@ -28,7 +28,7 @@
 
    const handleSearch = () => {
       searchResults = miniSearch.search(searchQuery);
-      console.log(searchResults, "is here");
+      // console.log(searchResults, "is here");
       search = "search";
       dispatch("myevent", searchResults);
    };

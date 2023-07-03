@@ -1,7 +1,9 @@
 <script lang="ts">
+   import { onMount } from "svelte";
    import { API } from "../logic/api";
    import SignUp from "./SignUp.svelte";
    import type { AuthenticateRequest } from "car-api";
+   import type { UserDto } from "car-api";
    let show_password = false;
    function togglePasswordVisibility() {
       show_password = !show_password;
@@ -21,15 +23,43 @@
          const response = await API.User.usersAuthenticatePost({
             authenticateRequest: newUser,
          });
-         console.log("Login button daragdlaa", response.data); // Display the response data
+         if (response.status == 200 || response.status == 201) {
+            getUser();
+         }
+         console.log("Login function", response.data);
+         alert("Нэвтрэлт амжилттай");
+         return response.data.token;
       } catch (error) {
          console.error("ERROR IS HERE", error);
+         alert("Нэвтрэлт амжилтгүй");
       }
    }
    let toglle = "login";
    function Register() {
       toglle = "";
    }
+   let CurrentUser: UserDto[] = [];
+   let token: string | null | undefined;
+   let busy = true;
+   let error: any;
+   const getUser = async () => {
+      busy = true;
+      try {
+         const res = await API.User.usersGet();
+         return res.data ?? [];
+      } catch (e) {
+         error = e;
+      } finally {
+         busy = false;
+      }
+      return [];
+   };
+   onMount(async () => {
+      CurrentUser = await getUser();
+   });
+   onMount(async () => {
+      token = await Login();
+   });
 </script>
 
 <svelte:head>

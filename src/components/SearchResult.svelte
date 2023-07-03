@@ -23,7 +23,7 @@
       roadTraveled: "Туулсан зам",
       turul: "Төрөл",
    };
-   $: console.log(searchResults, "Search searchResults  are here");
+   // $: console.log(searchResults, "Search searchResults  are here");
 
    let selectedCar: CarDto | null;
    const dispatcher = createEventDispatcher();
