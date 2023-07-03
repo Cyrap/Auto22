@@ -29,6 +29,9 @@ dependencies:
   car-api:
     specifier: link:api
     version: link:api
+  customValidators:
+    specifier: link:customValidators
+    version: link:customValidators
   data:
     specifier: link:C:/Program Files/Git/data
     version: link:../../../../../Program Files/Git/data
@@ -62,6 +65,9 @@ dependencies:
   svelte-routing:
     specifier: ^1.10.0
     version: 1.10.0
+  svelte-use-form:
+    specifier: 2.0.0
+    version: 2.0.0
   swiper:
     specifier: ^9.4.1
     version: 9.4.1
@@ -1472,6 +1478,10 @@ packages:
 
   /svelte-routing@1.10.0:
     resolution: {integrity: sha512-ZYQEj7FK03iVHpzNg1Uk7svlD8siFks0a+IPUxn7ckaEL7H1uQl17gTdYRMjuEw2f7ZtgE77l6WDjmGql14JbA==}
+    dev: false
+
+  /svelte-use-form@2.0.0:
+    resolution: {integrity: sha512-W6yj9mIbi7HWfD1BZSCRJu1d8WR+Rk0Lq45IwM8Fw4KyxcgVpEvLuwcVD4G79mUmAIeL+iiPnZdXVcdWnS0quw==}
     dev: false
 
   /svelte@3.59.1:

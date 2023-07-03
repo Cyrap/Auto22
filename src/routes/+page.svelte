@@ -12,12 +12,12 @@
     import Login from "../components/Login.svelte";
     import AddCar from "../components/AddCar.svelte";
     import Error from "../components/Error.svelte";
-    import Table from "../components/table/Main.svelte";
     import SearchResult from "../components/SearchResult.svelte";
     import Map from "../components/Map.svelte";
     import BackButton from "../components/BackButton.svelte";
     import type { SearchResult as SR } from "minisearch";
     import Auto22 from "../components/Auto22.svelte";
+
     let searchResults: SR[] | undefined | null;
     let busy = true;
     let error: any;
@@ -45,7 +45,6 @@
         posts = await getPosts();
     });
 
-    $: console.log(posts);
     const loginFunc = async () => {
         busy = true;
         try {
@@ -107,9 +106,9 @@
             <BackButton />
             <Footer />
         {:else if selected === "AddCar"}
-            <Login />
-        {:else if selected === "Login"}
             <AddCar />
+        {:else if selected === "Login"}
+            <Login />
         {/if}
     {/if}
 </main>

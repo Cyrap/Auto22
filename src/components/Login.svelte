@@ -1,5 +1,6 @@
 <script lang="ts">
    import { API } from "../logic/api";
+   import SignUp from "./SignUp.svelte";
    import type { AuthenticateRequest } from "car-api";
    let show_password = false;
    function togglePasswordVisibility() {
@@ -25,39 +26,48 @@
          console.error("ERROR IS HERE", error);
       }
    }
+   let toglle = "login";
+   function Register() {
+      toglle = "";
+   }
 </script>
 
 <svelte:head>
    <title>Login</title>
    <meta name="description" content="About this app" />
 </svelte:head>
-<div class="main">
-   <div class="form">
-      <h4>Нэвтрэх</h4>
-      <label for="phoneNumber">Утасны дугаар</label>
-      <input type="tel" id="phoneNumber" value={newUser.username} on:input={handlePhoneInput} required pattern="[0-9]{8}" />
-      <label for="password">Нууц үг</label>
-      <div class="password-input">
-         <input
-            type={show_password ? "text" : "password"}
-            id="password"
-            value={newUser.password}
-            on:input={handlePasswordInput}
-            required
-            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8}$"
-         />
-         <button class="show-password-btn" on:click={togglePasswordVisibility}>
-            {#if show_password}
-               <span class="hide-icon"><i class="fa-solid fa-eye-slash" /></span>
-            {:else}
-               <span class="show-icon"><i class="fa-light fa-eye" /></span>
-            {/if}
-         </button>
+{#if toglle == "login"}
+   <div class="main">
+      <div class="form">
+         <h4>Нэвтрэх</h4>
+         <label for="phoneNumber">Утасны дугаар</label>
+         <input type="tel" id="phoneNumber" value={newUser.username} on:input={handlePhoneInput} required pattern="[0-9]{8}" />
+         <label for="password">Нууц үг</label>
+         <div class="password-input">
+            <input
+               type={show_password ? "text" : "password"}
+               id="password"
+               value={newUser.password}
+               on:input={handlePasswordInput}
+               required
+               pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8}$"
+            />
+            <button class="show-password-btn" on:click={togglePasswordVisibility}>
+               {#if show_password}
+                  <span class="hide-icon"><i class="fa-solid fa-eye-slash" /></span>
+               {:else}
+                  <span class="show-icon"><i class="fa-light fa-eye" /></span>
+               {/if}
+            </button>
+         </div>
+         <button on:click={Login} class="login">Нэвтрэх</button>
+         <button on:click={Register} class="login">Бүртгүүлэх</button>
+         <a class="forgot" href="/">Нууц үгээ мартсан</a>
       </div>
-      <button on:click={Login} class="login">Нэвтрэх</button>
-      <a class="forgot" href="/">Нууц үгээ мартсан</a>
    </div>
-</div>
+{:else}
+   <SignUp />
+{/if}
 
 <style>
    .main {
@@ -74,7 +84,7 @@
    }
    .form {
       background-color: var(--background-color);
-      height: 50vh;
+      height: 60vh;
       display: flex;
       justify-content: center;
       flex-direction: column;

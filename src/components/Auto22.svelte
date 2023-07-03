@@ -65,7 +65,7 @@
 
       overflow: hidden;
       z-index: -1;
-      filter: blur(1px); /* Apply blur effect */
+      filter: blur(1px);
    }
 
    .logo img {

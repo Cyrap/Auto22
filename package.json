@@ -32,6 +32,7 @@
     "axios": "^1.4.0",
     "bootstrap": "^5.3.0",
     "car-api": "link:api",
+    "customValidators": "link:customValidators",
     "data": "link:C:/Program Files/Git/data",
     "easing": "^1.2.1",
     "extended-table": "^2.1.1",
@@ -43,6 +44,7 @@
     "postcss": "^8.4.24",
     "slick-carousel": "^1.8.1",
     "svelte-routing": "^1.10.0",
+    "svelte-use-form": "2.0.0",
     "swiper": "^9.4.1",
     "uuid": "^9.0.0"
   },

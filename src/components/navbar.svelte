@@ -1,4 +1,6 @@
 <script lang="ts">
+   import AddCar from "./AddCar.svelte";
+
    export let selected: any;
    export let search: string = "";
    const home = () => {
@@ -11,7 +13,7 @@
       search = "";
    };
 
-   const AddCar = () => {
+   const addCar = () => {
       selected = "AddCar";
       search = "";
    };
@@ -28,8 +30,8 @@
       </label>
       <ul>
          <button class={selected === "home" ? "active" : ""} on:click={home}>Нүүр</button>
-         <button class={selected === "Login" ? "active" : ""} on:click={Login}>Автомашин бүртгэх</button>
-         <button class={selected === "AddCar" ? "active" : ""} on:click={AddCar}>Нэвтрэх</button>
+         <button class={selected === "Login" ? "active" : ""} on:click={addCar}>Автомашин бүртгэх</button>
+         <button class={selected === "AddCar" ? "active" : ""} on:click={Login}>Нэвтрэх</button>
       </ul>
    </div>
 </div>
