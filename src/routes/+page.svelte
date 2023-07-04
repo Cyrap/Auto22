@@ -19,6 +19,8 @@
     import Table from "../components/table/Main.svelte";
     import DeleteCar from "../components/DeleteCar.svelte";
     import EditCar from "../components/EditCar.svelte";
+    import Userpage from "../components/Userpage.svelte";
+    let ShowAddCarButton: any;
     let searchResults: SR[] | undefined | null;
     let busy = true;
     let error: any;
@@ -61,8 +63,10 @@
         <!-- <EditCar />
         <DeleteCar /> -->
         <!-- <Table {posts} /> -->
-        <Navbar bind:search bind:selected />
-        <SearchSection bind:search bind:searchResults bind:selected {posts} bind:searchQuery />
+        <Navbar bind:search bind:selected bind:ShowAddCarButton />
+        {#if selected === "home"}
+            <SearchSection bind:search bind:searchResults bind:selected {posts} bind:searchQuery />
+        {/if}
         {#if search === "search"}
             <!-- <Dashboard {posts} bind:searchQuery /> -->
             <SearchResult {searchResults} {posts} />
@@ -75,13 +79,12 @@
             <TrendingCars {posts} />
             <TrendingCars {posts} />
             <News {posts} />
-
             <BackButton />
             <Footer />
         {:else if selected === "AddCar"}
             <AddCar />
         {:else if selected === "Login"}
-            <Login />
+            <Login {selected} bind:ShowAddCarButton />
         {/if}
     {/if}
 </main>

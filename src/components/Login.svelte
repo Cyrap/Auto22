@@ -2,9 +2,21 @@
    import { onMount } from "svelte";
    import { API } from "../logic/api";
    import SignUp from "./SignUp.svelte";
-   import type { AuthenticateRequest } from "car-api";
-   import type { UserDto } from "car-api";
+   import type { AuthenticateRequest, UserDto } from "car-api";
+   import Userpage from "./Userpage.svelte";
    let show_password = false;
+   let toglle = "login";
+   let CurrentUser: UserDto | null;
+   let token: string | null | undefined | void;
+   let busy = true;
+   let error: any;
+   let UserId: number;
+   let newUser: AuthenticateRequest = {
+      username: "",
+      password: "",
+   };
+   export let selected;
+   export let ShowAddCarButton;
    function togglePasswordVisibility() {
       show_password = !show_password;
    }
@@ -14,51 +26,52 @@
    function handlePhoneInput(event: Event) {
       newUser.username = (event.target as HTMLInputElement).value;
    }
-   let newUser: AuthenticateRequest = {
-      username: "",
-      password: "",
-   };
+
    async function Login() {
       try {
          const response = await API.User.usersAuthenticatePost({
             authenticateRequest: newUser,
          });
          if (response.status == 200 || response.status == 201) {
-            getUser();
+            console.log(response.data.id);
+            toglle = "user";
          }
          console.log("Login function", response.data);
          alert("Нэвтрэлт амжилттай");
+         // localStorage.setItem("customToken", JSON.stringify(token));
+         // JSON.parse(localStorage.getItem("customToken") ?? "");
          return response.data.token;
       } catch (error) {
          console.error("ERROR IS HERE", error);
          alert("Нэвтрэлт амжилтгүй");
       }
    }
-   let toglle = "login";
-   function Register() {
-      toglle = "";
+   $: if (toglle === "user") {
+      ShowAddCarButton = "user";
+   } else {
+      ShowAddCarButton = "";
    }
-   let CurrentUser: UserDto[] = [];
-   let token: string | null | undefined;
-   let busy = true;
-   let error: any;
-   const getUser = async () => {
+
+   function Register() {
+      toglle = "register";
+   }
+   onMount(async () => {
+      UserId = await getUser();
+   });
+   const getUser = async (UserId?: number) => {
       busy = true;
       try {
-         const res = await API.User.usersGet();
-         return res.data ?? [];
+         const res = await API.User.usersIdGet({ id: UserId });
+         return res.data;
       } catch (e) {
          error = e;
       } finally {
          busy = false;
       }
-      return [];
    };
+
    onMount(async () => {
-      CurrentUser = await getUser();
-   });
-   onMount(async () => {
-      token = await Login();
+      token = await getUser();
    });
 </script>
 
@@ -66,7 +79,7 @@
    <title>Login</title>
    <meta name="description" content="About this app" />
 </svelte:head>
-{#if toglle == "login"}
+{#if toglle === "login"}
    <div class="main">
       <div class="form">
          <h4>Нэвтрэх</h4>
@@ -95,8 +108,10 @@
          <a class="forgot" href="/">Нууц үгээ мартсан</a>
       </div>
    </div>
-{:else}
+{:else if toglle === "register"}
    <SignUp />
+{:else if toglle === "user"}
+   <Userpage {CurrentUser} />
 {/if}
 
 <style>

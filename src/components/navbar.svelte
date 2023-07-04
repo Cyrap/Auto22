@@ -3,6 +3,7 @@
 
    export let selected: any;
    export let search: string = "";
+   export let ShowAddCarButton: any;
    const home = () => {
       selected = "home";
       search = "";
@@ -17,6 +18,9 @@
       selected = "AddCar";
       search = "";
    };
+
+   // localStorage.setItem("name", JSON.stringify(data));
+   // JSON.parse(localStorage.getItem("name"));
 </script>
 
 <div id="nav-container" data-theme="dark">
@@ -30,7 +34,9 @@
       </label>
       <ul>
          <button class={selected === "home" ? "active" : ""} on:click={home}>Нүүр</button>
-         <button class={selected === "Login" ? "active" : ""} on:click={addCar}>Автомашин бүртгэх</button>
+         {#if ShowAddCarButton == "user"}
+            <button class={selected === "Login" ? "active" : ""} on:click={addCar}>Автомашин бүртгэх</button>
+         {/if}
          <button class={selected === "AddCar" ? "active" : ""} on:click={Login}><i class="fa-regular fa-user fa" style="color: #ffffff;" /></button>
       </ul>
    </div>

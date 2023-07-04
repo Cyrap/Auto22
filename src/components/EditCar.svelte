@@ -14,7 +14,6 @@
       power: 0,
       hutlugch: 0,
       engine: 0,
-      turul: 0,
       hvrd: 0,
       engineCapacity: 0,
       hrop: 0,
@@ -23,6 +22,117 @@
       carNumber: 0,
       price: 0,
    };
+
+   interface CarDto {
+      /**
+       *
+       * @type {number}
+       * @memberof CarDto
+       */
+      oid?: number;
+      /**
+       *
+       * @type {string}
+       * @memberof CarDto
+       */
+      madeCompany?: string | null;
+      /**
+       *
+       * @type {string}
+       * @memberof CarDto
+       */
+      model?: string | null;
+      /**
+       *
+       * @type {number}
+       * @memberof CarDto
+       */
+      madeYear?: number;
+      /**
+       *
+       * @type {number}
+       * @memberof CarDto
+       */
+      madeMonth?: number;
+      /**
+       *
+       * @type {string}
+       * @memberof CarDto
+       */
+      color?: string | null;
+      /**
+       *
+       * @type {number}
+       * @memberof CarDto
+       */
+      roadTraveled?: number;
+      /**
+       *
+       * @type {number}
+       * @memberof CarDto
+       */
+      power?: number;
+      /**
+       *
+       * @type {number}
+       * @memberof CarDto
+       */
+      hutlugch?: number;
+      /**
+       *
+       * @type {number}
+       * @memberof CarDto
+       */
+      engine?: number;
+      /**
+       *
+       * @type {number}
+       * @memberof CarDto
+       */
+      carType?: number;
+      /**
+       *
+       * @type {number}
+       * @memberof CarDto
+       */
+      hvrd?: number;
+      /**
+       *
+       * @type {number}
+       * @memberof CarDto
+       */
+      engineCapacity?: number;
+      /**
+       *
+       * @type {number}
+       * @memberof CarDto
+       */
+      hrop?: number;
+      /**
+       *
+       * @type {number}
+       * @memberof CarDto
+       */
+      phone?: number;
+      /**
+       *
+       * @type {number}
+       * @memberof CarDto
+       */
+      condition?: number;
+      /**
+       *
+       * @type {number}
+       * @memberof CarDto
+       */
+      carNumber?: number;
+      /**
+       *
+       * @type {number}
+       * @memberof CarDto
+       */
+      price?: number;
+   }
    async function DeleteCar() {
       try {
          const response = await API.Car.apiCarIdPut({ id: carOID, carDto: newData });

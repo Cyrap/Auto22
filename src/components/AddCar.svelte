@@ -19,7 +19,6 @@
       power: undefined,
       price: undefined,
       roadTraveled: undefined,
-      turul: undefined,
    };
    async function createCar() {
       try {
@@ -112,13 +111,8 @@
                <label for="roadTraveled">Туулсан зам</label>
                <input type="number" bind:value={newData.roadTraveled} id="roadTraveled" />
             </div>
-            <div>
-               <label for="turul">Төрөл</label>
-               <input type="number" bind:value={newData.turul} id="turul" />
-            </div>
             <button on:click={() => createCar()}>Хадгалах</button>
          </div>
-         <div />
       </form>
    </div>
 </section>
