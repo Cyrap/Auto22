@@ -10,7 +10,7 @@
    let token: string | null | undefined | void;
    let busy = true;
    let error: any;
-   let UserId: number;
+   let UserId: number | void;
    let newUser: AuthenticateRequest = {
       username: "",
       password: "",

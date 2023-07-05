@@ -20,6 +20,7 @@
     import DeleteCar from "../components/DeleteCar.svelte";
     import EditCar from "../components/EditCar.svelte";
     import Userpage from "../components/Userpage.svelte";
+
     let ShowAddCarButton: any;
     let searchResults: SR[] | undefined | null;
     let busy = true;
@@ -54,11 +55,12 @@
     <meta name="description" content="Svelte demo app" />
 </svelte:head>
 <main>
+    <!-- <Map /> -->
     {#if busy}
         <Loading />
     {:else if error}
         <span style="color:red">Error: {error}</span>
-        <Error />
+        <!-- <Error /> -->
     {:else}
         <!-- <EditCar />
         <DeleteCar /> -->
@@ -75,7 +77,6 @@
         {:else if selected === "home"}
             <!-- <Dashboard {posts} bind:searchQuery /> -->
             <Auto22 />
-            <Map />
             <TrendingCars {posts} />
             <TrendingCars {posts} />
             <News {posts} />

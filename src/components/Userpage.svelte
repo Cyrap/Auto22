@@ -5,26 +5,25 @@
    import type { CarDto } from "car-api";
    import { onMount } from "svelte/internal";
 
-   // let busy = true;
-   // let error: any;
-   // let posts: CarDto[] = [];
-   // const getPosts = async () => {
-   //    busy = true;
-   //    try {
-   //       // const res = await API.Car.apiCarGet({ modelFilter });
-   //       const res = await API.Car.apiCarGet();
-   //       return res.data.items ?? [];
-   //    } catch (e) {
-   //       error = e;
-   //    } finally {
-   //       busy = false;
-   //    }
-   //    return [];
-   // };
+   let busy = true;
+   let error: any;
+   let posts: CarDto[] = [];
+   const getPosts = async () => {
+      busy = true;
+      try {
+         const res = await API.Car.apiCarGet();
+         return res.data.items ?? [];
+      } catch (e) {
+         error = e;
+      } finally {
+         busy = false;
+      }
+      return [];
+   };
 
-   // onMount(async () => {
-   //    posts = await getPosts();
-   // });
+   onMount(async () => {
+      posts = await getPosts();
+   });
 </script>
 
 <div class="container">

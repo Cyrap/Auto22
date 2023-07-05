@@ -86,12 +86,16 @@
    }
    h4 {
       font-size: 2.5rem;
+      color: rgb(52, 47, 47);
    }
    .about > div {
       width: 60%;
       padding: 50px;
       border-radius: 10px;
-      background: rgba(221, 203, 203, 0.527);
+      background: rgba(221, 203, 203, 0.744);
+   }
+   p {
+      color: rgb(68, 59, 59);
    }
    .overlay {
       position: absolute;
