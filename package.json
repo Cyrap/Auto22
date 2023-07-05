@@ -43,6 +43,7 @@
     "minisearch": "^6.1.0",
     "postcss": "^8.4.24",
     "slick-carousel": "^1.8.1",
+    "svelte-moveable": "^0.42.2",
     "svelte-routing": "^1.10.0",
     "svelte-use-form": "2.0.0",
     "swiper": "^9.4.1",
