@@ -9,7 +9,7 @@
    export let searchResults: SR[] | undefined | null = [];
    let miniSearch = new MiniSearch({
       idField: "oid",
-      fields: ["model", "turul", "madeCompany", "madeYear", "condition"],
+      fields: ["power"],
       storeFields: ["oid"],
       searchOptions: {
          boost: { title: 2 },

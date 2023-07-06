@@ -31,6 +31,7 @@
     let search: any;
     selected = "home";
     let searchQuery: any = "";
+    let toglle: any;
     const getPosts = async () => {
         busy = true;
         try {
@@ -48,7 +49,6 @@
     onMount(async () => {
         posts = await getPosts();
     });
-
 </script>
 
 <svelte:head>
@@ -56,6 +56,13 @@
     <meta name="description" content="Svelte demo app" />
 </svelte:head>
 <main>
+    {#each posts as post}
+        <!-- {post.power} -->
+        <!-- {post.ownerId?.ownerId}
+        {post.oid}<br /> -->
+        <!-- {post.ownerId?.ownerId}
+        {post.oid}<br /> -->
+    {/each}
     <!-- <Map /> -->
     <!-- <Userpage {token} /> -->
     {#if busy}
@@ -64,10 +71,10 @@
         <span style="color:red">Error: {error}</span>
         <!-- <Error /> -->
     {:else}
-        <EditCar />
-        <DeleteCar />
+        <!-- <EditCar /> -->
+        <!-- <DeleteCar /> -->
         <!-- <Table {posts} /> -->
-        <Navbar bind:search bind:selected bind:ShowAddCarButton />
+        <Navbar bind:search bind:selected bind:ShowAddCarButton bind:toglle />
         {#if selected === "home"}
             <SearchSection bind:search bind:searchResults bind:selected {posts} bind:searchQuery />
         {/if}
@@ -88,7 +95,7 @@
         {:else if selected === "AddCar"}
             <AddCar />
         {:else if selected === "Login"}
-            <Login bind:ShowAddCarButton bind:token {posts} />
+            <Login bind:ShowAddCarButton bind:token {posts} bind:toglle />
         {/if}
     {/if}
 </main>

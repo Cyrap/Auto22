@@ -2,23 +2,35 @@
    import { API } from "../logic/api";
    import type { CarDto } from "car-api";
    let newData: CarDto = {
-      carNumber: undefined,
-      color: "",
-      condition: undefined,
-      engine: undefined,
-      engineCapacity: undefined,
-      hrop: undefined,
-      hutlugch: undefined,
-      hvrd: undefined,
-      madeCompany: "",
-      madeMonth: undefined,
-      madeYear: undefined,
-      model: "",
-      oid: undefined,
-      phone: undefined,
-      power: undefined,
-      price: undefined,
-      roadTraveled: undefined,
+      // oid: 0,
+      // madeCompany: "",
+      // model: "undefined",
+      // madeYear: 0,
+      // madeMonth: 0,
+      // color: "undefined",
+      // roadTraveled: 0,
+      // power: 0,
+      // hutlugch: 0,
+      // engine: 0,
+      // hvrd: 0,
+      // engineCapacity: 0,
+      // hrop: 0,
+      // phone: 0,
+      // condition: 0,
+      // carNumber: 0,
+      // price: 0,
+      // carType: 0,
+      // ownerId: {
+      //    oid: 0,
+      //    ownerName: "string",
+      //    lastName: "string",
+      //    ownerId: 0,
+      // },
+      // parkingId: {
+      //    oid: 0,
+      //    parkingNumber: 0,
+      //    parkingId: 0,
+      // },
    };
    async function createCar() {
       try {
@@ -156,8 +168,6 @@
    }
    button {
       position: relative;
-      left: 145%;
-      width: 50%;
    }
    label {
       margin: 0 10px;

@@ -22,6 +22,7 @@
       power: "Хүч",
       roadTraveled: "Туулсан зам",
       turul: "Төрөл",
+      ownerId: "ezemshigch id",
    };
    // $: console.log(searchResults, "Search searchResults  are here");
 

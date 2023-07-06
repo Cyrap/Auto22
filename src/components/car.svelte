@@ -49,6 +49,7 @@
       power: "Хүч",
       roadTraveled: "Туулсан зам",
       turul: "Төрөл",
+      ownerId: { ownerId: "ezemshigchiin id" },
    };
 </script>
 
@@ -124,6 +125,7 @@
       </div>
    </div>
 </div>
+
 
 <style>
    .CloseButton {

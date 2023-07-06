@@ -1,16 +1,23 @@
 <script lang="ts">
+   import type { AnyProps } from "svelte-moveable";
    import AddCar from "./AddCar.svelte";
 
    export let selected: any;
    export let search: string = "";
    export let ShowAddCarButton: any;
+   export let toglle: any;
    const home = () => {
       selected = "home";
       search = "";
    };
 
    const Login = () => {
-      selected = "Login";
+      if (toglle !== "user") {
+         selected = "Login";
+      } else {
+         toglle = "user";
+         selected = "Login";
+      }
       search = "";
    };
 

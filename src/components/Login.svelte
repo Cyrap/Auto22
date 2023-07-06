@@ -6,7 +6,7 @@
    import Userpage from "./Userpage.svelte";
    export let posts: CarDto[] = [];
    let show_password = false;
-   let toglle = "login";
+   export let toglle = "login";
    let CurrentUser: UserDto[] = [];
    export let token: string | null | undefined | void;
    let busy = true;
@@ -17,12 +17,15 @@
       password: "",
    };
    export let ShowAddCarButton;
+
    function togglePasswordVisibility() {
       show_password = !show_password;
    }
+
    function handlePasswordInput(event: Event) {
       newUser.password = (event.target as HTMLInputElement).value;
    }
+
    function handlePhoneInput(event: Event) {
       newUser.username = (event.target as HTMLInputElement).value;
    }
@@ -33,14 +36,14 @@
             authenticateRequest: newUser,
          });
          if (response.status == 200 || response.status == 201) {
+            UserId = response.data.id;
             console.log(response.data.id);
             toglle = "user";
+            CurrentUser = [response.data]; // Assign response.data to CurrentUser
          }
          console.log("Login function", response.data.id);
-         alert("Нэвтрэлт амжилттай");
-         // localStorage.setItem("customToken", JSON.stringify(token));
-         // JSON.parse(localStorage.getItem("customToken") ?? "");
-         return response.data.id;
+
+         return UserId;
       } catch (error) {
          console.error("ERROR IS HERE", error);
          alert("Нэвтрэлт амжилтгүй");
@@ -56,9 +59,6 @@
    function Register() {
       toglle = "register";
    }
-   onMount(async () => {
-      UserId = await Login();
-   });
 
    const getUser = async (UserId?: number) => {
       busy = true;
@@ -76,7 +76,7 @@
    onMount(async () => {
       CurrentUser = await getUser();
    });
-   console.log(CurrentUser);
+   console.log(CurrentUser, "current user");
 </script>
 
 <svelte:head>
@@ -113,7 +113,7 @@
       </div>
    </div>
 {:else if toglle === "register"}
-   <SignUp bind:toglle/>
+   <SignUp bind:toglle />
 {:else if toglle === "user"}
    <Userpage {CurrentUser} {posts} />
 {/if}

@@ -98,14 +98,19 @@
    }
    .childLi {
       background: rgb(255, 255, 255);
-      border-bottom: 1px solid black;
-      height: 3rem;
+      border-bottom: 1px solid rgba(87, 76, 76, 0.27);
       text-align: center;
       cursor: pointer;
       width: 210px;
+      padding: 1rem 0px;
+      min-height: 2rem;
+      margin: 0px 10px;
    }
    .childLi:hover {
-      background: rgb(211, 211, 222);
+      background: var(--primary-color);
+      color: var(--background-color);
+      font-weight: bold;
+      border-radius: 3px;
    }
    @media screen and (max-width: 991px) {
    }
