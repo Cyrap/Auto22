@@ -26,7 +26,7 @@
     let busy = true;
     let error: any;
     let posts: CarDto[] = [];
-
+    let token: string | null | undefined | void;
     let selected: any;
     let search: any;
     selected = "home";
@@ -48,6 +48,7 @@
     onMount(async () => {
         posts = await getPosts();
     });
+
 </script>
 
 <svelte:head>
@@ -56,14 +57,15 @@
 </svelte:head>
 <main>
     <!-- <Map /> -->
+    <!-- <Userpage {token} /> -->
     {#if busy}
         <Loading />
     {:else if error}
         <span style="color:red">Error: {error}</span>
         <!-- <Error /> -->
     {:else}
-        <!-- <EditCar />
-        <DeleteCar /> -->
+        <EditCar />
+        <DeleteCar />
         <!-- <Table {posts} /> -->
         <Navbar bind:search bind:selected bind:ShowAddCarButton />
         {#if selected === "home"}
@@ -76,16 +78,17 @@
             <Footer />
         {:else if selected === "home"}
             <!-- <Dashboard {posts} bind:searchQuery /> -->
-            <Auto22 />
+            <Map />
             <TrendingCars {posts} />
             <TrendingCars {posts} />
             <News {posts} />
             <BackButton />
+            <Auto22 />
             <Footer />
         {:else if selected === "AddCar"}
             <AddCar />
         {:else if selected === "Login"}
-            <Login {selected} bind:ShowAddCarButton />
+            <Login bind:ShowAddCarButton bind:token {posts} />
         {/if}
     {/if}
 </main>

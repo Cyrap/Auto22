@@ -133,7 +133,7 @@
        */
       price?: number;
    }
-   async function DeleteCar() {
+   async function EditCar() {
       try {
          const response = await API.Car.apiCarIdPut({ id: carOID, carDto: newData });
          console.log(response);
@@ -147,4 +147,4 @@
 
 <label for="text">Enter a car's oid value</label>
 <input type="text" name="text" bind:value={carOID} />
-<button on:click={DeleteCar}>Edit {carOID} car</button>
+<button on:click={EditCar}>Edit {carOID} car</button>

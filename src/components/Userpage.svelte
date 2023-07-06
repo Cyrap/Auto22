@@ -1,35 +1,87 @@
 <script lang="ts">
    import type { UserDto } from "car-api";
-   export let CurrentUser: UserDto | null;
    import { API } from "../logic/api";
    import type { CarDto } from "car-api";
-   import { onMount } from "svelte/internal";
-
+   import type { SearchResult as SR } from "minisearch";
+   import { createEventDispatcher } from "svelte";
+   import MiniSearch from "minisearch";
+   export let CurrentUser: UserDto[];
+   export let posts: CarDto[] = [];
+   let search = ""; // Initialize with a default value
+   let searchResults: SR[] = [];
+   let searchQuery = CurrentUser[0].oid;
    let busy = true;
    let error: any;
-   let posts: CarDto[] = [];
-   const getPosts = async () => {
-      busy = true;
-      try {
-         const res = await API.Car.apiCarGet();
-         return res.data.items ?? [];
-      } catch (e) {
-         error = e;
-      } finally {
-         busy = false;
-      }
-      return [];
+   let miniSearch = new MiniSearch({
+      idField: "oid",
+      fields: ["posts[0].ownerId"],
+      storeFields: ["oid"],
+      searchOptions: {
+         boost: { title: 2 },
+         fuzzy: 0.8,
+      },
+   });
+
+   const updateData = (posts: CarDto[]) => {
+      miniSearch.removeAll();
+      miniSearch.addAll(posts);
    };
 
-   onMount(async () => {
-      posts = await getPosts();
-   });
+   $: updateData(posts);
+
+   const dispatch = createEventDispatcher();
+
+   const handleSearch = () => {
+      searchResults = miniSearch.search(searchQuery);
+      // console.log(searchResults, "is here");
+      search = "search";
+      dispatch("myevent", searchResults);
+   };
+
+   $: handleSearch(), searchQuery;
+   // end current useriing id gaar hailt hiij tuhain hereglegchiin
+
+   async function DeleteCar(carOID: number) {
+      try {
+         const response = await API.Car.apiCarIdDelete({ id: carOID });
+         console.log(response);
+         alert("Awtomashin ustgalt амжилттай");
+      } catch (error) {
+         console.error("ERROR IS HERE", error);
+         alert("амжилтгүй");
+      }
+   }
+
+   async function EditCar(carOID: number, newData: CarDto) {
+      try {
+         const response = await API.Car.apiCarIdPut({ id: carOID, carDto: newData });
+         console.log(response);
+         alert("Awtomashin zaswarlalt amjilttai");
+      } catch (error) {
+         console.error("ERROR IS HERE", error);
+         alert("амжилтгүй");
+      }
+   }
+   let editedData: CarDto = {};
 </script>
 
 <div class="container">
-   <div class="car-list">your owned cars here</div>
+   <div class="car-list">
+      your owned cars here
+      {#each searchResults as result}
+         <div>
+            {result}
+            <button on:click={() => DeleteCar(result.oid)}>delete car</button>
+            <button on:click={() => EditCar(result.oid, editedData)}>Edit {result.oid} car</button>
+            
+         </div>
+      {/each}
+   </div>
    <div class="profile">
-      Welcome {CurrentUser?.oid}
+      Welcome
+      {#each CurrentUser as data}
+         {data}
+      {/each}
    </div>
 </div>
 

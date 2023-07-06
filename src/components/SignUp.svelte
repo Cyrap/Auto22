@@ -1,7 +1,11 @@
 <script lang="ts">
    import { useForm, Hint, HintGroup, validators, required, minLength } from "svelte-use-form";
    import { API } from "../logic/api";
+   export let toglle: any;
    import type { RegisterRequest } from "car-api";
+   function Back(){
+      toglle = "login"
+   }
    function passwordMatch(value: any, form: any) {
       if (value !== form.values.password) {
          return { passwordMatch: true };
@@ -101,6 +105,7 @@
          </HintGroup><br />
 
          <button disabled={!$form.valid} on:click={register}> Submit </button>
+         <button on:click={Back}> Нэвтрэх </button>
       </form>
    </div>
 </main>

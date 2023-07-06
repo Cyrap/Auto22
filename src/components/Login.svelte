@@ -2,12 +2,13 @@
    import { onMount } from "svelte";
    import { API } from "../logic/api";
    import SignUp from "./SignUp.svelte";
-   import type { AuthenticateRequest, UserDto } from "car-api";
+   import type { AuthenticateRequest, CarDto, UserDto } from "car-api";
    import Userpage from "./Userpage.svelte";
+   export let posts: CarDto[] = [];
    let show_password = false;
    let toglle = "login";
-   let CurrentUser: UserDto | null;
-   let token: string | null | undefined | void;
+   let CurrentUser: UserDto[] = [];
+   export let token: string | null | undefined | void;
    let busy = true;
    let error: any;
    let UserId: number | void;
@@ -15,7 +16,6 @@
       username: "",
       password: "",
    };
-   export let selected;
    export let ShowAddCarButton;
    function togglePasswordVisibility() {
       show_password = !show_password;
@@ -36,16 +36,17 @@
             console.log(response.data.id);
             toglle = "user";
          }
-         console.log("Login function", response.data);
+         console.log("Login function", response.data.id);
          alert("Нэвтрэлт амжилттай");
          // localStorage.setItem("customToken", JSON.stringify(token));
          // JSON.parse(localStorage.getItem("customToken") ?? "");
-         return response.data.token;
+         return response.data.id;
       } catch (error) {
          console.error("ERROR IS HERE", error);
          alert("Нэвтрэлт амжилтгүй");
       }
    }
+
    $: if (toglle === "user") {
       ShowAddCarButton = "user";
    } else {
@@ -56,8 +57,9 @@
       toglle = "register";
    }
    onMount(async () => {
-      UserId = await getUser();
+      UserId = await Login();
    });
+
    const getUser = async (UserId?: number) => {
       busy = true;
       try {
@@ -68,11 +70,13 @@
       } finally {
          busy = false;
       }
+      return [];
    };
 
    onMount(async () => {
-      token = await getUser();
+      CurrentUser = await getUser();
    });
+   console.log(CurrentUser);
 </script>
 
 <svelte:head>
@@ -109,9 +113,9 @@
       </div>
    </div>
 {:else if toglle === "register"}
-   <SignUp />
+   <SignUp bind:toglle/>
 {:else if toglle === "user"}
-   <Userpage {CurrentUser} />
+   <Userpage {CurrentUser} {posts} />
 {/if}
 
 <style>
