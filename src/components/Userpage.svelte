@@ -1,17 +1,48 @@
 <script lang="ts">
    import type { UserDto } from "car-api";
    import { API } from "../logic/api";
+   import { onMount } from "svelte";
    import type { CarDto } from "car-api";
    import type { SearchResult as SR } from "minisearch";
    import { createEventDispatcher } from "svelte";
    import MiniSearch from "minisearch";
-   export let CurrentUser: UserDto[];
+   import { element } from "svelte/internal";
+   export let CurrentUser: UserDto | undefined = undefined;
+   export let selected: any;
    export let posts: CarDto[] = [];
-   let search = ""; // Initialize with a default value
+   export let toglle: any;
+   let search = "";
+   let notification: any = "";
    let searchResults: SR[] = [];
    // let searchQuery: number | undefined = CurrentUser[0]?.id;
    let searchQuery: number | undefined = 0;
-   $: console.log(CurrentUser[0]?.id, " CurrentUser[0]?.oid");
+   let editedData: CarDto = {
+      oid: 0,
+      madeCompany: "string",
+      model: "string",
+      madeYear: 0,
+      madeMonth: 0,
+      color: "string",
+      roadTraveled: 0,
+      power: 0,
+      hutlugch: 0,
+      engine: 0,
+      hvrd: 0,
+      engineCapacity: 0,
+      hrop: 0,
+      phone: 0,
+      condition: 0,
+      carNumber: 0,
+      price: 0,
+      carType: 0,
+      parkingId: {
+         oid: 0,
+         parkingNumber: 0,
+         parkingId: 0,
+      },
+   };
+
+   $: console.log(CurrentUser?.oid, " CurrentUser[0]?.oid");
    var titles: any = {
       carNumber: "Машины дугаар",
       color: "Өнгө",
@@ -58,22 +89,25 @@
          dispatch("myevent", searchResults);
       }
    };
-
+   let deleteActiveated: any;
+   let DeleteMessage: any = "";
    $: handleSearch(), searchQuery;
    async function DeleteCar(carOID: number) {
+      deleteActiveated = "a";
+      notification = "cardeleted";
       try {
          const response = await API.Car.apiCarIdDelete({ id: carOID });
          console.log(response, "Delete car function's response is here");
-         alert("Awtomashin ustgalt амжилттай");
+         DeleteMessage = " Awtomashin ustgalt амжилттай";
       } catch (error) {
          console.error("ERROR IS HERE", error);
          alert("амжилтгүй");
       }
    }
 
-   async function EditCar(carOID: number, newData: CarDto) {
+   async function EditCar(carOID: number, editedData: CarDto) {
       try {
-         const response = await API.Car.apiCarIdPut({ id: carOID, carDto: newData });
+         const response = await API.Car.apiCarIdPut({ id: carOID, carDto: editedData });
          console.log(response);
          alert("Awtomashin zaswarlalt amjilttai");
       } catch (error) {
@@ -82,29 +116,47 @@
       }
    }
 
-   let editedData: CarDto = {};
    console.log(searchResults, "search result is here");
    let selectedCar: CarDto | null;
    const dispatcher = createEventDispatcher();
 
    const openModal = (car: CarDto) => {
-      selectedCar = car;
+      if (deleteActiveated === "a") {
+         selectedCar = null;
+      } else {
+         selectedCar = car;
+      }
       dispatcher("modalOpen");
    };
 
    const closeModal = () => {
       selectedCar = null;
+      deleteActiveated = null;
       dispatcher("modalClose");
    };
+
+   function Exit() {
+      // toglle = "user";
+      // selected = "Login";
+   }
+   function closenotfication() {
+      notification = "";
+   }
+   onMount(() => {
+      if (notification === "cardeleted") {
+         setTimeout(() => {
+            closenotfication();
+         }, 1000);
+      }
+   });
 </script>
 
 <div style="display: none;">
    <input id="search" type="search" placeholder="Автомашин хайх..." bind:value={searchQuery} />
 </div>
+<!-- <button class="button-4" on:click={Exit}>Гарах</button> -->
 <div class="profile">
-   {#each CurrentUser as data}
-      <p><span style="color: white; font-size:3rem;">Welcome back </span> {data.username}</p>
-   {/each}
+   <p><span style="color: white; font-size:3rem;">Welcome back </span> {CurrentUser?.username}</p>
 </div>
 <div class="container">
    <div class="parent">
@@ -143,12 +195,7 @@
                {#if key in titles}
                   <div class="modal-info">
                      <strong>{titles[key]}:</strong>
-
-                     {#if key === "model"}
-                        <input type="text" bind:value={editedData[key]} />
-                     {:else}
-                        {value}
-                     {/if}
+                     <input type="text" bind:value={editedData.engine} />
                   </div>
                {/if}
             {/each}
@@ -157,8 +204,30 @@
       </div>
    </div>
 {/if}
+{#if notification === "cardeleted"}
+   <div class="message" on:click={closeModal}>
+      <div>{DeleteMessage}</div>
+   </div>
+{/if}
 
 <style>
+   .message {
+      position: absolute;
+      top: 0;
+      width: 100vw;
+      height: 130px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+   }
+   .message > div {
+      position: sticky;
+      top: 0;
+      background: var(--primary-color);
+      color: white;
+      padding: 10px;
+      border-radius: 10px;
+   }
    p {
       position: absolute;
       top: 100px;
@@ -234,7 +303,7 @@
    .modal-content {
       background-color: white;
       padding: 20px;
-      max-width: 600px;
+      max-width: 900px;
       width: 90%;
       border-radius: 8px;
    }
@@ -262,6 +331,9 @@
 
    .modal-info {
       margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      margin: 3px 10px;
    }
    .button-4 {
       appearance: none;

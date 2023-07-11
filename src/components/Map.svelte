@@ -1,9 +1,12 @@
 <script lang="ts">
    import { createEventDispatcher } from "svelte";
    import type { CarDto } from "car-api";
+   import type { ParkingDto } from "car-api";
    import { onMount } from "svelte";
-
+   import Moveable from "svelte-moveable";
+   import { API } from "../logic/api";
    export let posts: CarDto[] = [];
+   let selectedCar: CarDto | null = null;
    var titles: any = {
       carNumber: "Машины дугаар",
       color: "Өнгө",
@@ -23,26 +26,20 @@
       roadTraveled: "Туулсан зам",
       turul: "Төрөл",
    };
-   import Moveable from "svelte-moveable";
-
    const draggable = true;
    const throttleDrag = 1;
    const edgeDraggable = false;
    const startDragRotate = 0;
    const throttleDragRotate = 0;
    let targetRef = null;
-
    let plan: SVGElement;
-
-   // car[]
-
    let parks: string[] = [];
-
-   // Fill
    parks.forEach((a) => {
       const gTag = plan.querySelector(`g#${a}`);
       if (gTag) {
-         const carObject = posts.find((car) => String(car.parkingId?.parkingId) === a);
+         // TODO fix this
+         
+         const carObject = posts.find((car) => car?.engine !== undefined && car?.engine.toString() === a);
          if (carObject) {
             gTag.setAttribute("fill", "green");
          } else {
@@ -50,36 +47,34 @@
          }
       }
    });
-
    parks.forEach((a) => {
       const rect = plan.querySelector(`g[class^="$"] > g#${a} > rect`);
       if (rect) {
          rect.classList.add("selected");
       }
    });
-
    // plan.querySelectorAll(".selected").classList.remove("selected");
-
-   let selectedCar: CarDto | null = null;
+   // plan.querySelectorAll(".selected").classList.add("car-icon");
    const dispatcher = createEventDispatcher();
-
-   const closeModal = () => {
-      selectedCar = null;
-      dispatcher("modalClose");
-   };
-
+   let a: any = "";
    function passId(id: number) {
-      selectedCar = null;
+      let car = null;
       for (let i = 0; i < posts.length; i++) {
-         if (posts[i].parkingId?.parkingId === id) {
-            selectedCar = posts[i];
+         // TODO fix this
+         if (posts[i].engine === id) {
+            car = posts[i];
             break;
          }
+      }
+
+      if (car) {
+         openModal(car);
+      } else {
+         a = "a";
       }
    }
 
    let selectedParkNumber: string | null = null;
-
    function handleClick(e: MouseEvent) {
       const target = e.target as SVGElement;
       if (target.tagName.toLowerCase() === "rect" && target.parentElement?.parentElement?.id.startsWith("$")) {
@@ -88,14 +83,42 @@
          passId(Number(selectedParkNumber));
       }
    }
-
    onMount(() => {
       plan.addEventListener("click", handleClick);
-
       return () => {
          plan.removeEventListener("click", handleClick);
       };
    });
+
+   const openModal = (car: CarDto) => {
+      selectedCar = car;
+      dispatcher("modalOpen");
+   };
+
+   const closeModal = () => {
+      selectedCar = null;
+      a = "";
+      dispatcher("modalClose");
+   };
+   // let busy = false;
+   // let error: any = "";
+   // let parkObjects: ParkingDto[] = [];
+   // const getPark = async () => {
+   //    busy = true;
+   //    try {
+   //       const res = await API.Park.apiParkingPost();
+   //       return res.data;
+   //    } catch (e) {
+   //       error = e;
+   //    } finally {
+   //       busy = false;
+   //    }
+   //    return [];
+   // };
+   // onMount(async () => {
+   //    parkObjects = getPark();
+   // });
+   // console.log(parkObjects);
 </script>
 
 {#if selectedCar}
@@ -116,10 +139,23 @@
    </div>
 {/if}
 
+{#if a === "a"}
+   <div class="modal" on:click={closeModal}>
+      <div class="modal-content" on:click={(e) => e.stopPropagation()}>
+         <div class="modal-close" on:click={closeModal}>Close</div>
+         <div class="modal-body">
+            <div class="modal-info">
+               <strong>This park is empthy</strong>
+            </div>
+         </div>
+      </div>
+   </div>
+{/if}
+
 <div class="map-container">
    <div bind:this={targetRef}>
       <svg width="2000" height="3000" viewBox="0 0 2898 3680" fill="none" xmlns="http://www.w3.org/2000/svg" on:click={handleClick} bind:this={plan}>
-         <rect width="2898" height="3680" fill="#E5E5E5" />
+         <rect width="2898" height="3680" />
          <g id="area-one" clip-path="url(#clip0_0_1)">
             <g id="Items">
                <path
@@ -8713,6 +8749,13 @@
 </div>
 
 <style>
+   .car-icon:hover {
+      background: brown;
+   }
+   .selected {
+      fill: red;
+      background: green;
+   }
    .map-container {
       height: 100vh;
       width: 100vw;

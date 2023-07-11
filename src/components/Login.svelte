@@ -4,10 +4,12 @@
    import SignUp from "./SignUp.svelte";
    import type { AuthenticateRequest, CarDto, UserDto } from "car-api";
    import Userpage from "./Userpage.svelte";
+   import Error from "./Error.svelte";
    export let posts: CarDto[] = [];
    let show_password = false;
    export let toglle = "login";
-   let CurrentUser: UserDto[] = [];
+   export let selected: any;
+   let CurrentUser: UserDto | undefined = undefined;
    export let token: string | null | undefined | void;
    let busy = true;
    let error: any;
@@ -36,10 +38,12 @@
             authenticateRequest: newUser,
          });
          if (response.status == 200 || response.status == 201) {
+            localStorage.setItem("token", response.data.token!);
+
             UserId = response.data.id;
             console.log(response.data.id);
             toglle = "user";
-            CurrentUser = [response.data]; // Assign response.data to CurrentUser
+            CurrentUser = response.data;
          }
          console.log("Login function", response.data.id);
 
@@ -63,14 +67,16 @@
    const getUser = async (UserId?: number) => {
       busy = true;
       try {
+         if (!UserId) throw "id missin";
          const res = await API.User.usersIdGet({ id: UserId });
-         return res.data;
+         // Taiwnaa
+         return res.data as unknown as UserDto | undefined;
       } catch (e) {
          error = e;
       } finally {
          busy = false;
       }
-      return [];
+      return undefined;
    };
 
    onMount(async () => {
@@ -115,7 +121,7 @@
 {:else if toglle === "register"}
    <SignUp bind:toglle />
 {:else if toglle === "user"}
-   <Userpage {CurrentUser} {posts} />
+   <Userpage {CurrentUser} {posts} bind:selected bind:toglle />
 {/if}
 
 <style>

@@ -95,7 +95,7 @@
         {:else if selected === "AddCar"}
             <AddCar />
         {:else if selected === "Login"}
-            <Login bind:ShowAddCarButton bind:token {posts} bind:toglle />
+            <Login bind:ShowAddCarButton bind:token {posts} bind:toglle bind:selected />
         {/if}
     {/if}
 </main>

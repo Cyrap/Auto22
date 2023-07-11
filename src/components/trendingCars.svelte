@@ -9,7 +9,7 @@
       selectedCar = null;
    };
    register();
-   const spaceBetween = 100;
+   const spaceBetween = 190;
 </script>
 
 <div class="container">

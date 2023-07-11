@@ -2,42 +2,36 @@
    import { API } from "../logic/api";
    import type { CarDto } from "car-api";
    let newData: CarDto = {
-      // oid: 0,
-      // madeCompany: "",
-      // model: "undefined",
-      // madeYear: 0,
-      // madeMonth: 0,
-      // color: "undefined",
-      // roadTraveled: 0,
-      // power: 0,
-      // hutlugch: 0,
-      // engine: 0,
-      // hvrd: 0,
-      // engineCapacity: 0,
-      // hrop: 0,
-      // phone: 0,
-      // condition: 0,
-      // carNumber: 0,
-      // price: 0,
-      // carType: 0,
-      // ownerId: {
-      //    oid: 0,
-      //    ownerName: "string",
-      //    lastName: "string",
-      //    ownerId: 0,
-      // },
-      // parkingId: {
-      //    oid: 0,
-      //    parkingNumber: 0,
-      //    parkingId: 0,
-      // },
+      oid: 0,
+      madeCompany: "string",
+      model: "string",
+      madeYear: 0,
+      madeMonth: 0,
+      color: "string",
+      roadTraveled: 0,
+      power: 0,
+      hutlugch: 0,
+      engine: 0,
+      hvrd: 0,
+      engineCapacity: 0,
+      hrop: 0,
+      phone: 0,
+      condition: 0,
+      carNumber: 0,
+      price: 0,
+      carType: 0,
+      parkingId: {
+         oid: 0,
+         parkingNumber: 0,
+         parkingId: 0,
+      },
    };
    async function createCar() {
       try {
          const response = await API.Car.apiCarPost({
             carDto: newData,
          });
-         console.log("Successss???>?>?>s", response.data); // Display the response data
+         console.log("Successss???>?>?>s", response.data);
          alert(`${response.data.model} авто машин амжилттай бүртгэгдлээ!`);
       } catch (error) {
          console.error("Mashin hadgalalt amjiltgvi", error);

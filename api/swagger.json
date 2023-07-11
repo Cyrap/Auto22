@@ -703,6 +703,68 @@
         }
       }
     },
+    "/api/Parking/buy": {
+      "post": {
+        "tags": [
+          "Parking"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BuyParkingRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BuyParkingRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/BuyParkingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Parking/accept": {
+      "post": {
+        "tags": [
+          "Parking"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AcceptParkingRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AcceptParkingRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AcceptParkingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/Users/authenticate": {
       "post": {
         "tags": [
@@ -912,6 +974,20 @@
   },
   "components": {
     "schemas": {
+      "AcceptParkingRequest": {
+        "type": "object",
+        "properties": {
+          "parkingId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "carId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "AuthenticateRequest": {
         "required": [
           "password",
@@ -950,6 +1026,24 @@
             "nullable": true
           },
           "token": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "BuyParkingRequest": {
+        "type": "object",
+        "properties": {
+          "parkingId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ownerPhoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
             "type": "string",
             "nullable": true
           }
@@ -1030,9 +1124,6 @@
           "carType": {
             "type": "integer",
             "format": "int32"
-          },
-          "ownerId": {
-            "$ref": "#/components/schemas/OwnerDto"
           },
           "parkingId": {
             "$ref": "#/components/schemas/ParkingDto"

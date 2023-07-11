@@ -1,6 +1,6 @@
 {
   "name": "cuko_api_swagger",
-  "version": "0.0.35",
+  "version": "0.0.42",
   "description": "OpenAPI client for cuko_api_swagger",
   "author": "OpenAPI-Generator Contributors",
   "repository": {
