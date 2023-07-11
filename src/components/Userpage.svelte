@@ -151,6 +151,11 @@
    });
 </script>
 
+{#if notification === "cardeleted"}
+   <div class="message" on:click={closeModal}>
+      <div>{DeleteMessage}</div>
+   </div>
+{/if}
 <div style="display: none;">
    <input id="search" type="search" placeholder="Автомашин хайх..." bind:value={searchQuery} />
 </div>
@@ -204,25 +209,18 @@
       </div>
    </div>
 {/if}
-{#if notification === "cardeleted"}
-   <div class="message" on:click={closeModal}>
-      <div>{DeleteMessage}</div>
-   </div>
-{/if}
 
 <style>
    .message {
-      position: absolute;
-      top: 0;
+      position: sticky;
+      top: 10px;
       width: 100vw;
-      height: 130px;
+      height: 0;
       display: flex;
       justify-content: center;
       align-items: center;
    }
    .message > div {
-      position: sticky;
-      top: 0;
       background: var(--primary-color);
       color: white;
       padding: 10px;

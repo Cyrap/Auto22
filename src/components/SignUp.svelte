@@ -3,8 +3,8 @@
    import { API } from "../logic/api";
    export let toglle: any;
    import type { RegisterRequest } from "car-api";
-   function Back(){
-      toglle = "login"
+   function Back() {
+      toglle = "login";
    }
    function passwordMatch(value: any, form: any) {
       if (value !== form.values.password) {
@@ -23,7 +23,7 @@
 
    const form = useForm();
 
-   const requiredMessage = "This field is required";
+   const requiredMessage = "Мэдээлэл ээ оруулна уу";
 
    let newUser: RegisterRequest = {
       username: "",
@@ -104,7 +104,7 @@
             <Hint on="passwordMatch" hideWhenRequired>Passwords do not match</Hint>
          </HintGroup><br />
 
-         <button disabled={!$form.valid} on:click={register}> Submit </button>
+         <button disabled={!$form.valid} on:click={register}> Бүртгүүлэх </button>
          <button on:click={Back}> Нэвтрэх </button>
       </form>
    </div>
@@ -143,7 +143,7 @@
       padding: 10px 0px;
       text-align: center;
       border-radius: 10px;
-      margin: 20px 0px;
+      margin-top: 10px;
       position: relative;
    }
    label {

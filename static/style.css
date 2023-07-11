@@ -14,6 +14,23 @@
    --hover-color: #ddd;
 }
 
+.rCS1w3zcxh {
+   --moveable-color: none !important;
+   background: none !important;
+   color: none;
+}
+
+.rCS1w3zcxh::before {
+   --moveable-color: none !important;
+   background: none !important;
+   color: none;
+}
+
+.moveable-control-box {
+   background: none !important;
+   color: none !important;
+}
+
 body {
    background: var(--background-color);
    font-family: 'Nunito Sans', sans-serif;

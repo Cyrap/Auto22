@@ -55,7 +55,8 @@
       height: 2.5rem;
       transition: all 200ms linear;
       border-radius: 4px;
-      width: 220px;
+      width: 20vw;
+      max-width: 200px;
       letter-spacing: 1px;
       display: -webkit-inline-flex;
       display: -ms-inline-flexbox;
@@ -112,6 +113,10 @@
       font-weight: bold;
       border-radius: 3px;
    }
-   @media screen and (max-width: 991px) {
+   @media screen and (max-width: 600px) {
+      .dropdown:checked + label,
+      .dropdown:not(:checked) + label {
+         font-size: 0.9rem;
+      }
    }
 </style>

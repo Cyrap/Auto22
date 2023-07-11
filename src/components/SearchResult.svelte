@@ -120,7 +120,9 @@
       color: #888;
    }
    .error {
-      font-style: italic;
+      color: black;
+      position: relative;
+      left: 100%;
    }
 
    .modal {

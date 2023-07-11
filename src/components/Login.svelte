@@ -145,7 +145,6 @@
       flex-direction: column;
       border-radius: 10px;
       position: absolute;
-      top: 25vh;
       padding: 20px;
    }
    .forgot {

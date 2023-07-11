@@ -38,7 +38,7 @@
       const gTag = plan.querySelector(`g#${a}`);
       if (gTag) {
          // TODO fix this
-         
+
          const carObject = posts.find((car) => car?.engine !== undefined && car?.engine.toString() === a);
          if (carObject) {
             gTag.setAttribute("fill", "green");
@@ -154,7 +154,16 @@
 
 <div class="map-container">
    <div bind:this={targetRef}>
-      <svg width="2000" height="3000" viewBox="0 0 2898 3680" fill="none" xmlns="http://www.w3.org/2000/svg" on:click={handleClick} bind:this={plan}>
+      <svg
+         width="500"
+         height="500"
+         viewBox="0 0 2898 3680"
+         fill="none"
+         xmlns="http://www.w3.org/2000/svg"
+         on:click={handleClick}
+         bind:this={plan}
+         class="moveable"
+      >
          <rect width="2898" height="3680" />
          <g id="area-one" clip-path="url(#clip0_0_1)">
             <g id="Items">
@@ -8749,6 +8758,8 @@
 </div>
 
 <style>
+   .rCS1w3zcxh .moveable-line {
+   }
    .car-icon:hover {
       background: brown;
    }
