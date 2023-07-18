@@ -9,7 +9,7 @@
    let show_password = false;
    export let toglle = "login";
    export let selected: any;
-   let CurrentUser: UserDto | undefined = undefined;
+   export let CurrentUser: UserDto | undefined = undefined;
    export let token: string | null | undefined | void;
    let busy = true;
    let error: any;

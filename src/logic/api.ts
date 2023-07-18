@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CarApi, OwnerApi, ParkingApi, UsersApi } from "car-api";
+import { CarApi, CarParkingApi, OwnerApi, ParkingApi, UsersApi } from "car-api";
 
 export abstract class API {
    static baseUrl = "https://taiwnaa.dev.spacehub.mn";
@@ -17,5 +17,6 @@ export abstract class API {
    static Car = new CarApi(undefined, API.baseUrl, API.instance);
    static User = new UsersApi(undefined, API.baseUrl, API.instance);
    static Owner = new OwnerApi(undefined, API.baseUrl, API.instance);
-   static Park = new ParkingApi(undefined, API.baseUrl, API.instance);
+   static CarParking = new CarParkingApi(undefined, API.baseUrl, API.instance);
+   static Parking = new ParkingApi(undefined, API.baseUrl, API.instance);
 }

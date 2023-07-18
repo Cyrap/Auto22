@@ -71,6 +71,9 @@ dependencies:
   svelte-use-form:
     specifier: 2.0.0
     version: 2.0.0
+  svelte-zoom:
+    specifier: ^1.0.16
+    version: 1.0.16
   swiper:
     specifier: ^9.4.1
     version: 9.4.1
@@ -1673,6 +1676,10 @@ packages:
 
   /svelte-use-form@2.0.0:
     resolution: {integrity: sha512-W6yj9mIbi7HWfD1BZSCRJu1d8WR+Rk0Lq45IwM8Fw4KyxcgVpEvLuwcVD4G79mUmAIeL+iiPnZdXVcdWnS0quw==}
+    dev: false
+
+  /svelte-zoom@1.0.16:
+    resolution: {integrity: sha512-rskuoy1ZAtK9D3xNP8c5XCuhMbnXtsZOiLEs8I8ZdHBqIamPpQW7dcSUPE3WOQolOZu2F33ZXqm5HKelARnuwA==}
     dev: false
 
   /svelte@3.59.1:

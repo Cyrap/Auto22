@@ -1,12 +1,12 @@
 <script lang="ts">
-   import type { UserDto } from "car-api";
    import { API } from "../logic/api";
    import { onMount } from "svelte";
-   import type { CarDto } from "car-api";
+   import type { CarDto , CarParkingDto } from "car-api";
    import type { SearchResult as SR } from "minisearch";
    import { createEventDispatcher } from "svelte";
    import MiniSearch from "minisearch";
    import { element } from "svelte/internal";
+   import type { UserDto } from "car-api";
    export let CurrentUser: UserDto | undefined = undefined;
    export let selected: any;
    export let posts: CarDto[] = [];
@@ -149,6 +149,24 @@
          }, 1000);
       }
    });
+
+
+    let error: any;
+   let getCarParking = async () => {
+      let busy = true
+      try{
+         const response = await API.CarParking.apiCarParkingPost();
+         return response.data ?? [];
+      } catch (e) {
+            error = e;
+        } finally {
+            busy = false;
+        }
+        return [];
+   }
+   onMount(async ()=>{
+      let carParkings =  await getCarParking();
+   });
 </script>
 
 {#if notification === "cardeleted"}
@@ -161,12 +179,12 @@
 </div>
 <!-- <button class="button-4" on:click={Exit}>Гарах</button> -->
 <div class="profile">
-   <p><span style="color: white; font-size:3rem;">Welcome back </span> {CurrentUser?.username}</p>
+   <p><span style="color: white; font-size:2srem;">Welcome back </span> {CurrentUser?.username}</p>
 </div>
 <div class="container">
    <div class="parent">
       {#if searchResults && searchResults.length !== 0}
-         <p class="search-info">Таны автомашинууд({searchResults.length})</p>
+         <p class="search-info">Таны зогсоолууд({searchResults.length})</p>
          {#each searchResults as result}
             {#each posts as post}
                {#if result.oid?.toString() == post.oid?.toString()}
@@ -176,7 +194,6 @@
                            <strong>{titles.model}:</strong>
                            {post.model}
                         </div>
-
                         <div>
                            <button class="button-4" id="delete" on:click={() => DeleteCar(Number(result.oid))}>delete car</button>
                         </div>
@@ -186,7 +203,7 @@
             {/each}
          {/each}
       {:else}
-         <div class="error">Танд машин алга байна</div>
+         <div class="error">Танд зогсоол алга байна</div>
       {/if}
    </div>
 </div>
@@ -204,7 +221,7 @@
                   </div>
                {/if}
             {/each}
-            <button class="button-4" on:click={() => EditCar(Number(selectedCar?.oid), editedData)}>Edit {selectedCar.oid} car</button>
+            <button class="button-4" on:click={() => EditCar(Number(selectedCar?.oid), editedData)}>Edit {editedData.engine} car</button>
          </div>
       </div>
    </div>

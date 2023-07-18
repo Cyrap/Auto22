@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { API } from "../logic/api";
-    import type { CarDto } from "car-api";
+    import type { CarDto ,UserDto} from "car-api";
     import Footer from "../components/Footer.svelte";
     import Navbar from "../components/Navbar.svelte";
     import TrendingCars from "../components/TrendingCars.svelte";
@@ -12,7 +12,6 @@
     import AddCar from "../components/AddCar.svelte";
     import Error from "../components/Error.svelte";
     import SearchResult from "../components/SearchResult.svelte";
-    import Map from "../components/Map.svelte";
     import BackButton from "../components/BackButton.svelte";
     import type { SearchResult as SR } from "minisearch";
     import Auto22 from "../components/Auto22.svelte";
@@ -20,7 +19,7 @@
     import DeleteCar from "../components/DeleteCar.svelte";
     import EditCar from "../components/EditCar.svelte";
     import Userpage from "../components/Userpage.svelte";
-
+    import MapContainer from "../components/map/MapContainer.svelte";
     let ShowAddCarButton: any;
     let searchResults: SR[] | undefined | null;
     let busy = true;
@@ -32,6 +31,7 @@
     selected = "home";
     let searchQuery: any = "";
     let toglle: any;
+    let CurrentUser: UserDto | undefined = undefined;
     const getPosts = async () => {
         busy = true;
         try {
@@ -85,7 +85,7 @@
             <Footer />
         {:else if selected === "home"}
             <!-- <Dashboard {posts} bind:searchQuery /> -->
-            <Map />
+            <!-- <MapContainer {posts} {CurrentUser}/> -->
             <TrendingCars {posts} />
             <TrendingCars {posts} />
             <News {posts} />
@@ -95,7 +95,7 @@
         {:else if selected === "AddCar"}
             <AddCar />
         {:else if selected === "Login"}
-            <Login bind:ShowAddCarButton bind:token {posts} bind:toglle bind:selected />
+            <Login bind:ShowAddCarButton bind:token {posts} bind:toglle bind:selected {CurrentUser}/>
         {/if}
     {/if}
 </main>

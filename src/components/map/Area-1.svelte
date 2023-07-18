@@ -1,10 +1,13 @@
 <script lang="ts">
    import { createEventDispatcher } from "svelte";
-   import type { CarDto } from "car-api";
+   import type { CarDto ,  CarParkingDto , ParkingApiApiParkingIdPutRequest} from "car-api";
    import type { ParkingDto } from "car-api";
-   import { onMount } from "svelte";
+   import { onMount, onDestroy } from "svelte";
    import Moveable from "svelte-moveable";
-   import { API } from "../logic/api";
+   import { API } from "../../logic/api";
+   import { number } from "svelte-use-form";  
+   import type { UserDto } from "car-api";
+   export let CurrentUser: UserDto | undefined = undefined;
    export let posts: CarDto[] = [];
    let selectedCar: CarDto | null = null;
    var titles: any = {
@@ -34,19 +37,19 @@
    let targetRef = null;
    let plan: SVGElement;
    let parks: string[] = [];
+   // mashin baiwal oor ongoor haruulah
    parks.forEach((a) => {
-      const gTag = plan.querySelector(`g#${a}`);
-      if (gTag) {
-         // TODO fix this
-
+      const rect = plan.querySelector(`g[class^="$"] > g#${a} > rect`)
+      if (rect) {
          const carObject = posts.find((car) => car?.engine !== undefined && car?.engine.toString() === a);
          if (carObject) {
-            gTag.setAttribute("fill", "green");
+            rect.setAttribute("fill", "green");
          } else {
-            gTag.setAttribute("fill", "blue");
+            rect.setAttribute("fill", "blue");
          }
       }
    });
+   // daragdsan mashinii id-g awah
    parks.forEach((a) => {
       const rect = plan.querySelector(`g[class^="$"] > g#${a} > rect`);
       if (rect) {
@@ -60,7 +63,6 @@
    function passId(id: number) {
       let car = null;
       for (let i = 0; i < posts.length; i++) {
-         // TODO fix this
          if (posts[i].engine === id) {
             car = posts[i];
             break;
@@ -70,7 +72,7 @@
       if (car) {
          openModal(car);
       } else {
-         a = "a";
+         a = "emthyPark";
       }
    }
 
@@ -100,25 +102,29 @@
       a = "";
       dispatcher("modalClose");
    };
-   // let busy = false;
-   // let error: any = "";
-   // let parkObjects: ParkingDto[] = [];
-   // const getPark = async () => {
-   //    busy = true;
-   //    try {
-   //       const res = await API.Park.apiParkingPost();
-   //       return res.data;
-   //    } catch (e) {
-   //       error = e;
-   //    } finally {
-   //       busy = false;
-   //    }
-   //    return [];
-   // };
-   // onMount(async () => {
-   //    parkObjects = getPark();
-   // });
-   // console.log(parkObjects);
+   
+   let BuyPark : ParkingApiApiParkingIdPutRequest= {
+   id: CurrentUser?.oid || 0,
+   }
+   let error: any;
+   let ParkBuying = async () => {
+      let busy = true
+      try{
+         const response = await API.Parking.apiParkingIdPut({requestParameters : BuyPark});
+         return response.data ?? [];
+      } catch (e) {
+            error = e;
+        } finally {
+            busy = false;
+        }
+   }
+   let OwnedPark ;
+   onMount(async ()=>{
+      OwnedPark =  await ParkBuying();
+   });
+   console.log(OwnedPark,"carParkings are here");
+
+
 </script>
 
 {#if selectedCar}
@@ -139,24 +145,27 @@
    </div>
 {/if}
 
-{#if a === "a"}
+{#if a === "emthyPark"}
    <div class="modal" on:click={closeModal}>
       <div class="modal-content" on:click={(e) => e.stopPropagation()}>
          <div class="modal-close" on:click={closeModal}>Close</div>
          <div class="modal-body">
             <div class="modal-info">
-               <strong>This park is empthy</strong>
+               <strong>Энэ зогсоолд автомашин алга байна</strong>
             </div>
+            {#if CurrentUser}
+            <button>Зогсоолыг захиалах</button>
+            {/if}
          </div>
       </div>
    </div>
 {/if}
 
-<div class="map-container">
+<!-- <div class="map-container">
    <div bind:this={targetRef}>
       <svg
-         width="500"
-         height="500"
+         width="1500"
+         height="1500"
          viewBox="0 0 2898 3680"
          fill="none"
          xmlns="http://www.w3.org/2000/svg"
@@ -164,7 +173,7 @@
          bind:this={plan}
          class="moveable"
       >
-         <rect width="2898" height="3680" />
+         <rect width={2898} height={3680} />
          <g id="area-one" clip-path="url(#clip0_0_1)">
             <g id="Items">
                <path
@@ -8755,18 +8764,9 @@
          }}
       />
    </div>
-</div>
+</div> -->
 
 <style>
-   .rCS1w3zcxh .moveable-line {
-   }
-   .car-icon:hover {
-      background: brown;
-   }
-   .selected {
-      fill: red;
-      background: green;
-   }
    .map-container {
       height: 100vh;
       width: 100vw;
