@@ -78,7 +78,7 @@
       const target = e.target as SVGElement;
       if (target.tagName.toLowerCase() === "rect" && target.parentElement?.parentElement?.id.startsWith("$")) {
          selectedParkNumber = target.parentElement.id;
-         console.log(selectedParkNumber);
+         console.log(selectedParkNumber,"hih");
          passId(Number(selectedParkNumber));
       }
    }
@@ -88,7 +88,6 @@
          plan.removeEventListener("click", handleClick);
       };
    });
-
    const openModal = (car: CarDto) => {
       selectedCar = car;
       dispatcher("modalOpen");
@@ -99,6 +98,7 @@
       a = "";
       dispatcher("modalClose");
    };
+
    // let busy = false;
    // let error: any = "";
    // let parkObjects: ParkingDto[] = [];
@@ -123,12 +123,49 @@
       
    }
 </script>
+{#if selectedCar}
+   <div class="modal" on:click={closeModal}>
+      <div class="modal-content" on:click={(e) => e.stopPropagation()}>
+         <div class="modal-close" on:click={closeModal}>Close</div>
+         <div class="modal-body">
+            {#each Object.entries(selectedCar) as [key, value]}
+               {#if key in titles}
+                  <div class="modal-info">
+                     <strong>{titles[key]}:</strong>
+                     {value}
+                  </div>
+               {/if}
+            {/each}
+         </div>
+      </div>
+   </div>
+{/if}
+
+{#if a === "emthyPark"}
+   <div class="modal" on:click={closeModal}>
+      <div class="modal-content" on:click={(e) => e.stopPropagation()}>
+         <div class="modal-close" on:click={closeModal}>Close</div>
+         <div class="modal-body">
+            <div class="modal-info">
+               <strong>Энэ зогсоолд автомашин алга байна</strong>
+            </div>
+            {#if CurrentUser}
+            <button>Зогсоолыг захиалах</button>
+            {/if}
+         </div>
+      </div>
+   </div>
+{/if}
+
 <div class="map-container">
+   <div class="area-name">
+      2-р бүс
+   </div>
    <div bind:this={targetRef}>
 
 
-<svg width="1000" height="1001" viewBox="0 0 2898 3301" fill="none" xmlns="http://www.w3.org/2000/svg">
-   <rect width="2898" height="3301" fill="#E5E5E5"/>
+<svg width="2500" height="2001" viewBox="0 0 2898 3301" fill="none" xmlns="http://www.w3.org/2000/svg">
+   <rect width="2898" height="3301"/>
    <g id="area-two" clip-path="url(#clip0_0_1)">
    <g id="Extras">
    <path id="Vector 25" d="M808.887 1338.95L451.166 688.875L947.046 416.004L1298.98 1055.57L808.887 1338.95Z" fill="#FFF1E4" stroke="black" stroke-width="6"/>
@@ -4538,9 +4575,23 @@
 </div>
 </div>
 <style>
+      .area-name{
+         padding:10px;
+      border-radius:10px;
+         z-index:1000;
+      background:var(--primary-color);
+      opacity : 0.8;
+      position:absolute;
+      top:10px;
+      left:20px;
+      color:var(--background-color);
+      font-weight:bold;
+      font-size:2rem;
+   }
    .map-container {
       height: 100vh;
       width: 100vw;
+      background:#FFF1E4;
       display: flex;
       align-items: center;
       justify-content: center;

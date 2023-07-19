@@ -1,7 +1,7 @@
 <script lang="ts">
    import { API } from "../logic/api";
    import type { CarDto } from "car-api";
-   let newData: CarDto = {
+   let newData: CarDto =  {
       oid: 0,
       madeCompany: "string",
       model: "string",
@@ -21,15 +21,14 @@
       price: 0,
       carType: 0,
       parkingId: {
-         oid: 0,
-         parkingNumber: 0,
-         parkingId: 0,
-      },
-   };
+        oid: 0,
+        parkingNumber: 0,
+        parkingId: 0
+      }};
    async function createCar() {
       try {
          const response = await API.Car.apiCarPost({
-            carDto: newData,
+            requestParameters: newData,
          });
          console.log("Successss???>?>?>s", response.data);
          alert(`${response.data.model} авто машин амжилттай бүртгэгдлээ!`);

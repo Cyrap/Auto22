@@ -123,13 +123,49 @@
       
    }
 </script>
+{#if selectedCar}
+   <div class="modal" on:click={closeModal}>
+      <div class="modal-content" on:click={(e) => e.stopPropagation()}>
+         <div class="modal-close" on:click={closeModal}>Close</div>
+         <div class="modal-body">
+            {#each Object.entries(selectedCar) as [key, value]}
+               {#if key in titles}
+                  <div class="modal-info">
+                     <strong>{titles[key]}:</strong>
+                     {value}
+                  </div>
+               {/if}
+            {/each}
+         </div>
+      </div>
+   </div>
+{/if}
+
+{#if a === "emthyPark"}
+   <div class="modal" on:click={closeModal}>
+      <div class="modal-content" on:click={(e) => e.stopPropagation()}>
+         <div class="modal-close" on:click={closeModal}>Close</div>
+         <div class="modal-body">
+            <div class="modal-info">
+               <strong>Энэ зогсоолд автомашин алга байна</strong>
+            </div>
+            {#if CurrentUser}
+            <button>Зогсоолыг захиалах</button>
+            {/if}
+         </div>
+      </div>
+   </div>
+{/if}
 
 <div class="map-container">
+   <div class="area-name">
+      3-р бүс
+   </div>
    <div bind:this={targetRef}>
    
 
-<svg width="1000" height="1000" viewBox="0 0 2898 3619" fill="none" xmlns="http://www.w3.org/2000/svg">
-   <rect width="2898" height="3619" fill="#E5E5E5"/>
+<svg width="2500" height="2000" viewBox="0 0 2898 3619" fill="none" xmlns="http://www.w3.org/2000/svg">
+   <rect width="2898" height="3619" />
    <g id="area-three" clip-path="url(#clip0_0_1)">
    <g id="Items">
    <path id="BG$966-1411" d="M1376.43 75.423L306.969 689.758L1027.11 1606.93L1944.35 866.172L1376.43 75.423Z" fill="#FFF1E4" stroke="black" stroke-width="6"/>
@@ -6943,9 +6979,23 @@
 />
 </div>
 </div>
-<style>
 
+<style>
+      .area-name{
+         padding:10px;
+      border-radius:10px;
+         z-index:100;
+      background:var(--primary-color);
+      opacity : 0.8;
+      position:absolute;
+      top:10px;
+      left:20px;
+      color:var(--background-color);
+      font-weight:bold;
+      font-size:2rem;
+   }
    .map-container {
+    background:#FFF1E4;
       height: 100vh;
       width: 100vw;
       display: flex;

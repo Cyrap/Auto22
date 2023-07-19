@@ -38,6 +38,11 @@
                                 <Th {handler} orderBy="model">{titles[key]}</Th>
                             {/if}
                         {/each}
+                        {:else}
+                        <div class="emthy">
+
+                            Танд автомашин алга байна.
+                        </div>
                     {/if}
                 </tr>
                 <tr>
@@ -63,7 +68,8 @@
                 {#each $rows as row}
                     <tr>
                         {#each ["madeCompany", "model", "madeYear", "madeMonth", "color", "roadTraveled", "power", "hutlugch", "engine", "turul", "hvrd", "engineCapacity", "hrop", "phone", "condition", "carNumber"] as prop}
-                            <td>{row[prop]}</td>
+                            <td>{row[prop]}
+                            </td>
                         {/each}
                     </tr>
                 {/each}
@@ -73,6 +79,10 @@
 </Datatable>
 
 <style>
+    .emthy{
+        padding-left: 1vw;
+        width: 100vw;
+    }
     .main {
         height: 79vh;
     }

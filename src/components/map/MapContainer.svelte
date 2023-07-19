@@ -25,6 +25,9 @@
          current = 1;
       }
    }
+
+
+   
 </script>
 {#if current == 1}
   <Area_1 {posts} {CurrentUser}/>

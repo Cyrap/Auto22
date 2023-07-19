@@ -41,8 +41,21 @@
    //   "email": "cyrap2001@gmail.com"
    // }
    let passwordRepeat = "";
-
+   let active = false;
+   async function EmailGetTP(){
+      try {
+         active = true ;
+         const response = await API.Email.apiEmailSendotpPost();
+         console.log(response, "Email function's response is here");
+      } catch (error) {
+         console.error("Email function's error is here", error);
+         alert("амжилтгүй apiEmailSendotpPost ");
+      }finally{
+         active = true;
+      }
+   }
    async function register() {
+
       if (newUser.password === passwordRepeat) {
          try {
             const response = await API.User.usersRegisterPost({

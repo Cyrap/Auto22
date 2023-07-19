@@ -1,48 +1,63 @@
 <script lang="ts">
    import { API } from "../logic/api";
    import { onMount } from "svelte";
-   import type { CarDto , CarParkingDto } from "car-api";
+   import type { CarDto , CarParkingDto ,ParkingDto} from "car-api";
    import type { SearchResult as SR } from "minisearch";
    import { createEventDispatcher } from "svelte";
    import MiniSearch from "minisearch";
    import { element } from "svelte/internal";
    import type { UserDto } from "car-api";
+   import Main from "../components/table/Main.svelte";
    export let CurrentUser: UserDto | undefined = undefined;
    export let selected: any;
    export let posts: CarDto[] = [];
    export let toglle: any;
+   let newData: CarDto = {
+  oid: 0,
+  madeCompany: "string",
+  model: "string",
+  madeYear: 0,
+  madeMonth: 0,
+  color: "string",
+  roadTraveled: 0,
+  power: 0,
+  hutlugch: 0,
+  engine: 0,
+  hvrd: 0,
+  engineCapacity: 0,
+  hrop: 0,
+  phone: 0,
+  condition: 0,
+  carNumber: 0,
+  price: 0,
+  carType: 0,
+  parkingId: {
+    oid: 0,
+    parkingNumber: 0,
+    parkingId: 0
+  }
+};
+// parkuudiig awj ylgah
+// const getParking =async () => {
+//    let busy = false;
+//    try{
+//       const res = await API.Parking.apiParkingIdGet();
+//       return res.data ?? [];
+//       }  catch (e) {
+//            alert(e);
+//         } finally {
+//             busy = false;
+//         }
+//         return [];
+// } 
+   let selectedCar: CarDto | null;
    let search = "";
    let notification: any = "";
    let searchResults: SR[] = [];
    // let searchQuery: number | undefined = CurrentUser[0]?.id;
    let searchQuery: number | undefined = 0;
-   let editedData: CarDto = {
-      oid: 0,
-      madeCompany: "string",
-      model: "string",
-      madeYear: 0,
-      madeMonth: 0,
-      color: "string",
-      roadTraveled: 0,
-      power: 0,
-      hutlugch: 0,
-      engine: 0,
-      hvrd: 0,
-      engineCapacity: 0,
-      hrop: 0,
-      phone: 0,
-      condition: 0,
-      carNumber: 0,
-      price: 0,
-      carType: 0,
-      parkingId: {
-         oid: 0,
-         parkingNumber: 0,
-         parkingId: 0,
-      },
-   };
 
-   $: console.log(CurrentUser?.oid, " CurrentUser[0]?.oid");
+  
    var titles: any = {
       carNumber: "Машины дугаар",
       color: "Өнгө",
@@ -117,17 +132,21 @@
    }
 
    console.log(searchResults, "search result is here");
-   let selectedCar: CarDto | null;
+
    const dispatcher = createEventDispatcher();
 
    const openModal = (car: CarDto) => {
-      if (deleteActiveated === "a") {
-         selectedCar = null;
-      } else {
-         selectedCar = car;
-      }
-      dispatcher("modalOpen");
-   };
+  if (deleteActiveated === "a") {
+    selectedCar = null;
+  } else {
+    selectedCar = car;
+    newData = {
+      ...newData,
+      oid: car.oid
+    };
+  }
+  dispatcher("modalOpen");
+};
 
    const closeModal = () => {
       selectedCar = null;
@@ -167,20 +186,57 @@
    onMount(async ()=>{
       let carParkings =  await getCarParking();
    });
-</script>
+   let load = false
+   let ErrorWhileGettingParks : any;
+   let OwnedParks : CarParkingDto[] = [];
+   const getOwnedParks = async () => {
+      load = true
+      try{
+         const res = await API.CarParking.apiCarParkingPost();
+         return res.data ?? [];
+      }catch(e){
+         e = ErrorWhileGettingParks;
+      }finally{
+         load = false;
+      }
+      return [];
+   }
+   // onMount( async () => {
+   //    OwnedParks = await getOwnedParks();
+   // }
+   // )
 
+
+   $: console.log(CurrentUser?.oid, " CurrentUser[0]?.oid");
+
+   let g = true
+   function WelcomeNotification() {
+      g= false;
+}
+
+
+ setTimeout(WelcomeNotification, 3000);
+</script>
+<Main {posts}/>
 {#if notification === "cardeleted"}
    <div class="message" on:click={closeModal}>
       <div>{DeleteMessage}</div>
    </div>
 {/if}
+
+
 <div style="display: none;">
    <input id="search" type="search" placeholder="Автомашин хайх..." bind:value={searchQuery} />
 </div>
 <!-- <button class="button-4" on:click={Exit}>Гарах</button> -->
+{#if g === true}
 <div class="profile">
    <p><span style="color: white; font-size:2srem;">Welcome back </span> {CurrentUser?.username}</p>
 </div>
+{/if}
+
+
+
 <div class="container">
    <div class="parent">
       {#if searchResults && searchResults.length !== 0}
@@ -208,26 +264,111 @@
    </div>
 </div>
 
+
+<div>
+   your OwnedParks
+   {#each OwnedParks as i}
+      <div>
+         {i}
+      </div>
+   {/each}
+</div>
 {#if selectedCar}
    <div class="modal" on:click={closeModal}>
       <div class="modal-content" on:click={(e) => e.stopPropagation()}>
          <div class="modal-close" on:click={closeModal}>Хаах</div>
          <div class="modal-body">
-            {#each Object.entries(selectedCar) as [key, value]}
-               {#if key in titles}
-                  <div class="modal-info">
-                     <strong>{titles[key]}:</strong>
-                     <input type="text" bind:value={editedData.engine} />
+            <div class="register-container">
+               <h2>Автомашин бүртгэлийн хэсэг</h2>
+               <form>
+                  <div class="form-group">
+                     <div>
+                        <label for="carNumber">Машины дугаар</label>
+                        <input type="number" bind:value={newData.carNumber} id="carNumber" />
+                     </div>
+                     <div>
+                        <label for="color">Өнгө</label>
+                        <input type="text" bind:value={newData.color} id="color" />
+                     </div>
+                     <div>
+                        <label for="condition">Нөхцөл</label>
+                        <input type="number" bind:value={newData.condition} id="condition" />
+                     </div>
+                     <div>
+                        <label for="engine">Хөдөлгүүр</label>
+                        <input type="number" bind:value={newData.engine} id="engine" />
+                     </div>
+                     <div>
+                        <label for="engineCapacity">Хөдөлгүүрийн багтаамж</label>
+                        <input type="number" bind:value={newData.engineCapacity} id="engineCapacity" />
+                     </div>
+                     <div>
+                        <label for="hrop">Хроп</label>
+                        <input type="number" bind:value={newData.hrop} id="hrop" />
+                     </div>
+                     <div>
+                        <label for="hutlugch">Хөтлөгч</label>
+                        <input type="number" bind:value={newData.hutlugch} id="hutlugch" />
+                     </div>
+                     <div>
+                        <label for="hvrd">Хүрд</label>
+                        <input type="number" bind:value={newData.hvrd} id="hvrd" />
+                     </div>
+                     <div>
+                        <label for="madeCompany">Үйлдвэрлэгч компани</label>
+                        <input type="text" bind:value={newData.madeCompany} id="madeCompany" />
+                     </div>
+                     <div>
+                        <label for="madeMonth">Үйлдвэрлэсэн сар</label>
+                        <input type="number" bind:value={newData.madeMonth} id="madeMonth" />
+                     </div>
+                     <div>
+                        <label for="madeYear">Үйлдвэрлэсэн он</label>
+                        <input type="number" bind:value={newData.madeYear} id="madeYear" />
+                     </div>
+                     <div>
+                        <label for="model">Загвар</label>
+                        <input type="text" bind:value={newData.model} id="model" />
+                     </div>
+                     <div>
+                        <label for="phone">Утасны дугаар</label>
+                        <input type="number" bind:value={newData.phone} id="phone" />
+                     </div>
+                     <div>
+                        <label for="power">Хүчин чадал</label>
+                        <input type="number" bind:value={newData.power} id="power" />
+                     </div>
+                     <div>
+                        <label for="price">Үнэ</label>
+                        <input type="number" bind:value={newData.price} id="price" />
+                     </div>
+                     <div>
+                        <label for="roadTraveled">Туулсан зам</label>
+                        <input type="number" bind:value={newData.roadTraveled} id="roadTraveled" />
+                     </div>
                   </div>
-               {/if}
-            {/each}
-            <button class="button-4" on:click={() => EditCar(Number(selectedCar?.oid), editedData)}>Edit {editedData.engine} car</button>
+               </form>
+            </div>
+            <button class="button-4" on:click={() => EditCar(Number(selectedCar?.oid), newData)}>Edit {newData.engine} car</button>
          </div>
       </div>
    </div>
 {/if}
 
 <style>
+      .profile{
+         width: 100vw;
+         display: flex;
+
+      }
+   .profile p{
+      background: #24292e;
+      padding: 30px;
+      border-radius: 10px;
+      z-index: 999999;
+      top: 60px;
+      right: 30px;
+   }
    .message {
       position: sticky;
       top: 10px;
@@ -236,6 +377,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+
    }
    .message > div {
       background: var(--primary-color);

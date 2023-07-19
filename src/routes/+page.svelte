@@ -85,7 +85,7 @@
             <Footer />
         {:else if selected === "home"}
             <!-- <Dashboard {posts} bind:searchQuery /> -->
-            <!-- <MapContainer {posts} {CurrentUser}/> -->
+            <MapContainer {posts} {CurrentUser}/>
             <TrendingCars {posts} />
             <TrendingCars {posts} />
             <News {posts} />

@@ -123,9 +123,50 @@
       
    }
 </script>
+{#if selectedCar}
+   <div class="modal" on:click={closeModal}>
+      <div class="modal-content" on:click={(e) => e.stopPropagation()}>
+         <div class="modal-close" on:click={closeModal}>Close</div>
+         <div class="modal-body">
+            {#each Object.entries(selectedCar) as [key, value]}
+               {#if key in titles}
+                  <div class="modal-info">
+                     <strong>{titles[key]}:</strong>
+                     {value}
+                  </div>
+               {/if}
+            {/each}
+         </div>
+      </div>
+   </div>
+{/if}
 
-<svg width="1000" height="1000" viewBox="0 0 2898 3661" fill="none" xmlns="http://www.w3.org/2000/svg">
-   <rect width="2898" height="3661" fill="#E5E5E5"/>
+{#if a === "emthyPark"}
+   <div class="modal" on:click={closeModal}>
+      <div class="modal-content" on:click={(e) => e.stopPropagation()}>
+         <div class="modal-close" on:click={closeModal}>Close</div>
+         <div class="modal-body">
+            <div class="modal-info">
+               <strong>Энэ зогсоолд автомашин алга байна</strong>
+            </div>
+            {#if CurrentUser}
+            <button>Зогсоолыг захиалах</button>
+            {/if}
+         </div>
+      </div>
+   </div>
+{/if}
+
+<div class="map-container">
+   <div class="area-name">
+      4-р бүс
+   </div>
+   <div bind:this={targetRef}>
+
+
+
+<svg width="2500" height="2000" viewBox="0 0 2898 3661" fill="none" xmlns="http://www.w3.org/2000/svg">
+   <rect width="2898" height="3661" />
    <g id="area-four" clip-path="url(#clip0_0_1)">
    <g id="Items">
    <path id="BG$1516-1731" d="M1873.15 2533.22L1139.27 3104.45L1680.02 3605.45L1864.82 3603.54L2384.36 3176.96L1873.15 2533.22Z" fill="#FDE9D0" stroke="black" stroke-width="6"/>
@@ -5383,9 +5424,35 @@
    </clipPath>
    </defs>
    </svg>
-   
+   <Moveable
+   target={targetRef}
+   {draggable}
+   {throttleDrag}
+   {edgeDraggable}
+   {startDragRotate}
+   {throttleDragRotate}
+   on:drag={({ detail: e }) => {
+      e.target.style.transform = e.transform;
+   }}
+   />
+</div>
+</div>
 <style>
+      .area-name{
+      z-index:1000;
+      padding:10px;
+      border-radius:10px;
+      background:var(--primary-color);
+      opacity : 0.8;
+      position:absolute;
+      top:10px;
+      left:20px;
+      color:var(--background-color);
+      font-weight:bold;
+      font-size:2rem;
+   }
    .map-container {
+      background:#FFF1E4;
       height: 100vh;
       width: 100vw;
       display: flex;
