@@ -49,6 +49,7 @@
     onMount(async () => {
         posts = await getPosts();
     });
+    
 </script>
 
 <svelte:head>

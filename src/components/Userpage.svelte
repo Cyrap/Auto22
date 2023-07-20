@@ -94,7 +94,6 @@
    };
 
    $: updateData(posts);
-
    const dispatch = createEventDispatcher();
 
    const handleSearch = () => {
@@ -119,7 +118,6 @@
          alert("амжилтгүй");
       }
    }
-
    async function EditCar(carOID: number, editedData: CarDto) {
       try {
          const response = await API.Car.apiCarIdPut({ id: carOID, carDto: editedData });
@@ -130,11 +128,8 @@
          alert("амжилтгүй");
       }
    }
-
    console.log(searchResults, "search result is here");
-
    const dispatcher = createEventDispatcher();
-
    const openModal = (car: CarDto) => {
   if (deleteActiveated === "a") {
     selectedCar = null;
@@ -147,7 +142,6 @@
   }
   dispatcher("modalOpen");
 };
-
    const closeModal = () => {
       selectedCar = null;
       deleteActiveated = null;
@@ -205,18 +199,15 @@
    //    OwnedParks = await getOwnedParks();
    // }
    // )
-
-
    $: console.log(CurrentUser?.oid, " CurrentUser[0]?.oid");
-
    let g = true
    function WelcomeNotification() {
       g= false;
 }
-
-
  setTimeout(WelcomeNotification, 3000);
 </script>
+
+
 <Main {posts}/>
 {#if notification === "cardeleted"}
    <div class="message" on:click={closeModal}>
@@ -226,7 +217,7 @@
 
 
 <div style="display: none;">
-   <input id="search" type="search" placeholder="Автомашин хайх..." bind:value={searchQuery} />
+   <input id="search" type="search" bind:value={searchQuery} />
 </div>
 <!-- <button class="button-4" on:click={Exit}>Гарах</button> -->
 {#if g === true}
@@ -264,15 +255,6 @@
    </div>
 </div>
 
-
-<div>
-   your OwnedParks
-   {#each OwnedParks as i}
-      <div>
-         {i}
-      </div>
-   {/each}
-</div>
 {#if selectedCar}
    <div class="modal" on:click={closeModal}>
       <div class="modal-content" on:click={(e) => e.stopPropagation()}>

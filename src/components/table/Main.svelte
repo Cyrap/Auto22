@@ -29,6 +29,12 @@
 
 <Datatable {handler}>
     <div class="main">
+        <div class="option">
+            <div class="emthy">
+                Танд автомашин алга байна.
+            </div>
+            <button>Хадгалах</button>
+        </div>
         <table>
             <thead>
                 <tr>
@@ -39,10 +45,6 @@
                             {/if}
                         {/each}
                         {:else}
-                        <div class="emthy">
-
-                            Танд автомашин алга байна.
-                        </div>
                     {/if}
                 </tr>
                 <tr>
@@ -68,7 +70,8 @@
                 {#each $rows as row}
                     <tr>
                         {#each ["madeCompany", "model", "madeYear", "madeMonth", "color", "roadTraveled", "power", "hutlugch", "engine", "turul", "hvrd", "engineCapacity", "hrop", "phone", "condition", "carNumber"] as prop}
-                            <td>{row[prop]}
+                            <td>
+                                <input bind:value={row[prop]}>
                             </td>
                         {/each}
                     </tr>
@@ -79,9 +82,11 @@
 </Datatable>
 
 <style>
-    .emthy{
+    .option {
+        display: flex;
+        justify-content: space-between;
         padding-left: 1vw;
-        width: 100vw;
+        width: 97vw;
     }
     .main {
         height: 79vh;

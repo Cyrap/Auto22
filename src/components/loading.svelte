@@ -38,13 +38,13 @@
    }
    .wave {
       width: 5px;
-      height: 40px;
+      height: 10px;
       background: linear-gradient(45deg, var(--primary-color), var(--disabled));
       margin: 10px;
       animation: wave 1s linear infinite;
       border-radius: 20px;
       position: relative;
-      top: 60vh;
+      top: 90vh;
    }
    .wave:nth-child(2) {
       animation-delay: 0.1s;

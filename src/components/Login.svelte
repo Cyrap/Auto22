@@ -107,15 +107,15 @@
             />
             <button class="show-password-btn" on:click={togglePasswordVisibility}>
                {#if show_password}
-                  <span class="hide-icon"><i class="fa-solid fa-eye-slash" /></span>
+                  <div class="hide-icon"><i class="fa-solid fa-eye-slash" /></div>
                {:else}
-                  <span class="show-icon"><i class="fa-light fa-eye" /></span>
+                  <div class="show-icon"><i class="fa-solid fa-eye" /></div>
                {/if}
             </button>
          </div>
          <button on:click={Login} class="login">Нэвтрэх</button>
          <button on:click={Register} class="login">Бүртгүүлэх</button>
-         <a class="forgot" href="/">Нууц үгээ мартсан</a>
+         <a class="forgot" href="/">Нууц үгээ мартсан ?</a>
       </div>
    </div>
 {:else if toglle === "register"}
@@ -198,21 +198,8 @@
       border: none;
       cursor: pointer;
    }
-   .show-icon,
-   .hide-icon {
-      outline: none;
-      cursor: pointer;
-      width: 10px;
-      height: 10px;
-   }
-
-   .hide-icon {
-      display: none;
-   }
-   .show-password-btn:hover .hide-icon {
-      display: block;
-   }
-   .show-password-btn:hover .show-icon {
-      display: none;
+   i{
+      font-size: 1.1rem;   
+      color: var(--primary-color);
    }
 </style>
