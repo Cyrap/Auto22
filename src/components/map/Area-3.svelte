@@ -122,10 +122,12 @@
    function Zoom(){
       
    }
-   function increaseHeight() {
+function increaseHeight() {
+   if(  plan.height.baseVal.value > 3000 ) return 
       plan.height.baseVal.value += 500;
   }
    function decHeight() {
+      if(  plan.height.baseVal.value < 600 ) return 
       plan.height.baseVal.value -= 500;
   }
 </script>

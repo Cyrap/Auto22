@@ -1,18 +1,17 @@
 <script lang="ts">
-import { onMount, onDestroy } from 'svelte';
-   import Swiper from 'swiper';
+   import { onMount, onDestroy } from 'svelte';
    import 'swiper/css';
+   import { API } from "/Users/Dell/Documents/Projects/test/src/logic/api" ;
    import 'swiper/css/navigation';
    import Area_1 from "./Area-1.svelte";
    import Area_2 from "./Area-2.svelte";
    import Area_3 from "./Area-3.svelte";
    import Area_4 from "./Area-4.svelte";
    import type {UserDto} from "car-api";
-   let swiper;
-   let current = 1;
-   import type { CarDto } from 'car-api';
+   import type { CarDto , ParkingDto } from 'car-api';
    export let posts: CarDto[] = [];
    export let CurrentUser: UserDto | undefined = undefined;
+   let current = 1;
   function dic() {
     current = current - 1;
     if (current < 1) {
@@ -38,18 +37,41 @@ import { onMount, onDestroy } from 'svelte';
       inc();
     }
   }
+
+
+  let busy = false;
+  let error : any;
+  let parks : ParkingDto[] = [];
+  const getParks = async () => {
+        busy = true;
+        try {
+            // const res = await API.Car.apiCarGet({ modelFilter });
+            const res = await API.Parking.apiParkingGet();
+            console.log("response is here parking:",res.data);
+            return res.data.items ?? [];
+        } catch (e) {
+            error = e;
+        } finally {
+            busy = false;
+        }
+        return [];
+    };
+
+    onMount(async () => {
+      parks = await getParks();
+    });
 </script>
 <div class="area-name" on:click={inc}>
    {current}-р бүс
 </div>
 {#if current == 1}
-  <Area_1 {posts}/>
+<Area_1 {posts} {parks}/>
 {:else if current == 2}
-  <Area_2 {posts}/>
+<Area_2 {posts} {parks}/>
 {:else if current == 3}
-  <Area_3 {posts}/>
+<Area_3 {posts} {parks}/>
 {:else}
-  <Area_4 {posts}/>
+<Area_4 {posts} {parks}/>
 {/if}
 
 <div class="button-container">
