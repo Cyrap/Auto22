@@ -125,6 +125,9 @@
 {/if}
 
 <style>
+   .fa-eye-slash{
+      color:grey !important; 
+   }
    .main {
       background: var(--disabled);
       width: 100vw;

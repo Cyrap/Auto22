@@ -1,15 +1,20 @@
 <script lang="ts">
    import { createEventDispatcher } from "svelte";
-   import type { CarDto ,  CarParkingDto , ParkingApiApiParkingIdPutRequest} from "car-api";
+   import type { CarDto} from "car-api";
    import type { ParkingDto } from "car-api";
-   import { onMount, onDestroy } from "svelte";
+   import { onMount } from "svelte";
    import Moveable from "svelte-moveable";
-   import { API } from "../../logic/api";
-   import { number } from "svelte-use-form";  
-   import type { UserDto } from "car-api";
-   export let CurrentUser: UserDto | undefined = undefined;
-   export let posts: CarDto[] = [];
    let selectedCar: CarDto | null = null;
+   let selectedParkNumber: string | null = null;
+   export let posts: CarDto[] = [];
+   export let parks : ParkingDto[] = [];
+   const draggable = true;
+   const throttleDrag = 1;
+   const edgeDraggable = false;
+   const startDragRotate = 0;
+   const throttleDragRotate = 0;
+   let targetRef = null;
+   let plan: SVGElement;
    var titles: any = {
       carNumber: "Машины дугаар",
       color: "Өнгө",
@@ -29,35 +34,8 @@
       roadTraveled: "Туулсан зам",
       turul: "Төрөл",
    };
-   const draggable = true;
-   const throttleDrag = 1;
-   const edgeDraggable = false;
-   const startDragRotate = 0;
-   const throttleDragRotate = 0;
-   let targetRef = null;
-   let plan: SVGElement;
-   let parks: string[] = [];
-   // mashin baiwal oor ongoor haruulah
-   parks.forEach((a) => {
-      const rect = plan.querySelector(`g[class^="$"] > g#${a} > rect`)
-      if (rect) {
-         const carObject = posts.find((car) => car?.engine !== undefined && car?.engine.toString() === a);
-         if (carObject) {
-            rect.setAttribute("fill", "green");
-         } else {
-            rect.setAttribute("fill", "blue");
-         }
-      }
-   });
-   // daragdsan mashinii id-g awah
-   parks.forEach((a) => {
-      const rect = plan.querySelector(`g[class^="$"] > g#${a} > rect`);
-      if (rect) {
-         rect.classList.add("selected");
-      }
-   });
-   // plan.querySelectorAll(".selected").classList.remove("selected");
-   // plan.querySelectorAll(".selected").classList.add("car-icon");
+   console.log("response is here parking:",parks);
+
    const dispatcher = createEventDispatcher();
    let a: any = "";
    function passId(id: number) {
@@ -68,15 +46,12 @@
             break;
          }
       }
-
       if (car) {
          openModal(car);
       } else {
          a = "emthyPark";
       }
    }
-
-   let selectedParkNumber: string | null = null;
    function handleClick(e: MouseEvent) {
       const target = e.target as SVGElement;
       if (target.tagName.toLowerCase() === "rect" && target.parentElement?.parentElement?.id.startsWith("$")) {
@@ -103,10 +78,10 @@
       dispatcher("modalClose");
    };
    // parkiig hudaldaj awah functs put hiisneer userin idg parkad zooj ogsnoor ergvvlen harah bolomjtoi bolno
-   let BuyPark : ParkingDto= {
-   oid: CurrentUser?.oid || 0,
-   }
-   let error: any;
+   // let BuyPark : ParkingDto= {
+   // oid: CurrentUser?.oid || 0,
+   // }
+   // let error: any;
 //    let ParkBuying = async () => {
 //       let busy = true
 //       try{
@@ -131,7 +106,19 @@ function increaseHeight() {
       if(  plan.height.baseVal.value < 600 ) return 
       plan.height.baseVal.value -= 500;
   }
-</script>
+
+ onMount(() => {
+   parks.forEach((a) => {
+      const rect = plan.querySelector(`g[class^="$"] > g#${a.parkingNumber} > rect`);
+      if (rect.parkingId !== 0) {
+         rect.classList.add("carplaced");
+      }
+   });
+});
+
+</script> 
+
+
 
 {#if selectedCar}
    <div class="modal" on:click={closeModal}>
@@ -159,13 +146,14 @@ function increaseHeight() {
             <div class="modal-info">
                <strong>Энэ {selectedParkNumber} зогсоолд автомашин алга байна</strong>
             </div>
-            {#if CurrentUser}
+            <!-- {#if CurrentUser}
             <button>Зогсоолыг захиалах</button>
-            {/if}
+            {/if} -->
          </div>
       </div>
    </div>
 {/if}
+
 
 <div class="map-container">
    <div class="button-container">
@@ -183,7 +171,7 @@ function increaseHeight() {
          bind:this={plan}
          class="moveable"
       >
-         <rect width={2898} height={3680} />
+         <rect width={0} height={0} />
          <g id="area-one" clip-path="url(#clip0_0_1)">
             <g id="Items">
                <path
@@ -8777,6 +8765,9 @@ function increaseHeight() {
 </div>
 
 <style>
+   .carplaced{
+      background: green;
+   }
 .button-container{
    position: absolute;
    top: 30px;

@@ -47,7 +47,7 @@
         try {
             // const res = await API.Car.apiCarGet({ modelFilter });
             const res = await API.Parking.apiParkingGet();
-            console.log("response is here parking:",res.data);
+          
             return res.data.items ?? [];
         } catch (e) {
             error = e;
@@ -65,13 +65,13 @@
    {current}-р бүс
 </div>
 {#if current == 1}
-<Area_1 {posts} {parks}/>
+<Area_1 {parks}/>
 {:else if current == 2}
-<Area_2 {posts} {parks}/>
+<Area_2 {posts}/>
 {:else if current == 3}
-<Area_3 {posts} {parks}/>
+<Area_3 {posts}/>
 {:else}
-<Area_4 {posts} {parks}/>
+<Area_4 {posts}/>
 {/if}
 
 <div class="button-container">

@@ -33,7 +33,8 @@
    const throttleDragRotate = 0;
    let targetRef = null;
    let plan: SVGElement;
-   let parks: string[] = [];
+   // export let parks: ParkingDto[] = [];
+   let parks: String[] = [];
    // mashin baiwal oor ongoor haruulah
    parks.forEach((a) => {
       const rect = plan.querySelector(`g[class^="$"] > g#${a} > rect`)
