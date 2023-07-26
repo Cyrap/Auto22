@@ -1,14 +1,15 @@
 <script lang="ts">
    import { onMount, onDestroy } from 'svelte';
-   import 'swiper/css';
-   import { API } from "/Users/Dell/Documents/Projects/test/src/logic/api" ;
+   import 'swiper/css'; 
    import 'swiper/css/navigation';
+   import { API } from "../logic/api";
    import Area_1 from "./Area-1.svelte";
-   import Area_2 from "./Area-2.svelte";
-   import Area_3 from "./Area-3.svelte";
-   import Area_4 from "./Area-4.svelte";
+   import Area_2 from "./map/Area-2.svelte";
+   import Area_3 from "./map/Area-3.svelte";
+   import Area_4 from "./map/Area-4.svelte";
    import type {UserDto} from "car-api";
-   import type { CarDto , ParkingDto } from 'car-api';
+   import type { CarDto , ParkingDtoPagedResult} from 'car-api';
+    import { number, type Form } from 'svelte-use-form';
    export let posts: CarDto[] = [];
    export let CurrentUser: UserDto | undefined = undefined;
    let current = 1;
@@ -39,33 +40,36 @@
   }
 
 
+
   let busy = false;
   let error : any;
-  let parks : ParkingDto[] = [];
-  const getParks = async () => {
-        busy = true;
-        try {
-            // const res = await API.Car.apiCarGet({ modelFilter });
-            const res = await API.Parking.apiParkingGet();
-          
-            return res.data.items ?? [];
-        } catch (e) {
-            error = e;
-        } finally {
-            busy = false;
-        }
-        return [];
-    };
+  let parks : ParkingDtoPagedResult | null;
+  let pageNumber : number = 1 ;
+  // const getParks = async () => {
+  //       busy = true;
+  //       try {
+  //           const res = await API.Parking.apiParkingGet( {pageNumber : pageNumber});
+  //           console.log(res);
+  //           return res.data ;
+  //       } catch (e) {
+  //           error = e;
+  //           return null;
+  //       } finally {
+  //           busy = false;
+  //       }
+  //   };
 
-    onMount(async () => {
-      parks = await getParks();
-    });
+  //   onMount(async () => {
+  //     parks = await getParks();
+  //     console.log(parks)
+  //   });
 </script>
 <div class="area-name" on:click={inc}>
    {current}-р бүс
 </div>
+
 {#if current == 1}
-<Area_1 {parks}/>
+<Area_1 {posts}/>
 {:else if current == 2}
 <Area_2 {posts}/>
 {:else if current == 3}

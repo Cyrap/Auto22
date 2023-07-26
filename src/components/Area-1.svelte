@@ -1,13 +1,13 @@
 <script lang="ts">
    import { createEventDispatcher } from "svelte";
    import type { CarDto} from "car-api";
+   import { API } from "../logic/api";
    import type { ParkingDto } from "car-api";
    import { onMount } from "svelte";
    import Moveable from "svelte-moveable";
+   export let posts: CarDto[] = [];
    let selectedCar: CarDto | null = null;
    let selectedParkNumber: string | null = null;
-   export let posts: CarDto[] = [];
-   export let parks : ParkingDto[] = [];
    const draggable = true;
    const throttleDrag = 1;
    const edgeDraggable = false;
@@ -15,6 +15,8 @@
    const throttleDragRotate = 0;
    let targetRef = null;
    let plan: SVGElement;
+   let car : any | null = null;
+   let SelectedPark : any | null= null;
    var titles: any = {
       carNumber: "Машины дугаар",
       color: "Өнгө",
@@ -34,30 +36,108 @@
       roadTraveled: "Туулсан зам",
       turul: "Төрөл",
    };
-   console.log("response is here parking:",parks);
+
+//    let Parks : any[] = [
+//       {
+//       parkingNumber : 1,
+//       parkingId : 68
+//       },
+//       {
+//       parkingNumber : 2,
+//       parkingId : 70
+//       },
+//       {
+//       parkingNumber : 3,
+//       parkingId : 96
+//       },
+//       {
+//       parkingNumber : 4,
+//       parkingId : 100
+//       },
+//       {
+//       message : "hello",
+//       parkingNumber : 10,
+//       parkingId : 99
+//       },
+//       {
+//       message : "hello",
+//       parkingNumber : 15,
+//       parkingId : 101
+//       },
+//       {
+//       message : "hello",
+//       parkingNumber : 78,
+//       parkingId : 0
+//       },
+//       {
+//       message : "hello",
+//       parkingNumber : 101,
+//       parkingId : 0
+//       },
+//       {
+//       message : "hello",
+//       parkingNumber : 108,
+//       parkingId : 0
+//       },
+// ]
+   let Parks : ParkingDto[] = [];
+   let gettingParks = false;
+   let parksError : any;
+   const getArea1Parks = async () => {
+      gettingParks = true;
+        try {
+            const res = await API.Parking.apiParkingGet({pageNumber: 1 , pageSize: 941});
+            return res.data.items ?? [];
+        } catch (e) {
+         parksError = e;
+        } finally {
+         gettingParks = false;
+        }
+        return [];
+    };
+
+    onMount(async () => {
+        Parks = await getArea1Parks();
+    });
+
+
+
+ $:  console.log(posts);
+ 
 
    const dispatcher = createEventDispatcher();
    let a: any = "";
-   function passId(id: number) {
-      let car = null;
-      for (let i = 0; i < posts.length; i++) {
-         if (posts[i].engine === id) {
-            car = posts[i];
-            break;
+
+   function passId(id: string) {
+   car = null
+   SelectedPark = null;
+    
+        for (let i = 0; i < Parks.length; i++) {
+         if (Parks[i].parkingNumber === id) {
+           SelectedPark = Parks[i];
+           break;
+          }
+           }
+           for (let i = 0; i < posts.length; i++) {
+         if (posts[i].oid === SelectedPark.parkingId) {
+           car = posts[i];
+           break;
+        }
          }
-      }
-      if (car) {
-         openModal(car);
-      } else {
-         a = "emthyPark";
-      }
-   }
+
+          if (car) {
+             openModal(car);
+           } else {
+            a = SelectedPark;
+              }
+           }
+
    function handleClick(e: MouseEvent) {
       const target = e.target as SVGElement;
       if (target.tagName.toLowerCase() === "rect" && target.parentElement?.parentElement?.id.startsWith("$")) {
          selectedParkNumber = target.parentElement.id;
          console.log(selectedParkNumber,"hih");
-         passId(Number(selectedParkNumber));
+         passId(selectedParkNumber);
       }
    }
    onMount(() => {
@@ -77,48 +157,180 @@
       a = "";
       dispatcher("modalClose");
    };
-   // parkiig hudaldaj awah functs put hiisneer userin idg parkad zooj ogsnoor ergvvlen harah bolomjtoi bolno
-   // let BuyPark : ParkingDto= {
-   // oid: CurrentUser?.oid || 0,
-   // }
-   // let error: any;
-//    let ParkBuying = async () => {
-//       let busy = true
-//       try{
-//          const response = await API.Parking.apiParkingIdPut({id: Number(selectedParkNumber+9475)});
-//          return response.data;
-//       } catch (e) {
-//             error = e;
-//         } finally {
-//             busy = false;
-//         }
-//    }
-//  let OwnedPark;
-//    onMount(async ()=>{
-//       OwnedPark =  await ParkBuying();
-//    });
-//    $: console.log(OwnedPark,"carParkings are here");
+
+
 function increaseHeight() {
-   if(  plan.height.baseVal.value > 6000 ) return 
-      plan.height.baseVal.value += 500;
+   // if(  plan.height.baseVal.value > 6000 ) return 
+   //    plan.height.baseVal.value += 500;
   }
    function decHeight() {
-      if(  plan.height.baseVal.value < 600 ) return 
-      plan.height.baseVal.value -= 500;
+      // if(  plan.height.baseVal.value < 600 ) return 
+      // plan.height.baseVal.value -= code500;
   }
 
- onMount(() => {
-   parks.forEach((a) => {
-      const rect = plan.querySelector(`g[class^="$"] > g#${a.parkingNumber} > rect`);
-      if (rect.parkingId !== 0) {
-         rect.classList.add("carplaced");
-      }
-   });
+
+   
+  onMount(() => {
+  let rectElements: any[] = Array.from(plan.querySelectorAll('rect'));
+
+  rectElements.forEach((rect) => {
+    const parentGElement = rect.parentNode;
+    const transformAttr = rect.getAttribute("transform");
+   
+    // Now you can work with the parentGElement as needed
+   //  rect.classList.add("carplaced"); // 
+   
+   rect.style.fill = "grey";
+   rect.textContent = `Car `;
+   const foreignObject = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+   if (transformAttr) {
+      const matrixValues = transformAttr.substring(7, transformAttr.length - 1).split(" ");
+      const [a, b, c, d, e, f] = matrixValues.map(Number);
+
+      // Set the transformation values to the <foreignObject>
+      foreignObject.setAttribute("transform", `matrix(${a} ${b} ${c} ${d} ${e} ${f})`);
+    } else {
+      // If the transform attribute is missing or not in the expected format, you can provide default values.
+      // Adjust these default values as needed based on your specific use case.
+      foreignObject.setAttribute("transform", "matrix(1 0 0 1 0 0)");
+    }
+    foreignObject.setAttribute("width", rect.getAttribute("width"));
+    foreignObject.setAttribute("height", rect.getAttribute("height"));
+   foreignObject.setAttribute("width", "27.3317");
+   foreignObject.setAttribute("height", "55.5717");
+
+      // Create an <img> element and set its src attribute to the local image path
+      const imgElement = document.createElement("img");
+      const divElement = document.createElement("div");
+      imgElement.setAttribute("src", "./src/img/parkLogo..png");
+      imgElement.setAttribute("width", "100%"); // Optional: Set the width of the image
+      imgElement.setAttribute("height", "100%"); // Optional: Set the height of the image
+      imgElement.setAttribute("alt", "logo"); // Optional
+      imgElement.setAttribute("style", "z-index:100000000000"); // Optional
+      divElement.setAttribute("style", "width: 100%; height: 100%; background-image: url('./src/img/parkLogo..png'); background-size: cover;");
+      
+      // Append the <img> element as a child of the <foreignObject>
+         
+         // Append the <div> element as a child of the <foreignObject>
+            
+            foreignObject.appendChild(divElement);
+            foreignObject.appendChild(imgElement);
+            // Append the <foreignObject> as a child of the <rect> element
+    rect.appendChild(divElement);
+    rect.insertAdjacentElement("beforeend", divElement);
+      // Append the <foreignObject> as a child of the <rect> element
+      rect.appendChild(foreignObject);
+   //  console.log(parentGElement); // This will log the parent <g> element for each <rect>
+  });
+
+  Parks.forEach((park) => {
+     const rect = rectElements.find((el) => el.parentNode.id === park.parkingNumber);
+    const car = posts.find((car) => car.oid === park.parkingId);
+    console.log(rect);
+    console.log(car)
+    console.log(park.parkingId);
+    console.log(park.parkingNumber);
+    if (car && rect) {
+      rect.classList.add("carplaced"); // Add the class for occupied parking spots
+      rect.classList.remove("emptyPark"); 
+      rect.style.fill = "blue"; // A// Remove the class for empty parking spots
+    } else if (rect) {
+      rect.textContent = `Empty Park ${park.parkingNumber}`;
+      rect.style.fill = "green"; // Add the class for empty parking spots
+      rect.classList.remove("carplaced"); // Remove the class for occupied parking spots
+    }
+  });
 });
 
+$:  console.log(Parks);
+
+
+ 
+
+
+let hoveredCar : any  | null= null;
+  let popupVisible = false;
+  let popupX = 0;
+  let popupY = 0;
+
+
+
+  function handleMouseOver(e: MouseEvent) {
+      const target = e.target as SVGElement;
+      hoveredCar = null;
+      SelectedPark = null;
+      popupVisible = true;
+      if (target.tagName.toLowerCase() === "rect" && target.parentElement?.parentElement?.id.startsWith("$")) {
+         let hoveredParkNumber = target.parentElement.id;
+         // console.log(hoveredParkNumber,"h");
+     
+        for (let i = 0; i < Parks.length; i++) {
+         if (Parks[i].parkingNumber === hoveredParkNumber) {
+           SelectedPark = Parks[i];
+           console.log(SelectedPark,"ghfcfgth");
+           break;
+          }
+           }
+         for (let i = 0; i < posts.length; i++) {
+         if (posts[i].oid === SelectedPark.parkingId) {
+            hoveredCar = posts[i];
+            console.log(hoveredCar)
+           break;
+        }
+         }
+      }
+   popupX = e.clientX+40;
+    popupY = e.clientY-100;
+   }
+
+
+  function handleMouseOut() {
+    hoveredCar = null;
+    popupVisible = false;
+  }
 </script> 
 
 
+
+{#if popupVisible && hoveredCar}
+  <div
+    style="
+      position: absolute;
+      left: {popupX}px;
+      top: {popupY}px;
+      background-color: white;
+      border: 1px solid #ccc;
+      padding: 10px;
+      z-index:999999999999999999999999999999999999999999999999999;
+    "
+  >
+    <h3>Car Information</h3>
+    <p>Car ID: {hoveredCar.model}</p>
+    <p>Car Name: {hoveredCar.color}</p>
+    <p>Car Color: {hoveredCar.parkingId}</p>
+    <p>Car Condition: {hoveredCar.madeMonth}</p>
+    <!-- Add more car properties as needed -->
+  </div>
+
+{/if}
+{#if SelectedPark}
+<div
+style="
+  position: absolute;
+  left: {popupX}px;
+  top: {popupY}px;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  z-index:999999999999999999999999999999999999999999999999999;
+"
+>
+<h3>Car Information</h3>
+<p>Car ID: {SelectedPark.parkingNumber}</p>
+<p>Car Color: {SelectedPark.parkingId}</p>
+<!-- Add more car properties as needed -->
+</div>
+{/if}
 
 {#if selectedCar}
    <div class="modal" on:click={closeModal}>
@@ -138,7 +350,7 @@ function increaseHeight() {
    </div>
 {/if}
 
-{#if a === "emthyPark"}
+{#if a === SelectedPark}
    <div class="modal" on:click={closeModal}>
       <div class="modal-content" on:click={(e) => e.stopPropagation()}>
          <div class="modal-close" on:click={closeModal}>Close</div>
@@ -168,6 +380,8 @@ function increaseHeight() {
          fill="none"
          xmlns="http://www.w3.org/2000/svg"
          on:click={handleClick}
+         on:mouseover={handleMouseOver}
+          on:mouseout={handleMouseOut}
          bind:this={plan}
          class="moveable"
       >
@@ -1615,7 +1829,7 @@ function increaseHeight() {
                         fill="#85929E "
                      />
                   </g>
-                  <g id="09">
+                  <g id="9">
                      <rect
                         id="2335_rectangle_157"
                         width="27.3317"
@@ -1624,7 +1838,7 @@ function increaseHeight() {
                         fill="#85929E "
                      />
                   </g>
-                  <g id="08">
+                  <g id="8">
                      <rect
                         id="2335_rectangle_158"
                         width="27.3317"
@@ -1633,7 +1847,7 @@ function increaseHeight() {
                         fill="#85929E "
                      />
                   </g>
-                  <g id="07">
+                  <g id="7">
                      <rect
                         id="2807_rectangle"
                         width="27.3317"
@@ -1642,7 +1856,7 @@ function increaseHeight() {
                         fill="#85929E "
                      />
                   </g>
-                  <g id="06">
+                  <g id="6">
                      <rect
                         id="2786_rectangle"
                         width="27.3317"
@@ -1651,7 +1865,7 @@ function increaseHeight() {
                         fill="#85929E "
                      />
                   </g>
-                  <g id="05">
+                  <g id="5">
                      <rect
                         id="2765_rectangle"
                         width="27.3317"
@@ -1660,7 +1874,7 @@ function increaseHeight() {
                         fill="#85929E "
                      />
                   </g>
-                  <g id="04">
+                  <g id="4">
                      <rect
                         id="2744_rectangle"
                         width="27.3317"
@@ -1669,7 +1883,7 @@ function increaseHeight() {
                         fill="#85929E "
                      />
                   </g>
-                  <g id="03">
+                  <g id="3">
                      <rect
                         id="2723_rectangle"
                         width="27.3317"
@@ -1678,7 +1892,7 @@ function increaseHeight() {
                         fill="#85929E "
                      />
                   </g>
-                  <g id="02">
+                  <g id="2">
                      <rect
                         id="2648_rectangle"
                         width="27.3317"
@@ -1687,7 +1901,7 @@ function increaseHeight() {
                         fill="#85929E "
                      />
                   </g>
-                  <g id="01">
+                  <g id="1">
                      <rect
                         id="2335_rectangle_159"
                         width="27.3317"
@@ -8765,9 +8979,7 @@ function increaseHeight() {
 </div>
 
 <style>
-   .carplaced{
-      background: green;
-   }
+
 .button-container{
    position: absolute;
    top: 30px;

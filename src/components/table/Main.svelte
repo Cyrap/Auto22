@@ -1,7 +1,6 @@
 <script lang="ts">
     import type { CarDto } from "car-api";
     import { DataHandler, Datatable, Th, ThFilter, type Row } from "@vincjo/datatables";
-
     export let posts: CarDto[];
 
     var titles: any = {
@@ -33,7 +32,6 @@
             <div class="emthy">
                 Танд автомашин алга байна.
             </div>
-            <button>Хадгалах</button>
         </div>
         <table>
             <thead>
@@ -42,6 +40,7 @@
                         {#each Object.entries(posts[0]) as [key]}
                             {#if key in titles}
                                 <Th {handler} orderBy="model">{titles[key]}</Th>
+                              
                             {/if}
                         {/each}
                         {:else}
@@ -74,6 +73,12 @@
                                 <input bind:value={row[prop]}>
                             </td>
                         {/each}
+                        <div class="option-buttons">
+                            <td>
+                                <button>Устгах</button>
+                                <button>Хадгалах</button>
+                            </td>
+                        </div>
                     </tr>
                 {/each}
             </tbody>
@@ -82,6 +87,12 @@
 </Datatable>
 
 <style>
+    .option-buttons{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+    }
     .option {
         display: flex;
         justify-content: space-between;
@@ -96,12 +107,19 @@
     }
     tbody td {
         border: 1px solid #f5f5f5;
-        padding: 4px 20px;
     }
-    tbody tr {
-        transition: all, 0.2s;
-    }
+
     tbody tr:hover {
-        background: #f5f5f5;
+        background: #e5e9e9;
+    }
+    input{
+        border-radius: 5px;
+        border: none;
+        width: 100px;
+        height: 20px;
+        padding: 10px 0px;
+    }
+    input:hover{
+        background: #fafafa;;
     }
 </style>

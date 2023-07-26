@@ -12,31 +12,26 @@
    export let selected: any;
    export let posts: CarDto[] = [];
    export let toglle: any;
-   let newData: CarDto = {
-  oid: 0,
-  madeCompany: "string",
-  model: "string",
-  madeYear: 0,
-  madeMonth: 0,
-  color: "string",
-  roadTraveled: 0,
-  power: 0,
-  hutlugch: 0,
-  engine: 0,
-  hvrd: 0,
-  engineCapacity: 0,
-  hrop: 0,
-  phone: 0,
-  condition: 0,
-  carNumber: 0,
-  price: 0,
-  carType: 0,
-  parkingId: {
-    oid: 0,
-    parkingNumber: 0,
-    parkingId: 0
-  }
-};
+   let newData: CarDto =  {
+      oid: 0,
+      madeCompany: "string",
+      model: "string",
+      madeYear: 0,
+      madeMonth: 0,
+      color: "string",
+      roadTraveled: 0,
+      power: 0,
+      hutlugch: 0,
+      engine: 0,
+      hvrd: 0,
+      engineCapacity: 0,
+      hrop: 0,
+      phone: 0,
+      condition: 0,
+      carNumber: 0,
+      price: 0,
+      imagePath: "string"
+    }
 // parkuudiig awj ylgah
 // const getParking =async () => {
 //    let busy = false;
@@ -341,15 +336,17 @@
       .profile{
          width: 100vw;
          display: flex;
-
       }
    .profile p{
       background: #24292e;
-      padding: 30px;
+      padding: 10px;
       border-radius: 10px;
       z-index: 999999;
       top: 60px;
-      right: 30px;
+      right: 13%;
+      font-size: 1rem;
+
+
    }
    .message {
       position: sticky;

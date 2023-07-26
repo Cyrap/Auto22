@@ -19,7 +19,7 @@
     import DeleteCar from "../components/DeleteCar.svelte";
     import EditCar from "../components/EditCar.svelte";
     import Userpage from "../components/Userpage.svelte";
-    import MapContainer from "../components/map/MapContainer.svelte";
+    import MapContainer from "../components/MapContainer.svelte";
     let ShowAddCarButton: any;
     let searchResults: SR[] | undefined | null;
     let busy = true;

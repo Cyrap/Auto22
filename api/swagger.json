@@ -1,11 +1,57 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "JWTToken_Auth_API",
+    "title": "My API",
     "version": "v1"
   },
   "paths": {
     "/api/Car": {
+      "post": {
+        "tags": [
+          "Car"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CarDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CarDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CarDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CarDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CarDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CarDto"
+                }
+              }
+            }
+          }
+        }
+      },
       "get": {
         "tags": [
           "Car"
@@ -19,23 +65,6 @@
               "type": "integer",
               "format": "int32",
               "default": 1
-            }
-          },
-          {
-            "name": "modelFilter",
-            "in": "query",
-            "style": "form",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "madeMonthFilter",
-            "in": "query",
-            "style": "form",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
             }
           }
         ],
@@ -148,7 +177,9 @@
             "description": "Success"
           }
         }
-      },
+      }
+    },
+    "/api/Car/AddImage/{id}": {
       "post": {
         "tags": [
           "Car"
@@ -614,6 +645,26 @@
               "format": "int32",
               "default": 1
             }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "filterOwnerId",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
           }
         ],
         "responses": {
@@ -720,68 +771,6 @@
             }
           }
         ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/Parking/buy": {
-      "post": {
-        "tags": [
-          "Parking"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BuyParkingRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BuyParkingRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/BuyParkingRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/Parking/accept": {
-      "post": {
-        "tags": [
-          "Parking"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AcceptParkingRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AcceptParkingRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/AcceptParkingRequest"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Success"
@@ -998,20 +987,6 @@
   },
   "components": {
     "schemas": {
-      "AcceptParkingRequest": {
-        "type": "object",
-        "properties": {
-          "parkingId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "carId": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "additionalProperties": false
-      },
       "AuthenticateRequest": {
         "required": [
           "password",
@@ -1050,24 +1025,6 @@
             "nullable": true
           },
           "token": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "BuyParkingRequest": {
-        "type": "object",
-        "properties": {
-          "parkingId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "ownerPhoneNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "password": {
             "type": "string",
             "nullable": true
           }
@@ -1264,10 +1221,18 @@
             "format": "int32"
           },
           "parkingNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "parkingId": {
             "type": "integer",
             "format": "int32"
           },
-          "parkingId": {
+          "ownerId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "parkingArea": {
             "type": "integer",
             "format": "int32"
           }
